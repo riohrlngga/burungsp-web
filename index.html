@@ -4,326 +4,261 @@
   <meta charset="UTF-8">
   <title>BURUNG SP POD STORE</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-size: 1.15em;
-    font-weight: bold;
-    background-color: #000;
-    background-image: url('logo_bg_optimized.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 900px;
-    background-attachment: fixed;
-    color: #ff69b4;
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-  }
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 60px 20px 40px;
-    color: #ff69b4;
-    background-color: transparent;
-    position: relative;
-  }
-
-  header .logo-left {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 150px;
-    height: auto;
-  }
-
-  header .logo-right {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 150px;
-    height: auto;
-  }
-
-  header h1 {
-    font-size: 2.5em;
-    margin: 10px 0 0.2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  header p {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 5px 0;
-  }
-
-  section {
-    background-color: transparent;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 12px;
-    color: #ff69b4;
-    max-width: 900px;
-    text-align: left;
-  }
-
-  h2 {
-    color: #ff69b4;
-    border-bottom: 2px solid #ff69b4;
-    padding-bottom: 5px;
-    display: inline-block;
-    width: 100%;
-  }
-
-  ul {
-    list-style: none;
-    padding-left: 0;
-    font-size: 1.1em;
-    font-weight: bold;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  li {
-    margin: 5px 10px 5px 0;
-    font-size: 1.05em;
-    font-weight: bold;
-    width: calc(100% / 7 - 10px);
-  }
-
-  .cta {
-    text-align: center;
-    padding: 30px;
-    background-color: transparent;
-    color: #ff69b4;
-  }
-
-  .cta a {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .cta a.whatsapp {
-    background: #25D366;
-    color: white;
-  }
-
-  .cta a.telegram {
-    background: #0088cc;
-    color: white;
-  }
-
-  .product-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .product-images img {
-    width: 250px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  @media (max-width: 768px) {
+  <style>
     body {
-      background-size: 350px;
-      background-position: center center;
+      font-size: 1.15em;
+      font-weight: normal;
+      background-color: #000;
+      background-image: url('logo_bg_optimized.png');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: 900px;
+      background-attachment: fixed;
+      color: #ff69b4;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
     }
 
-    header h1 {
-      font-size: 1.8em;
-    }
-
-    header p {
-      font-size: 1em;
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 60px 20px 40px;
+      color: #ff69b4;
+      position: relative;
+      text-align: center;
     }
 
     header .logo-left,
     header .logo-right {
-      width: 100px;
+      position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      width: 200px;
+      height: auto;
     }
 
-    header .logo-left {
-      left: 10px;
+    header .logo-left { left: 20px; }
+    header .logo-right { right: 20px; }
+
+    header h1 {
+      font-size: 2.8em;
+      margin: 10px 0 0.3em;
     }
 
-    header .logo-right {
-      right: 10px;
+    header p {
+      margin: 6px 0;
+      font-size: 1.15em;
     }
 
     section {
-      margin: 10px auto;
-      padding: 15px;
-      max-width: 100%;
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 25px 20px;
+      border-radius: 10px;
+      background-color: rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      font-size: 1.6em;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #ff69b4;
+      padding-bottom: 5px;
     }
 
     ul {
-      font-size: 0.95em;
-    }
-
-    .cta a {
-      display: block;
-      margin: 10px auto;
-      width: fit-content;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      padding: 0;
+      list-style: none;
+      margin-top: 10px;
     }
 
     li {
-      display: inline-block;
-      width: calc(100% / 2 - 10px);
+      background-color: rgba(255,255,255,0.05);
+      border: 1px solid #ff69b4;
+      border-radius: 8px;
+      padding: 10px 15px;
+      box-sizing: border-box;
     }
-  }
-</style>
+
+    .product-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .product-images img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    .cta a.whatsapp { background-color: #25D366; }
+    .cta a.telegram { background-color: #0088cc; }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.8em; }
+      header p { font-size: 1em; }
+
+      header .logo-left,
+      header .logo-right {
+        width: 120px;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <img src="logo.png" alt="Logo" class="logo-left">
-  <h1>🕊️ BURUNG SP(POD STORE)</h1>
-  <p>🔥 “Surga-nya Para Vapers!” 🔥</p>
-  <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
-  <img src="logo.png" alt="Logo" class="logo-right">
-</header>
+  <header>
+    <img src="logo.png" alt="Logo" class="logo-left">
+    <h1>🕊️ BURUNG SP(POD STORE)</h1>
+    <p>🔥 “Surga-nya Para Vapers!” 🔥</p>
+    <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
+    <img src="logo.png" alt="Logo" class="logo-right">
+  </header>
 
-<section>
-  <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
-  <ul>
-    <li>🍑 Icy Mango</li>
-    <li>🍓 Icy Strawberry</li>
-    <li>🫐 Icy Berry</li>
-    <li>🍈 Icy Honeydew</li>
-    <li>🍒 Icy Lychee</li>
-    <li>🍏 Icy Apple</li>
-    <li>🍇 Icy Grape</li>
-    <li>🍍 Icy Pineapple Salt</li>
-    <li>🍌 Icy Banana</li>
-    <li>❄️ Icy Menthol</li>
-    <li>🍒 Guava Cherry</li>
-    <li>🥭 Mango Cranberry</li>
-    <li>🍒 Lychee Raspberry</li>
-    <li>🍌 Banana Cream</li>
-    <li>🍓 Lite Berry</li>
-    <li>🥭 Lite Mango</li>
-    <li>🍉 Lite Watermelon</li>
-    <li>🍇 Fresh Berry</li>
-    <li>🥭 Fresh Mango</li>
-    <li>🍎 Red Apple</li>
-    <li>🥝 Green Kiwi x Ericarl</li>
-    <li>🍑 Iced Peach Tea</li>
-    <li>🍒 Iced Lychee Tea</li>
-    <li>🍋 Iced Lemon Tea</li>
-    <li>☕ Iced Cappuccino</li>
-    <li>🥑 Avocado Shake</li>
-    <li>🍓 Strawberry Mint</li>
-    <li>🍓 Strawberry Soda</li>
-    <li>🥤 Sarsaparilla</li>
-    <li>🌱 Mung Bean</li>
-    <li>🍵 Matchalatte</li>
-    <li>🥤 Frappuccino</li>
-    <li>🍫 Chocolate Ice Cream</li>
-    <li>🍦 Vanila Ice Cream</li>
-    <li>🍰 Tiramisu Ice Cream</li>
-    <li>🍓 Strawberry Ice Cream</li>
-    <li>🫐 Blueberry Cheese Ice Cream</li>
-    <li>🍈 Tropical Starfruit</li>
-    <li>🍈 Vidi Soursop</li>
-    <li>🍑 Vici Guava</li>
-    <li>🍑 Vini Peach</li>
-    <li>🍨 Mix Berry Ice Cream</li>
-    <li>🥭 Mango Bubblegum</li>
-    <li>🍇 Blackcurrant Lychee Tea</li>
-    <li>🥭 Passionfruit Mango Tea</li>
-    <li>🥛 Milk Tobacco</li>
-    <li>🥥 Coconut Water</li>
-  </ul>
-</section>
+  <section>
+    <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
+    <ul>
+      <li>🍑 Icy Mango</li>
+      <li>🍓 Icy Strawberry</li>
+      <li>🫐 Icy Berry</li>
+      <li>🍈 Icy Honeydew</li>
+      <li>🍒 Icy Lychee</li>
+      <li>🍏 Icy Apple</li>
+      <li>🍇 Icy Grape</li>
+      <li>🍍 Icy Pineapple Salt</li>
+      <li>🍌 Icy Banana</li>
+      <li>❄️ Icy Menthol</li>
+      <li>🍒 Guava Cherry</li>
+      <li>🥭 Mango Cranberry</li>
+      <li>🍒 Lychee Raspberry</li>
+      <li>🍌 Banana Cream</li>
+      <li>🍓 Lite Berry</li>
+      <li>🥭 Lite Mango</li>
+      <li>🍉 Lite Watermelon</li>
+      <li>🍇 Fresh Berry</li>
+      <li>🥭 Fresh Mango</li>
+      <li>🍎 Red Apple</li>
+      <li>🥝 Green Kiwi x Ericarl</li>
+      <li>🍑 Iced Peach Tea</li>
+      <li>🍒 Iced Lychee Tea</li>
+      <li>🍋 Iced Lemon Tea</li>
+      <li>☕ Iced Cappuccino</li>
+      <li>🥑 Avocado Shake</li>
+      <li>🍓 Strawberry Mint</li>
+      <li>🍓 Strawberry Soda</li>
+      <li>🥤 Sarsaparilla</li>
+      <li>🌱 Mung Bean</li>
+      <li>🍵 Matchalatte</li>
+      <li>🥤 Frappuccino</li>
+      <li>🍫 Chocolate Ice Cream</li>
+      <li>🍦 Vanila Ice Cream</li>
+      <li>🍰 Tiramisu Ice Cream</li>
+      <li>🍓 Strawberry Ice Cream</li>
+      <li>🫐 Blueberry Cheese Ice Cream</li>
+      <li>🍈 Tropical Starfruit</li>
+      <li>🍈 Vidi Soursop</li>
+      <li>🍑 Vici Guava</li>
+      <li>🍑 Vini Peach</li>
+      <li>🍨 Mix Berry Ice Cream</li>
+      <li>🥭 Mango Bubblegum</li>
+      <li>🍇 Blackcurrant Lychee Tea</li>
+      <li>🥭 Passionfruit Mango Tea</li>
+      <li>🥛 Milk Tobacco</li>
+      <li>🥥 Coconut Water</li>
+    </ul>
+  </section>
 
-<section>
-  <h2>💧 FREEBASE ALA CARTE – 550B</h2>
-  <ul>
-    <li>Cream Raisin</li>
-    <li>Cream Banana</li>
-    <li>Cream Biscuit</li>
-    <li>Cream Poundcake</li>
-    <li>Banana Pudding</li>
-    <li>Cheesecake Delight</li>
-    <li>Vanilla Custard</li>
-  </ul>
-</section>
+  <section>
+    <h2>💧 FREEBASE ALA CARTE – 550B</h2>
+    <ul>
+      <li>Cream Raisin</li>
+      <li>Cream Banana</li>
+      <li>Cream Biscuit</li>
+      <li>Cream Poundcake</li>
+      <li>Banana Pudding</li>
+      <li>Cheesecake Delight</li>
+      <li>Vanilla Custard</li>
+    </ul>
+  </section>
 
-<section>
-  <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
-  <ul>
-    <li>Mango</li>
-    <li>Banana</li>
-    <li>Lychee</li>
-    <li>Grape Bubblegum</li>
-    <li>Watermelon</li>
-    <li>Guava</li>
-    <li>Peach Tea</li>
-  </ul>
-</section>
+  <section>
+    <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
+    <ul>
+      <li>Mango</li>
+      <li>Banana</li>
+      <li>Lychee</li>
+      <li>Grape Bubblegum</li>
+      <li>Watermelon</li>
+      <li>Guava</li>
+      <li>Peach Tea</li>
+    </ul>
+  </section>
 
-<section>
-  <h2>🔥 DEVICE FOOM</h2>
-  <ul>
-    <li>POD X (Hot Pink / Wild Purple / Black) – 1700B</li>
-    <li>POD X SIGNATURE + FREE LIQUID – 1900B</li>
-    <li>POD X WEIRD GENIUS + FREE LIQUID – 1750B</li>
-    <li><strong>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!</strong></li>
-    <li>Banyak lagi, silakan request langsung hubungi kami!</li>
-  </ul>
-</section>
+  <section>
+    <h2>🔥 DEVICE FOOM</h2>
+    <ul>
+      <li>POD X (Hot Pink / Wild Purple / Black) – 1700B</li>
+      <li>POD X SIGNATURE + FREE LIQUID – 1900B</li>
+      <li>POD X WEIRD GENIUS + FREE LIQUID – 1750B</li>
+      <li><strong>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!</strong></li>
+      <li>Banyak lagi, silakan request langsung hubungi kami!</li>
+    </ul>
+  </section>
 
-<section>
-  <h2>🔄 CATRIDGE</h2>
-  <ul>
-    <li>Catridge X: 1 pcs 150B | 1 pack 420B</li>
-    <li>Catridge Y: 1 pcs 155B | 1 pack 450B</li>
-    <li>Catridge lain harga tergantung ya bosku :)</li>
-  </ul>
-<section>
-  <h2>🖼️ Contoh Gambar Produk</h2>
-  <div class="product-images">
-    <img src="foom_signature.png" alt="FOOM Signature">
-    <img src="foom_pod_x.png" alt="FOOM Pod X">
-    <img src="foom_liquids.png" alt="FOOM Liquids">
-    <img src="foom_now_device.png" alt="FOOM NOW Device">
-    <img src="foom_custom1.png" alt="FOOM Custom 1">
-    <img src="foom_custom2.png" alt="FOOM Custom 2">
-    <img src="foom_custom3.png" alt="FOOM Custom 3">
-    <img src="foom_custom4.png" alt="FOOM Custom 4">
-    <img src="foom_custom5.png" alt="FOOM Custom 5">
-    <img src="foom_custom6.png" alt="FOOM Custom 6">
-    <img src="foom_custom7.png" alt="FOOM Custom 7">
-    <img src="foom_custom8.png" alt="FOOM Custom 8">
-    <img src="foom_custom9.png" alt="FOOM Custom 9">
-  </div>
-</section>
+  <section>
+    <h2>🔄 CATRIDGE</h2>
+    <ul>
+      <li>Catridge X: 1 pcs 150B | 1 pack 420B</li>
+      <li>Catridge Y: 1 pcs 155B | 1 pack 450B</li>
+      <li>Catridge lain harga tergantung ya bosku :)</li>
+    </ul>
+  </section>
 
-<section class="cta">
-  <h2>📲 Chat & Order Sekarang!</h2>
-  <p>💬 BEBAS REQUEST POD BRAND LAIN BOSKUUU!</p>
-  <p>📱 Whatsapp: <strong>082183088613</strong><br>📨 Telegram: <strong>083115018221</strong></p>
-  <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" target="_blank">Chat via WhatsApp</a>
-  <a class="telegram" href="https://t.me/+6283115018221" target="_blank">Chat via Telegram</a>
-</section>
+  <section>
+    <h2>🖼️ Contoh Gambar Produk</h2>
+    <div class="product-images">
+      <img src="foom_signature.png" alt="FOOM Signature">
+      <img src="foom_pod_x.png" alt="FOOM Pod X">
+      <img src="foom_liquids.png" alt="FOOM Liquids">
+      <img src="foom_now_device.png" alt="FOOM NOW Device">
+      <img src="foom_custom1.png" alt="FOOM Custom 1">
+      <img src="foom_custom2.png" alt="FOOM Custom 2">
+      <img src="foom_custom3.png" alt="FOOM Custom 3">
+      <img src="foom_custom4.png" alt="FOOM Custom 4">
+      <img src="foom_custom5.png" alt="FOOM Custom 5">
+      <img src="foom_custom6.png" alt="FOOM Custom 6">
+      <img src="foom_custom7.png" alt="FOOM Custom 7">
+      <img src="foom_custom8.png" alt="FOOM Custom 8">
+      <img src="foom_custom9.png" alt="FOOM Custom 9">
+    </div>
+  </section>
 
-
+  <section class="cta">
+    <h2>📲 Chat & Order Sekarang!</h2>
+    <p>💬 BEBAS REQUEST POD BRAND LAIN BOSKUUU!</p>
+    <p>📱 Whatsapp: <strong>082183088613</strong><br>📨 Telegram: <strong>083115018221</strong></p>
+    <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" target="_blank">Chat via WhatsApp</a>
+    <a class="telegram" href="https://t.me/+6283115018221" target="_blank">Chat via Telegram</a>
+  </section>
 </body>
 </html>
