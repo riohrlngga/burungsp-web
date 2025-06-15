@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: riohrlngga/burungsp-web
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "produk"
+    label: "Produk"
+    folder: "produk"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nama Produk", name: "title", widget: "string" }
+      - { label: "Harga", name: "harga", widget: "string" }
+      - { label: "Deskripsi", name: "deskripsi", widget: "text" }
+      - { label: "Gambar", name: "image", widget: "image" }
