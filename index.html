@@ -77,6 +77,7 @@
     border-bottom: 2px solid #ff69b4;
     padding-bottom: 5px;
     display: inline-block;
+    width: 100%;
   }
 
   ul {
@@ -85,13 +86,15 @@
     font-size: 1.1em;
     font-weight: bold;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   li {
-    margin: 5px 0;
+    margin: 5px 10px 5px 0;
     font-size: 1.05em;
     font-weight: bold;
-    display: inline-block;
     width: calc(100% / 7 - 10px);
   }
 
@@ -182,55 +185,97 @@
     }
 
     li {
-      display: block;
-      width: 100%;
+      display: inline-block;
+      width: calc(100% / 2 - 10px);
     }
   }
 </style>
 </head>
 <body>
-
 <header>
-  <img src="logo.png" alt="Logo Kiri" class="logo-left">
-  <img src="logo.png" alt="Logo Kanan" class="logo-right">
-  <h1>BURUNG SP(POD STORE)</h1>
+  <img src="logo.png" alt="Logo" class="logo-left">
+  <h1>🕊️ BURUNG SP(POD STORE)</h1>
   <p>🔥 “Surga-nya Para Vapers!” 🔥</p>
   <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
+  <img src="logo.png" alt="Logo" class="logo-right">
 </header>
 
 <section>
   <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
   <ul>
-    <li>🍑 Icy Mango</li><li>🍓 Icy Strawberry</li><li>🫐 Icy Berry</li><li>🍈 Icy Honeydew</li><li>🍒 Icy Lychee</li><li>🍏 Icy Apple</li><li>🍇 Icy Grape</li>
-    <li>🍍 Icy Pineapple Salt</li><li>🍌 Icy Banana</li><li>❄️ Icy Menthol</li><li>🍒 Guava Cherry</li><li>🥭 Mango Cranberry</li><li>🍒 Lychee Raspberry</li><li>🍌 Banana Cream</li>
-    <li>🍓 Lite Berry</li><li>🥭 Lite Mango</li><li>🍉 Lite Watermelon</li><li>🍇 Fresh Berry</li><li>🥭 Fresh Mango</li><li>🍎 Red Apple</li><li>🥝 Green Kiwi x Ericarl</li>
-    <li>🍑 Iced Peach Tea</li><li>🍒 Iced Lychee Tea</li><li>🍋 Iced Lemon Tea</li><li>☕ Iced Cappuccino</li><li>🥑 Avocado Shake</li><li>🍓 Strawberry Mint</li><li>🍓 Strawberry Soda</li>
-    <li>🥤 Sarsaparilla</li><li>🌱 Mung Bean</li><li>🍵 Matchalatte</li><li>🥤 Frappuccino</li><li>🍫 Chocolate Ice Cream</li><li>🍦 Vanila Ice Cream</li><li>🍰 Tiramisu Ice Cream</li>
-    <li>🍓 Strawberry Ice Cream</li><li>🫐 Blueberry Cheese Ice Cream</li><li>🍈 Tropical Starfruit</li><li>🍈 Vidi Soursop</li><li>🍑 Vici Guava</li><li>🍑 Vini Peach</li><li>🍨 Mix Berry Ice Cream</li>
-    <li>🥭 Mango Bubblegum</li><li>🍇 Blackcurrant Lychee Tea</li><li>🥭 Passionfruit Mango Tea</li><li>🥛 Milk Tobacco</li><li>🥥 Coconut Water</li>
+    <li>🍑 Icy Mango</li>
+    <li>🍓 Icy Strawberry</li>
+    <li>🫐 Icy Berry</li>
+    <li>🍈 Icy Honeydew</li>
+    <li>🍒 Icy Lychee</li>
+    <li>🍏 Icy Apple</li>
+    <li>🍇 Icy Grape</li>
+    <li>🍍 Icy Pineapple Salt</li>
+    <li>🍌 Icy Banana</li>
+    <li>❄️ Icy Menthol</li>
+    <li>🍒 Guava Cherry</li>
+    <li>🥭 Mango Cranberry</li>
+    <li>🍒 Lychee Raspberry</li>
+    <li>🍌 Banana Cream</li>
+    <li>🍓 Lite Berry</li>
+    <li>🥭 Lite Mango</li>
+    <li>🍉 Lite Watermelon</li>
+    <li>🍇 Fresh Berry</li>
+    <li>🥭 Fresh Mango</li>
+    <li>🍎 Red Apple</li>
+    <li>🥝 Green Kiwi x Ericarl</li>
+    <li>🍑 Iced Peach Tea</li>
+    <li>🍒 Iced Lychee Tea</li>
+    <li>🍋 Iced Lemon Tea</li>
+    <li>☕ Iced Cappuccino</li>
+    <li>🥑 Avocado Shake</li>
+    <li>🍓 Strawberry Mint</li>
+    <li>🍓 Strawberry Soda</li>
+    <li>🥤 Sarsaparilla</li>
+    <li>🌱 Mung Bean</li>
+    <li>🍵 Matchalatte</li>
+    <li>🥤 Frappuccino</li>
+    <li>🍫 Chocolate Ice Cream</li>
+    <li>🍦 Vanila Ice Cream</li>
+    <li>🍰 Tiramisu Ice Cream</li>
+    <li>🍓 Strawberry Ice Cream</li>
+    <li>🫐 Blueberry Cheese Ice Cream</li>
+    <li>🍈 Tropical Starfruit</li>
+    <li>🍈 Vidi Soursop</li>
+    <li>🍑 Vici Guava</li>
+    <li>🍑 Vini Peach</li>
+    <li>🍨 Mix Berry Ice Cream</li>
+    <li>🥭 Mango Bubblegum</li>
+    <li>🍇 Blackcurrant Lychee Tea</li>
+    <li>🥭 Passionfruit Mango Tea</li>
+    <li>🥛 Milk Tobacco</li>
+    <li>🥥 Coconut Water</li>
   </ul>
 </section>
 
 <section>
   <h2>💧 FREEBASE ALA CARTE – 550B</h2>
   <ul>
-    <li>🧁 Cream Raisin</li>
-    <li>🍌 Cream Banana</li>
-    <li>🍪 Cream Biscuit</li>
-    <li>🍰 Cream Poundcake</li>
-    <li>✨ Banyak lagi, silakan request!</li>
+    <li>Cream Raisin</li>
+    <li>Cream Banana</li>
+    <li>Cream Biscuit</li>
+    <li>Cream Poundcake</li>
+    <li>Banana Pudding</li>
+    <li>Cheesecake Delight</li>
+    <li>Vanilla Custard</li>
   </ul>
 </section>
 
 <section>
   <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
   <ul>
-    <li>🥭 Mango</li>
-    <li>🍌 Banana</li>
-    <li>🍒 Lychee</li>
-    <li>🍬 Grape Bubblegum</li>
-    <li>🍉 Watermelon</li>
-    <li>✨ Banyak lagi, silakan request!</li>
+    <li>Mango</li>
+    <li>Banana</li>
+    <li>Lychee</li>
+    <li>Grape Bubblegum</li>
+    <li>Watermelon</li>
+    <li>Guava</li>
+    <li>Peach Tea</li>
   </ul>
 </section>
 
@@ -240,8 +285,8 @@
     <li>POD X (Hot Pink / Wild Purple / Black) – 1700B</li>
     <li>POD X SIGNATURE + FREE LIQUID – 1900B</li>
     <li>POD X WEIRD GENIUS + FREE LIQUID – 1750B</li>
-    <li>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama mulai 2000B!</li>
-    <li>💥 Untuk device bosku tidak akan kecewa, dijamin!!</li>
+    <li><strong>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!</strong></li>
+    <li>Banyak lagi, silakan request langsung hubungi kami!</li>
   </ul>
 </section>
 
@@ -250,12 +295,10 @@
   <ul>
     <li>Catridge X: 1 pcs 150B | 1 pack 420B</li>
     <li>Catridge Y: 1 pcs 155B | 1 pack 450B</li>
-    <li>💬 Catridge lain harga tergantung ya bosku :)</li>
+    <li>Catridge lain harga tergantung ya bosku :)</li>
   </ul>
-</section>
-
 <section>
-  <h2>📦 Contoh Gambar Produk</h2>
+  <h2>🖼️ Contoh Gambar Produk</h2>
   <div class="product-images">
     <img src="foom_signature.png" alt="FOOM Signature">
     <img src="foom_pod_x.png" alt="FOOM Pod X">
@@ -273,13 +316,14 @@
   </div>
 </section>
 
-<div class="cta">
+<section class="cta">
   <h2>📲 Chat & Order Sekarang!</h2>
   <p>💬 BEBAS REQUEST POD BRAND LAIN BOSKUUU!</p>
   <p>📱 Whatsapp: <strong>082183088613</strong><br>📨 Telegram: <strong>083115018221</strong></p>
   <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" target="_blank">Chat via WhatsApp</a>
   <a class="telegram" href="https://t.me/+6283115018221" target="_blank">Chat via Telegram</a>
-</div>
+</section>
+
 
 </body>
 </html>
