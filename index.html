@@ -30,22 +30,41 @@
       text-align: center;
     }
 
-    header .logo-left,
-    header .logo-right {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 200px;
-      height: auto;
-    }
+    /* Container untuk logo kiri, teks tengah, dan logo kanan */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-    header .logo-left { left: 20px; }
-    header .logo-right { right: 20px; }
+/* Logo kiri dan kanan */
+.logo {
+  width: 100px;
+  max-width: 20vw;
+  height: auto;
+}
 
-    header h1 {
-      font-size: 2.8em;
-      margin: 10px 0 0.3em;
-    }
+/* Ukuran dan gaya judul */
+.site-header h1 {
+  font-size: 2.4em;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Responsif untuk mobile */
+@media (max-width: 768px) {
+  .logo {
+    width: 70px;
+  }
+
+  header h1,
+.site-header h1 {
+  font-size: 2.6em;
+  margin: 10px 0 0.3em;
+  text-align: center;
+}
 
     header p {
       margin: 6px 0;
@@ -202,12 +221,14 @@
 } </style>
 </head>
 <body>
-  <header>
-  <img src="logo.png" alt="Logo Kiri" class="logo-left" />
-  <h1>BURUNG SP (POD STORE)</h1>
+ <header class="site-header">
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo Kiri" class="logo logo-left" />
+    <h1>BURUNG SP (POD STORE)</h1>
+    <img src="logo.png" alt="Logo Kanan" class="logo logo-right" />
+  </div>
   <p>🔥 Surga-nya Para Vapers! 🔥</p>
   <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
-  <img src="logo.png" alt="Logo Kanan" class="logo-right" />
 
   <div class="marquee">
     <div class="marquee-text">
