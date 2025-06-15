@@ -85,114 +85,21 @@
     width: 100%;
   }
 
-  ul {
-    list-style: none;
-    padding-left: 0;
-    font-size: 1.1em;
-    font-weight: bold;
-    margin: 0;
-    text-align: left;
-  }
-
-  li {
-    margin: 5px 0;
-    font-size: 1.05em;
-    font-weight: bold;
-  }
-
-  .cta {
-    text-align: center;
-    padding: 30px;
-    background-color: transparent;
-    color: #ff69b4;
-  }
-
-  .cta a {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .cta a.whatsapp {
-    background: #25D366;
-    color: white;
-  }
-
-  .cta a.telegram {
-    background: #0088cc;
-    color: white;
-  }
-
-  .product-images {
+  .liquid-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 10px;
   }
 
-  .product-images img {
-    width: 250px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  .custom-highlight {
-    font-size: 1.25em;
-    color: #ff69b4;
-    text-shadow: 1px 1px 2px #000;
-    font-weight: bolder;
-    margin-top: 15px;
+  .liquid-grid div {
+    flex: 1 1 calc(100% / 7 - 10px);
+    box-sizing: border-box;
   }
 
   @media (max-width: 768px) {
-    body {
-      background-size: 350px;
-      background-position: center center;
-    }
-
-    header h1 {
-      font-size: 1.8em;
-    }
-
-    header p {
-      font-size: 1em;
-    }
-
-    header .logo-left,
-    header .logo-right {
-      width: 100px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    header .logo-left {
-      left: 10px;
-    }
-
-    header .logo-right {
-      right: 10px;
-    }
-
-    section {
-      margin: 10px;
-      padding: 15px;
-      max-width: 100%;
-      text-align: left;
-    }
-
-    ul {
-      font-size: 0.95em;
-    }
-
-    .cta a {
-      display: block;
-      margin: 10px auto;
-      width: fit-content;
+    .liquid-grid div {
+      flex: 1 1 calc(100% / 2 - 10px);
     }
   }
 </style>
@@ -209,55 +116,55 @@
 
 <section>
   <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
-  <ul>
-    <li>🍑 Icy Mango</li>
-    <li>🍓 Icy Strawberry</li>
-    <li>🫐 Icy Berry</li>
-    <li>🍈 Icy Honeydew</li>
-    <li>🍒 Icy Lychee</li>
-    <li>🍏 Icy Apple</li>
-    <li>🍇 Icy Grape</li>
-    <li>🍍 Icy Pineapple Salt</li>
-    <li>🍌 Icy Banana</li>
-    <li>❄️ Icy Menthol</li>
-    <li>🍒 Guava Cherry</li>
-    <li>🥭 Mango Cranberry</li>
-    <li>🍒 Lychee Raspberry</li>
-    <li>🍌 Banana Cream</li>
-    <li>🍓 Lite Berry</li>
-    <li>🥭 Lite Mango</li>
-    <li>🍉 Lite Watermelon</li>
-    <li>🍇 Fresh Berry</li>
-    <li>🥭 Fresh Mango</li>
-    <li>🍎 Red Apple</li>
-    <li>🥝 Green Kiwi x Ericarl</li>
-    <li>🍑 Iced Peach Tea</li>
-    <li>🍒 Iced Lychee Tea</li>
-    <li>🍋 Iced Lemon Tea</li>
-    <li>☕ Iced Cappuccino</li>
-    <li>🥑 Avocado Shake</li>
-    <li>🍓 Strawberry Mint</li>
-    <li>🍓 Strawberry Soda</li>
-    <li>🥤 Sarsaparilla</li>
-    <li>🌱 Mung Bean</li>
-    <li>🍵 Matchalatte</li>
-    <li>🥤 Frappuccino</li>
-    <li>🍫 Chocolate Ice Cream</li>
-    <li>🍦 Vanila Ice Cream</li>
-    <li>🍰 Tiramisu Ice Cream</li>
-    <li>🍓 Strawberry Ice Cream</li>
-    <li>🫐 Blueberry Cheese Ice Cream</li>
-    <li>🍈 Tropical Starfruit</li>
-    <li>🍈 Vidi Soursop</li>
-    <li>🍑 Vici Guava</li>
-    <li>🍑 Vini Peach</li>
-    <li>🍨 Mix Berry Ice Cream</li>
-    <li>🥭 Mango Bubblegum</li>
-    <li>🍇 Blackcurrant Lychee Tea</li>
-    <li>🥭 Passionfruit Mango Tea</li>
-    <li>🥛 Milk Tobacco</li>
-    <li>🥥 Coconut Water</li>
-  </ul>
+  <div class="liquid-grid">
+    <div>🍑 Icy Mango</div>
+    <div>🍓 Icy Strawberry</div>
+    <div>🫐 Icy Berry</div>
+    <div>🍈 Icy Honeydew</div>
+    <div>🍒 Icy Lychee</div>
+    <div>🍏 Icy Apple</div>
+    <div>🍇 Icy Grape</div>
+    <div>🍍 Icy Pineapple Salt</div>
+    <div>🍌 Icy Banana</div>
+    <div>❄️ Icy Menthol</div>
+    <div>🍒 Guava Cherry</div>
+    <div>🥭 Mango Cranberry</div>
+    <div>🍒 Lychee Raspberry</div>
+    <div>🍌 Banana Cream</div>
+    <div>🍓 Lite Berry</div>
+    <div>🥭 Lite Mango</div>
+    <div>🍉 Lite Watermelon</div>
+    <div>🍇 Fresh Berry</div>
+    <div>🥭 Fresh Mango</div>
+    <div>🍎 Red Apple</div>
+    <div>🥝 Green Kiwi x Ericarl</div>
+    <div>🍑 Iced Peach Tea</div>
+    <div>🍒 Iced Lychee Tea</div>
+    <div>🍋 Iced Lemon Tea</div>
+    <div>☕ Iced Cappuccino</div>
+    <div>🥑 Avocado Shake</div>
+    <div>🍓 Strawberry Mint</div>
+    <div>🍓 Strawberry Soda</div>
+    <div>🥤 Sarsaparilla</div>
+    <div>🌱 Mung Bean</div>
+    <div>🍵 Matchalatte</div>
+    <div>🥤 Frappuccino</div>
+    <div>🍫 Chocolate Ice Cream</div>
+    <div>🍦 Vanila Ice Cream</div>
+    <div>🍰 Tiramisu Ice Cream</div>
+    <div>🍓 Strawberry Ice Cream</div>
+    <div>🫐 Blueberry Cheese Ice Cream</div>
+    <div>🍈 Tropical Starfruit</div>
+    <div>🍈 Vidi Soursop</div>
+    <div>🍑 Vici Guava</div>
+    <div>🍑 Vini Peach</div>
+    <div>🍨 Mix Berry Ice Cream</div>
+    <div>🥭 Mango Bubblegum</div>
+    <div>🍇 Blackcurrant Lychee Tea</div>
+    <div>🥭 Passionfruit Mango Tea</div>
+    <div>🥛 Milk Tobacco</div>
+    <div>🥥 Coconut Water</div>
+  </div>
 </section>
 
 <section>
