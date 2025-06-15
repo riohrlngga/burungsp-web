@@ -24,7 +24,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 60px 20px 40px; /* Tambah padding atas untuk memberi ruang logo */
     color: #ff69b4;
     background-color: transparent;
     position: relative;
@@ -33,27 +33,32 @@
   header .logo-left {
     position: absolute;
     left: 20px;
-    top: 20px;
-    width: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 180px;
     height: auto;
   }
 
   header .logo-right {
     position: absolute;
     right: 20px;
-    top: 20px;
-    width: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 180px;
     height: auto;
   }
 
   header h1 {
     font-size: 2.5em;
-    margin-bottom: 0.2em;
+    margin: 10px 0 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   header h1::before {
     content: '🕊️';
-    font-size: 2.6em;
+    font-size: 2.8em;
     display: inline-block;
     margin-right: 10px;
     vertical-align: middle;
@@ -62,6 +67,7 @@
   header p {
     font-size: 1.2em;
     font-weight: bold;
+    margin: 5px 0;
   }
 
   section {
@@ -143,7 +149,7 @@
     }
 
     header h1::before {
-      font-size: 2.2em;
+      font-size: 2.4em;
     }
 
     header p {
@@ -152,8 +158,9 @@
 
     header .logo-left,
     header .logo-right {
-      width: 80px;
-      top: 10px;
+      width: 100px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     header .logo-left {
@@ -191,7 +198,7 @@
 <header>
   <img src="logo.png" alt="Logo Kiri" class="logo-left">
   <img src="logo.png" alt="Logo Kanan" class="logo-right">
-  <h1>🕊BURUNG SP(POD STORE)</h1>
+  <h1>BURUNG SP(POD STORE)</h1>
   <p>🔥 “Surga-nya Para Vapers!” 🔥</p>
   <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
 </header>
