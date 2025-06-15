@@ -24,7 +24,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 60px 20px 40px; /* Tambah padding atas untuk memberi ruang logo */
+    padding: 60px 20px 40px;
     color: #ff69b4;
     background-color: transparent;
     position: relative;
@@ -72,16 +72,19 @@
 
   section {
     background-color: transparent;
-    margin: 20px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 12px;
     color: #ff69b4;
+    max-width: 900px;
+    text-align: center;
   }
 
   h2 {
     color: #ff69b4;
     border-bottom: 2px solid #ff69b4;
     padding-bottom: 5px;
+    display: inline-block;
   }
 
   ul {
@@ -89,6 +92,8 @@
     padding-left: 0;
     font-size: 1.1em;
     font-weight: bold;
+    text-align: left;
+    display: inline-block;
   }
 
   li {
@@ -171,14 +176,10 @@
       right: 10px;
     }
 
-    .product-images img {
-      width: 100%;
-      max-width: 300px;
-    }
-
     section {
-      margin: 10px;
+      margin: 10px auto;
       padding: 15px;
+      max-width: 100%;
     }
 
     ul {
