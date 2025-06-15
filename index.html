@@ -20,10 +20,30 @@
   }
 
   header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 40px 20px;
     color: #ff69b4;
     background-color: transparent;
+    position: relative;
+  }
+
+  header .logo-left {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 60px;
+    height: auto;
+  }
+
+  header .logo-right {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 60px;
+    height: auto;
   }
 
   header h1 {
@@ -118,6 +138,20 @@
       font-size: 1em;
     }
 
+    header .logo-left,
+    header .logo-right {
+      width: 45px;
+      top: 10px;
+    }
+
+    header .logo-left {
+      left: 10px;
+    }
+
+    header .logo-right {
+      right: 10px;
+    }
+
     .product-images img {
       width: 100%;
       max-width: 300px;
@@ -143,10 +177,13 @@
 <body>
 
 <header>
+  <img src="logo.png" alt="Logo Kiri" class="logo-left">
+  <img src="logo.png" alt="Logo Kanan" class="logo-right">
   <h1>🗣️ BURUNG SP(POD STORE)</h1>
   <p>🔥 “Surga-nya Para Vapers!” 🔥</p>
   <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
 </header>
+
 
 <section>
   <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
