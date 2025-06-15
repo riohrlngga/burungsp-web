@@ -6,13 +6,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 <style>
   body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background: url('logo.png') no-repeat center center fixed;
-    background-size: contain;
-    background-color: #000;
-    color: #ff33cc;
-  }
+    animation: pulseText 2.5s ease-in-out infinite;
+    text-shadow: 0 0 8px #ff33cc;
+    font-size: 1.15em;
+    font-weight: bold;
 
   header {
     text-align: center;
@@ -22,15 +19,20 @@
   }
 
   header h1 {
+    animation: bounceIn 1.2s ease;
+    text-shadow: 0 0 10px #ff33cc;
     font-size: 2.5em;
     margin-bottom: 0.2em;
   }
 
   header p {
+    font-size: 1.1em;
+    font-weight: bold;
     font-size: 1.2em;
   }
 
   section {
+    text-shadow: 0 0 6px #ff33cc;
     background-color: transparent;
     margin: 20px;
     padding: 20px;
@@ -40,19 +42,19 @@
   }
 
   h2 {
+    text-shadow: 0 0 6px #ff33cc;
     color: #ff69b4;
     border-bottom: 2px solid #ff69b4;
     padding-bottom: 5px;
   }
 
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
+  ul {
+    font-size: 1.1em;
+    font-weight: bold;
 
-  li {
-    margin: 5px 0;
-  }
+  li {
+    font-size: 1.05em;
+    font-weight: bold;
 
   .cta {
     text-align: center;
@@ -62,6 +64,7 @@
   }
 
   .cta a {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: inline-block;
     margin: 10px;
     padding: 12px 20px;
@@ -71,11 +74,13 @@
   }
 
   .cta a.whatsapp {
+    animation: pulseBtn 1.5s infinite;
     background: #25D366;
     color: white;
   }
 
   .cta a.telegram {
+    animation: pulseBtn 1.5s infinite 0.75s;
     background: #0088cc;
     color: white;
   }
@@ -94,6 +99,8 @@
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: fadeInImage 1.2s ease-in-out;
   }
 
   @media (max-width: 768px) {
@@ -125,11 +132,98 @@
       width: fit-content;
     }
   }
+  @keyframes pulseText {
+    0% { text-shadow: 0 0 5px #ff33cc; }
+    50% { text-shadow: 0 0 15px #ff33cc; }
+    100% { text-shadow: 0 0 5px #ff33cc; }
+  }
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseBtn {
+  0% { transform: scale(1); box-shadow: 0 0 5px #ff33cc; }
+  50% { transform: scale(1.05); box-shadow: 0 0 15px #ff33cc; }
+  100% { transform: scale(1); box-shadow: 0 0 5px #ff33cc; }
+}
+@keyframes fadeInImage {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.product-images img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.dropbtn {
+  background-color: #ff33cc;
+  color: black;
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #000;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: #ff33cc;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: bold;
+}
+
+.dropdown-content a:hover {
+  background-color: #222;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 </style>
 </head>
 <body>
 
 <header>
+  <nav class="dropdown">
+    <button class="dropbtn">📋 MENU</button>
+    <div class="dropdown-content">
+      <a href="#">Liquid FOOM</a>
+      <a href="#">Freebase</a>
+      <a href="#">Saltnic</a>
+      <a href="#">Device</a>
+      <a href="#">Catridge</a>
+      <a href="#">Produk</a>
+    </div>
+  </nav>
   <h1>🕊️ BURUNG SP(POD STORE)</h1>
   <p>🔥 “Surga-nya Para Vapers!” 🔥</p>
   <p>📦 BAYAR UM – 🚀 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
