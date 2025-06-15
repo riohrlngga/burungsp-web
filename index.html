@@ -181,6 +181,26 @@
   color: white;
   cursor: pointer;
 }
+.whatsapp-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #25D366;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.whatsapp-fixed:hover {
+  background-color: #1ebe5b;
+}
 } </style>
 </head>
 <body>
@@ -403,5 +423,10 @@
     <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" target="_blank">Chat via WhatsApp</a>
     <a class="telegram" href="https://t.me/+6283115018221" target="_blank">Chat via Telegram</a>
   </section>
+  <a href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" 
+   target="_blank" 
+   class="whatsapp-fixed">
+  📲 Chat WhatsApp
+</a>
 </body>
 </html>
