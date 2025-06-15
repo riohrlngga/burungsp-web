@@ -147,6 +147,37 @@
   100% {
     transform: translateX(-100%);
   }
+}.lightbox:target {
+  display: flex;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.lightbox:target::before {
+  content: '✕';
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 3rem;
+  color: white;
+  cursor: pointer;
 }
 } </style>
 </head>
@@ -267,20 +298,100 @@
   <section>
     <h2>🖼️ Contoh Gambar Produk</h2>
     <div class="product-images">
-      <img src="foom_signature.png" alt="FOOM Signature">
-      <img src="foom_pod_x.png" alt="FOOM Pod X">
-      <img src="foom_liquids.png" alt="FOOM Liquids">
-      <img src="foom_now_device.png" alt="FOOM NOW Device">
-      <img src="foom_custom1.png" alt="FOOM Custom 1">
-      <img src="foom_custom2.png" alt="FOOM Custom 2">
-      <img src="foom_custom3.png" alt="FOOM Custom 3">
-      <img src="foom_custom4.png" alt="FOOM Custom 4">
-      <img src="foom_custom5.png" alt="FOOM Custom 5">
-      <img src="foom_custom6.png" alt="FOOM Custom 6">
-      <img src="foom_custom7.png" alt="FOOM Custom 7">
-      <img src="foom_custom8.png" alt="FOOM Custom 8">
-      <img src="foom_custom9.png" alt="FOOM Custom 9">
-    </div>
+      <<!-- Thumbnails -->
+<div class="product-images">
+  <a href="#img1"><img src="foom_signature.png" alt="FOOM Signature"></a>
+  <a href="#img2"><img src="foom_pod_x.png" alt="FOOM Pod X"></a>
+  <a href="#img3"><img src="foom_liquids.png" alt="FOOM Liquids"></a>
+  <a href="#img4"><img src="foom_now_device.png" alt="FOOM NOW Device"></a>
+  <a href="#img5"><img src="foom_custom1.png" alt="FOOM Custom 1"></a>
+  <a href="#img6"><img src="foom_custom2.png" alt="FOOM Custom 2"></a>
+  <a href="#img7"><img src="foom_custom3.png" alt="FOOM Custom 3"></a>
+  <a href="#img8"><img src="foom_custom4.png" alt="FOOM Custom 4"></a>
+  <a href="#img9"><img src="foom_custom5.png" alt="FOOM Custom 5"></a>
+  <a href="#img10"><img src="foom_custom6.png" alt="FOOM Custom 6"></a>
+  <a href="#img11"><img src="foom_custom7.png" alt="FOOM Custom 7"></a>
+  <a href="#img12"><img src="foom_custom8.png" alt="FOOM Custom 8"></a>
+  <a href="#img13"><img src="foom_custom9.png" alt="FOOM Custom 9"></a>
+</div>
+
+<div class="lightbox" id="img1">
+  <a href="#_">
+    <img src="foom_signature.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img2">
+  <a href="#_">
+    <img src="foom_pod_x.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img3">
+  <a href="#_">
+    <img src="foom_liquids.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img4">
+  <a href="#_">
+    <img src="foom_now_device.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img5">
+  <a href="#_">
+    <img src="foom_custom1.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img6">
+  <a href="#_">
+    <img src="foom_custom2.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img7">
+  <a href="#_">
+    <img src="foom_custom3.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img8">
+  <a href="#_">
+    <img src="foom_custom4.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img9">
+  <a href="#_">
+    <img src="foom_custom5.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img10">
+  <a href="#_">
+    <img src="foom_custom6.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img11">
+  <a href="#_">
+    <img src="foom_custom7.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img12">
+  <a href="#_">
+    <img src="foom_custom8.png" alt="">
+  </a>
+</div>
+
+<div class="lightbox" id="img13">
+  <a href="#_">
+    <img src="foom_custom9.png" alt="">
+  </a>
+</div>
   </section>
 
   <section class="cta">
