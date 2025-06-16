@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Admin - BurungSP</title>
+  <script type="module">
+    // Firebase import dari CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+      authDomain: "burungsp-69fdb.firebaseapp.com",
+      projectId: "burungsp-69fdb",
+      storageBucket: "burungsp-69fdb.firebasestorage.app",
+      messagingSenderId: "743244451524",
+      appId: "1:743244451524:web:c55f9871a8debfa6238391",
+      measurementId: "G-LSYDF74Q16"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadProduk() {
+      const querySnapshot = await getDocs(collection(db, "produk"));
+      const tbody = document.getElementById("tabel-produk");
+      tbody.innerHTML = "";
+      querySnapshot.forEach((docItem) => {
+        const item = docItem.data();
+        tbody.innerHTML += `
+          <tr>
+            <td>${item.nama}</td>
+            <td>${item.harga}B</td>
+            <td>${item.stok}</td>
+            <td>
+              <button onclick="ubahStok('${docItem.id}', ${item.stok + 1})">+</button>
+              <button onclick="ubahStok('${docItem.id}', ${item.stok - 1})">−</button>
+              <button onclick="hapusProduk('${docItem.id}')">❌</button>
+            </td>
+          </tr>`;
+      });
+    }
+
+    window.tambahProduk = async function () {
+      const nama = document.getElementById("nama").value;
+      const harga = parseInt(document.getElementById("harga").value);
+      const stok = parseInt(document.getElementById("stok").value);
+      if (nama && !isNaN(harga) && !isNaN(stok)) {
+        await addDoc(collection(db, "produk"), { nama, harga, stok });
+        loadProduk();
+      }
+    }
+
+    window.ubahStok = async function (id, stokBaru) {
+      if (stokBaru < 0) stokBaru = 0;
+      const produkRef = doc(db, "produk", id);
+      await updateDoc(produkRef, { stok: stokBaru });
+      loadProduk();
+    }
+
+    window.hapusProduk = async function (id) {
+      await deleteDoc(doc(db, "produk", id));
+      loadProduk();
+    }
+
+    loadProduk();
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff69b4;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #555;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #222;
+    }
+    button {
+      background: #ff69b4;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      margin: 0 2px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    input, select {
+      padding: 6px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dashboard Admin - BurungSP</h1>
+
+  <div>
+    <input type="text" id="nama" placeholder="Nama Produk">
+    <input type="number" id="harga" placeholder="Harga">
+    <input type="number" id="stok" placeholder="Stok">
+    <button onclick="tambahProduk()">Tambah Produk</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="tabel-produk"></tbody>
+  </table>
+</body>
+</html>
