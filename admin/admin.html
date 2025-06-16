@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>Dashboard Admin - BurungSP</title>
   <script type="module">
-    // Firebase import dari CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
@@ -20,6 +20,35 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const loginBox = document.getElementById("login-box");
+    const adminBox = document.getElementById("admin-box");
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        loginBox.style.display = "none";
+        adminBox.style.display = "block";
+        loadProduk();
+      } else {
+        loginBox.style.display = "block";
+        adminBox.style.display = "none";
+      }
+    });
+
+    window.login = async function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        alert("Login gagal: " + err.message);
+      }
+    }
+
+    window.logout = async function () {
+      await signOut(auth);
+    }
 
     async function loadProduk() {
       const querySnapshot = await getDocs(collection(db, "produk"));
@@ -62,8 +91,6 @@
       await deleteDoc(doc(db, "produk", id));
       loadProduk();
     }
-
-    loadProduk();
   </script>
   <style>
     body {
@@ -98,32 +125,41 @@
       cursor: pointer;
       border-radius: 4px;
     }
-    input, select {
+    input {
       padding: 6px;
-      margin-right: 10px;
+      margin: 5px;
     }
   </style>
 </head>
 <body>
-  <h1>Dashboard Admin - BurungSP</h1>
-
-  <div>
-    <input type="text" id="nama" placeholder="Nama Produk">
-    <input type="number" id="harga" placeholder="Harga">
-    <input type="number" id="stok" placeholder="Stok">
-    <button onclick="tambahProduk()">Tambah Produk</button>
+  <div id="login-box" style="display:none;">
+    <h1>Login Admin</h1>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nama</th>
-        <th>Harga</th>
-        <th>Stok</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody id="tabel-produk"></tbody>
-  </table>
+  <div id="admin-box" style="display:none;">
+    <h1>Dashboard Admin - BurungSP</h1>
+    <button onclick="logout()">Logout</button>
+    <div>
+      <input type="text" id="nama" placeholder="Nama Produk">
+      <input type="number" id="harga" placeholder="Harga">
+      <input type="number" id="stok" placeholder="Stok">
+      <button onclick="tambahProduk()">Tambah Produk</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Harga</th>
+          <th>Stok</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tabel-produk"></tbody>
+    </table>
+  </div>
 </body>
 </html>
