@@ -502,24 +502,7 @@
   <p>✨ Bisa! Kami menyediakan custom device dengan ukir nama mulai 2000B.</p>
 </section>
 </body>
-        function temukanULDenganJudul(teksJudul) {
-  const headings = document.querySelectorAll("section h2");
-  for (const h2 of headings) {
-    if (h2.textContent.includes(teksJudul)) {
-      const next = h2.nextElementSibling;
-      if (next && next.tagName === "UL") {
-        return next;
-      }
-    }
-  }
-  return null;
-}
-
-const sections = {
-  foom: temukanULDenganJudul("DEVICE FOOM"),
-  liquid: temukanULDenganJudul("LIQUID FOOM"),
-  catridge: temukanULDenganJudul("CATRIDGE"),
-};
+        
 
 <!-- Tambah Firebase Produk Display Berdasarkan Kategori -->
 <script type="module">
