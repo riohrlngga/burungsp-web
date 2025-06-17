@@ -304,7 +304,59 @@
 @keyframes blink {
   0% { opacity: 1; }
   100% { opacity: 0.5; }
+}.lightbox-target {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
+
+.lightbox-target img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-target .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.lightbox-target.active {
+  display: flex;
+}
+
+.product-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.product-images img {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.product-images img:hover {
+  transform: scale(1.05);
+}
+
 </style>
 
 </header>
@@ -409,54 +461,31 @@
   </section>
 
   <section>
-    <h2>🖼️ Contoh Gambar Produk</h2>
-    <div class="product-images">
-      <!-- Thumbnails -->
+ <section>
+  <h2>🖼️ Contoh Gambar Produk</h2>
+  <div class="product-images">
+    <img src="foom_custom1.webp" alt="Foom Custom 1" onclick="openLightbox('foom_custom1.webp')">
+    <img src="foom_custom2.webp" alt="Foom Custom 2" onclick="openLightbox('foom_custom2.webp')">
+    <img src="foom_custom3.webp" alt="Foom Custom 3" onclick="openLightbox('foom_custom3.webp')">
+    <img src="foom_custom4.webp" alt="Foom Custom 4" onclick="openLightbox('foom_custom4.webp')">
+    <img src="foom_custom5.webp" alt="Foom Custom 5" onclick="openLightbox('foom_custom5.webp')">
+    <img src="foom_custom6.webp" alt="Foom Custom 6" onclick="openLightbox('foom_custom6.webp')">
+    <img src="foom_custom7.webp" alt="Foom Custom 7" onclick="openLightbox('foom_custom7.webp')">
+    <img src="foom_custom8.webp" alt="Foom Custom 8" onclick="openLightbox('foom_custom8.webp')">
+    <img src="foom_custom9.webp" alt="Foom Custom 9" onclick="openLightbox('foom_custom9.webp')">
+    <img src="foom_liquids.webp" alt="Foom Liquids" onclick="openLightbox('foom_liquids.webp')">
+    <img src="foom_now_device.webp" alt="Foom Now Device" onclick="openLightbox('foom_now_device.webp')">
+    <img src="foom_pod_x.webp" alt="Foom Pod X" onclick="openLightbox('foom_pod_x.webp')">
+    <img src="foom_signature.webp" alt="Foom Signature" onclick="openLightbox('foom_signature.webp')">
+  </div>
+</section>
 
-
+<!-- Lightbox Viewer -->
+<div class="lightbox-target" id="lightbox">
+  <span class="close" onclick="closeLightbox()">×</span>
+  <img id="lightbox-img" src="" alt="Preview" />
 </div>
 
-<div class="product-images">
-  <a href="#img1">
-    <img src="foom_signature.webp" alt="FOOM Signature" loading="lazy">
-  </a>
-  <a href="#img2">
-    <img src="foom_pod_x.webp" alt="FOOM Pod X" loading="lazy">
-  </a>
-  <a href="#img3">
-    <img src="foom_liquids.webp" alt="FOOM Liquids" loading="lazy">
-  </a>
-  <a href="#img4">
-    <img src="foom_now_device.webp" alt="FOOM Now Device" loading="lazy">
-  </a>
-  <a href="#img5">
-    <img src="foom_custom1.webp" alt="FOOM Custom 1" loading="lazy">
-  </a>
-  <a href="#img6">
-    <img src="foom_custom2.webp" alt="FOOM Custom 2" loading="lazy">
-  </a>
-  <a href="#img7">
-    <img src="foom_custom3.webp" alt="FOOM Custom 3" loading="lazy">
-  </a>
-  <a href="#img8">
-    <img src="foom_custom4.webp" alt="FOOM Custom 4" loading="lazy">
-  </a>
-  <a href="#img9">
-    <img src="foom_custom5.webp" alt="FOOM Custom 5" loading="lazy">
-  </a>
-  <a href="#img10">
-    <img src="foom_custom6.webp" alt="FOOM Custom 6" loading="lazy">
-  </a>
-  <a href="#img11">
-    <img src="foom_custom7.webp" alt="FOOM Custom 7" loading="lazy">
-  </a>
-  <a href="#img12">
-    <img src="foom_custom8.webp" alt="FOOM Custom 8" loading="lazy">
-  </a>
-  <a href="#img13">
-    <img src="foom_custom9.webp" alt="FOOM Custom 9" loading="lazy">
-  </a>
-</div>
 
 
   </section>
@@ -488,12 +517,24 @@
 
         
 
-</body>
-
 <!-- Firebase script di bawah ini boleh tetap di sini -->
 <script type="module">
   // ...
 </script>
+  <script>
+  function openLightbox(src) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+  }
+</script>
+
 </body>
         
 
