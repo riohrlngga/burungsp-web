@@ -265,6 +265,59 @@
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
+    .product-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.product-images img {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+.product-images img:hover {
+  transform: scale(1.05);
+}
+
+.lightbox-target {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox-target.active {
+  display: flex;
+}
+
+.lightbox-target img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-target .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
   </style>
 </head>
 <body>
@@ -467,6 +520,12 @@
     <img src="foom_custom1.webp" alt="Foom Custom 1" onclick="openLightbox('foom_custom1.webp')">
     <img src="foom_custom2.webp" alt="Foom Custom 2" onclick="openLightbox('foom_custom2.webp')">
     <img src="foom_custom3.webp" alt="Foom Custom 3" onclick="openLightbox('foom_custom3.webp')">
+    <img src="ALA CARTE.webp" alt="À La Carte Saltnic Edition" loading="lazy" onclick="openLightbox('ALA CARTE.webp')">
+    <img src="BUAQITA LIQUID.webp" alt="BuaQita Liquid" loading="lazy" onclick="openLightbox('BUAQITA LIQUID.webp')">
+    <img src="cartidge oxva.webp" alt="Cartidge OXVA" loading="lazy" onclick="openLightbox('cartidge oxva.webp')">
+    <img src="catridge x foom.webp" alt="Catridge X FOOM" loading="lazy" onclick="openLightbox('catridge x foom.webp')">
+    <img src="prediski.webp" alt="Prediski Liquid" loading="lazy" onclick="openLightbox('prediski.webp')">
+    <img src="WG FOOM.webp" alt="WG FOOM" loading="lazy" onclick="openLightbox('WG FOOM.webp')">
     <img src="foom_custom4.webp" alt="Foom Custom 4" onclick="openLightbox('foom_custom4.webp')">
     <img src="foom_custom5.webp" alt="Foom Custom 5" onclick="openLightbox('foom_custom5.webp')">
     <img src="foom_custom6.webp" alt="Foom Custom 6" onclick="openLightbox('foom_custom6.webp')">
@@ -534,6 +593,7 @@
     lightbox.classList.remove('active');
   }
 </script>
+<script>
 
 </body>
         
