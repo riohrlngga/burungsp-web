@@ -618,7 +618,117 @@
     </li>
   </ul>
 </section>
+<!-- Tambah Firebase Produk Display Berdasarkan Kategori -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+    authDomain: "burungsp-69fdb.firebaseapp.com",
+    projectId: "burungsp-69fdb",
+    storageBucket: "burungsp-69fdb.firebasestorage.app",
+    messagingSenderId: "743244451524",
+    appId: "1:743244451524:web:c55f9871a8debfa6238391",
+    measurementId: "G-LSYDF74Q16"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function tampilkanProduk() {
+    const querySnapshot = await getDocs(collection(db, "produk"));
+
+    const sections = {
+      foom: document.querySelector('section h2:contains("DEVICE FOOM")')?.nextElementSibling,
+      liquid: document.querySelector('section h2:contains("LIQUID FOOM")')?.nextElementSibling,
+      catridge: document.querySelector('section h2:contains("CATRIDGE")')?.nextElementSibling,
+    };
+
+    querySnapshot.forEach(docItem => {
+      const item = docItem.data();
+      const kategori = item.kategori?.toLowerCase();
+
+      if (sections[kategori]) {
+        sections[kategori].innerHTML += `<li>${item.nama} – ${item.harga}B | Stok: ${item.stok}</li>`;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", tampilkanProduk);
+</script>
+
+<!-- Tambah CSS opsional -->
+<style>
+  .produk-box {
+    background: #111;
+    color: #fff;
+    border: 1px solid #ff69b4;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+</style>
+
+        <section id="produk-dari-firebase"></section>
+
+        <!-- Paste this inside your index.html before </body> -->
+
+<!-- Tambah Firebase Produk Display -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+    authDomain: "burungsp-69fdb.firebaseapp.com",
+    projectId: "burungsp-69fdb",
+    storageBucket: "burungsp-69fdb.firebasestorage.app",
+    messagingSenderId: "743244451524",
+    appId: "1:743244451524:web:c55f9871a8debfa6238391",
+    measurementId: "G-LSYDF74Q16"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function tampilkanProduk() {
+    const querySnapshot = await getDocs(collection(db, "produk"));
+    const container = document.getElementById("produk-dari-firebase");
+    container.innerHTML = "";
+    querySnapshot.forEach(docItem => {
+      const item = docItem.data();
+      container.innerHTML += `
+        <div class="produk-box">
+          <h3>${item.nama}</h3>
+          <p>Harga: ${item.harga}B</p>
+          <p>Stok: ${item.stok}</p>
+        </div>`;
+    });
+  }
+
+  // Jalankan saat halaman siap
+  document.addEventListener("DOMContentLoaded", tampilkanProduk);
+</script>
+
+<!-- Tambah elemen tampungan -->
+<div id="produk-dari-firebase"></div>
+
+<!-- Tambah CSS opsional -->
+<style>
+  #produk-dari-firebase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .produk-box {
+    background: #111;
+    color: #fff;
+    border: 1px solid #ff69b4;
+    padding: 12px;
+    border-radius: 8px;
+  }
 
   <section>
  <section>
@@ -775,120 +885,6 @@
 
 </body>
 
-
-
-        
-<!-- Tambah Firebase Produk Display Berdasarkan Kategori -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-    authDomain: "burungsp-69fdb.firebaseapp.com",
-    projectId: "burungsp-69fdb",
-    storageBucket: "burungsp-69fdb.firebasestorage.app",
-    messagingSenderId: "743244451524",
-    appId: "1:743244451524:web:c55f9871a8debfa6238391",
-    measurementId: "G-LSYDF74Q16"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  async function tampilkanProduk() {
-    const querySnapshot = await getDocs(collection(db, "produk"));
-
-    const sections = {
-      foom: document.querySelector('section h2:contains("DEVICE FOOM")')?.nextElementSibling,
-      liquid: document.querySelector('section h2:contains("LIQUID FOOM")')?.nextElementSibling,
-      catridge: document.querySelector('section h2:contains("CATRIDGE")')?.nextElementSibling,
-    };
-
-    querySnapshot.forEach(docItem => {
-      const item = docItem.data();
-      const kategori = item.kategori?.toLowerCase();
-
-      if (sections[kategori]) {
-        sections[kategori].innerHTML += `<li>${item.nama} – ${item.harga}B | Stok: ${item.stok}</li>`;
-      }
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", tampilkanProduk);
-</script>
-
-<!-- Tambah CSS opsional -->
-<style>
-  .produk-box {
-    background: #111;
-    color: #fff;
-    border: 1px solid #ff69b4;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-</style>
-
-        <section id="produk-dari-firebase"></section>
-
-        <!-- Paste this inside your index.html before </body> -->
-
-<!-- Tambah Firebase Produk Display -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-    authDomain: "burungsp-69fdb.firebaseapp.com",
-    projectId: "burungsp-69fdb",
-    storageBucket: "burungsp-69fdb.firebasestorage.app",
-    messagingSenderId: "743244451524",
-    appId: "1:743244451524:web:c55f9871a8debfa6238391",
-    measurementId: "G-LSYDF74Q16"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  async function tampilkanProduk() {
-    const querySnapshot = await getDocs(collection(db, "produk"));
-    const container = document.getElementById("produk-dari-firebase");
-    container.innerHTML = "";
-    querySnapshot.forEach(docItem => {
-      const item = docItem.data();
-      container.innerHTML += `
-        <div class="produk-box">
-          <h3>${item.nama}</h3>
-          <p>Harga: ${item.harga}B</p>
-          <p>Stok: ${item.stok}</p>
-        </div>`;
-    });
-  }
-
-  // Jalankan saat halaman siap
-  document.addEventListener("DOMContentLoaded", tampilkanProduk);
-</script>
-
-<!-- Tambah elemen tampungan -->
-<div id="produk-dari-firebase"></div>
-
-<!-- Tambah CSS opsional -->
-<style>
-  #produk-dari-firebase {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-top: 30px;
-  }
-  .produk-box {
-    background: #111;
-    color: #fff;
-    border: 1px solid #ff69b4;
-    padding: 12px;
-    border-radius: 8px;
-  }
 </style>
 
 </html>
