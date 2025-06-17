@@ -693,95 +693,62 @@
   }
 </script>
 
-<script>
-  const pesanan = [];
+  <!-- Keranjang Sticky di kiri bawah -->
+ 
 
-  function tambahKePesanan(item) {
-    pesanan.push(item);
-    updateKeranjang();
-  }
+  <!-- ... isi halaman ... -->
 
-  function hapusPesanan(index) {
-    pesanan.splice(index, 1);
-    updateKeranjang();
-  }
+  <!-- Keranjang sticky -->
+  <div id="keranjang-sticky" style="position: fixed; bottom: 20px; left: 20px; background: #ff69b4; color: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(255,105,180,0.7); z-index: 9999; max-width: 280px; font-weight: bold; cursor: pointer;" onclick="buatLinkWhatsApp()" title="Klik buat checkout via WhatsApp">
+    🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
+    <ul id="daftar-pesanan-sticky" style="margin-top: 8px; max-height: 200px; overflow-y: auto; padding-left: 15px;"></ul>
+  </div>
 
-  function updateKeranjang() {
-    const daftar = document.getElementById('daftar-pesanan');
-    daftar.innerHTML = '';
-    pesanan.forEach((item, i) => {
-      const li = document.createElement('li');
-      li.innerHTML = `${item} <button onclick="hapusPesanan(${i})" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
-      daftar.appendChild(li);
-    });
-  }
-</script>
   <script>
-  function buatLinkWhatsApp() {
-    const daftar = document.getElementById("daftar-pesanan");
-    if (!daftar) {
-      alert("Keranjang tidak ditemukan!");
-      return;
+    const pesanan = [];
+
+    function tambahKePesanan(item) {
+      pesanan.push(item);
+      updateKeranjang();
     }
 
-    const items = Array.from(daftar.querySelectorAll("li")).map(li =>
-
-      li.textContent.replace('Hapus', '').trim()
-    );
-
-    if (items.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
+    function hapusPesanan(index) {
+      pesanan.splice(index, 1);
+      updateKeranjang();
     }
 
-    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + items.join("\n"));
-    window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
-  }
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const pesanan = [];
+    function updateKeranjang() {
+      const daftarSticky = document.getElementById('daftar-pesanan-sticky');
+      const jumlahPesanan = document.getElementById('jumlah-pesanan');
 
-  window.tambahKePesanan = function(item) {
-    pesanan.push(item);
-    updateKeranjang();
-  }
+      daftarSticky.innerHTML = '';
 
-  window.hapusPesanan = function(index) {
-    pesanan.splice(index, 1);
-    updateKeranjang();
-  }
+      pesanan.forEach((item, i) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = '6px';
+        li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" ...>Hapus</button>`;
 
-  function updateKeranjang() {
-    const daftar = document.getElementById('daftar-pesanan');
-    daftar.innerHTML = '';
-    pesanan.forEach((item, i) => {
-      const li = document.createElement('li');
-      li.innerHTML = `${item} <button onclick="hapusPesanan(${i})" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
-      daftar.appendChild(li);
-    });
-  }
+        daftarSticky.appendChild(li);
+      });
 
-  window.buatLinkWhatsApp = function() {
-    const daftar = document.getElementById("daftar-pesanan");
-    const items = Array.from(daftar.querySelectorAll("li")).map(li =>
-      li.textContent.replace('Hapus', '').trim()
-    );
-
-    if (items.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
+      jumlahPesanan.textContent = pesanan.length;
     }
 
-    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + items.join("\n"));
-    window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
-  }
-});
-</script>
+    function buatLinkWhatsApp() {
+      if(pesanan.length === 0) {
+        alert("Keranjang masih kosong!");
+        return;
+      }
+
+      const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
+      window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
+    }
+  </script>
+
 </body>
 
 
-</body>
+
         
 <!-- Tambah Firebase Produk Display Berdasarkan Kategori -->
 <script type="module">
