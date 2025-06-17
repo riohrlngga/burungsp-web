@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <title>BURUNG SP POD STORE</title>
+
   <!-- SEO Meta Tags -->
   <meta name="description" content="BURUNG SP POD STORE - Surga-nya Para Vapers! Menjual liquid, device FOOM, catridge, dan custom pod original di Indonesia." />
   <meta name="keywords" content="vape, liquid foom, pod Indonesia, catridge, burungsp, vape murah, custom pod, foom original" />
@@ -24,22 +26,18 @@
   <!-- Favicon -->
   <link rel="icon" href="https://burungsp.com/logo.png" type="image/png" />
 
-  <!-- Structured Data Logo Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Burung SP",
-    "url": "https://burungsp.com",
-    "logo": "https://burungsp.com/logo.png"
-  }
-  </script>
-
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
   <style>
+    /* RESET & BASE */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-size: 1.15em;
-      font-weight: bold;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #000;
       background-image: url('logo_bg_optimized.png');
       background-repeat: no-repeat;
@@ -47,19 +45,24 @@
       background-size: 900px;
       background-attachment: fixed;
       color: #ff69b4;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
+      font-weight: bold;
+      font-size: 1.15em;
     }
 
     header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 60px 20px 40px;
-      color: #ff69b4;
       position: relative;
       text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      margin: 10px 0 0.3em;
+    }
+
+    header p {
+      margin: 6px 0;
+      font-size: 1.15em;
     }
 
     header .logo-left,
@@ -74,20 +77,80 @@
     header .logo-left {
       left: 20px;
     }
+
     header .logo-right {
       right: 20px;
     }
 
-    header h1 {
-      font-size: 2.8em;
-      margin: 10px 0 0.3em;
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      header p {
+        font-size: 1em;
+      }
+
+      header .logo-left,
+      header .logo-right {
+        width: 120px;
+      }
     }
 
-    header p {
-      margin: 6px 0;
-      font-size: 1.15em;
+    /* MARQUEE */
+    .marquee {
+      margin-top: 20px;
+      overflow: hidden;
+      position: relative;
+      height: 40px;
     }
 
+    .marquee-text {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 180px;
+      padding-right: 180px;
+      animation: scroll-left 12s linear infinite;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* NOTIFIKASI BLINK */
+    .info-stock-blink {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #00ff88;
+      background-color: #ff69b4;
+      padding: 14px;
+      margin: 20px auto;
+      animation: blink 1s infinite alternate;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+      width: fit-content;
+      border-radius: 8px;
+    }
+
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.5;
+      }
+    }
+
+    /* SECTIONS */
     section {
       max-width: 960px;
       margin: 30px auto;
@@ -97,7 +160,7 @@
       text-align: center;
     }
 
-    h2 {
+    section h2 {
       font-size: 1.6em;
       margin-bottom: 15px;
       border-bottom: 2px solid #ff69b4;
@@ -105,15 +168,16 @@
       width: fit-content;
       margin-left: auto;
       margin-right: auto;
+      display: block;
     }
 
     ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
-      padding: 0;
-      list-style: none;
-      margin-top: 10px;
     }
 
     li {
@@ -123,13 +187,15 @@
       padding: 10px 15px;
       box-sizing: border-box;
       cursor: pointer;
+      transition: background-color 0.3s ease;
       user-select: none;
-      transition: background-color 0.2s ease;
     }
+
     li:hover {
       background-color: rgba(255, 105, 180, 0.3);
     }
 
+    /* PRODUCT IMAGES */
     .product-images {
       display: flex;
       flex-wrap: wrap;
@@ -151,6 +217,7 @@
       transform: scale(1.05);
     }
 
+    /* LIGHTBOX */
     .lightbox-target {
       position: fixed;
       top: 0;
@@ -175,6 +242,41 @@
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
 
+    .lightbox-target .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    .cta a.whatsapp {
+      background-color: #25d366;
+    }
+
+    .cta a.telegram {
+      background-color: #0088cc;
+    }
+
+    /* KETERANGAN BOX */
     .keterangan-box {
       border: 1px solid #ff69b4;
       padding: 12px 20px;
@@ -183,63 +285,30 @@
       font-weight: bold;
       color: #ff69b4;
       background-color: rgba(255, 105, 180, 0.1);
-      text-align: center;
       max-width: 960px;
       margin-left: auto;
       margin-right: auto;
       word-wrap: break-word;
-    }
-
-    .marquee {
-      margin-top: 20px;
-      overflow: hidden;
-      position: relative;
-      height: 40px;
-    }
-
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 180px;
-      padding-right: 180px;
-      animation: scroll-left 12s linear infinite;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    .info-stock-blink {
       text-align: center;
-      font-weight: bold;
-      font-size: 1.2em;
-      color: #00ff88;
-      background-color: #ff69b4;
-      padding: 14px;
-      margin: 20px auto;
-      animation: blink 1s infinite alternate;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
-      width: fit-content;
+    }
+
+    /* PRODUK DARI FIREBASE */
+    #produk-dari-firebase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .produk-box {
+      background: #111;
+      color: #fff;
+      border: 1px solid #ff69b4;
+      padding: 12px;
       border-radius: 8px;
     }
 
-    @keyframes blink {
-      0% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0.5;
-      }
-    }
-
-    /* Keranjang Sticky */
+    /* KERANJANG STICKY */
     #keranjang-sticky {
       position: fixed;
       bottom: 20px;
@@ -253,6 +322,7 @@
       max-width: 280px;
       font-weight: bold;
       cursor: pointer;
+      display: none;
     }
 
     #keranjang-sticky ul {
@@ -261,6 +331,29 @@
       overflow-y: auto;
       padding-left: 15px;
       list-style: none;
+    }
+
+    #keranjang-sticky ul li {
+      margin-bottom: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 8px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: normal;
+    }
+
+    #keranjang-sticky ul li button {
+      margin-left: 10px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 2px 6px;
+      font-size: 0.9em;
     }
 
     #btn-lanjutkan {
@@ -281,86 +374,61 @@
       cursor: not-allowed;
     }
 
-    /* Whatsapp fixed button */
-    .whatsapp-fixed {
+    /* Tombol keranjang kecil bundar */
+    #keranjang-fixed {
       position: fixed;
       bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      background-color: #25D366;
+      left: 20px;
+      z-index: 10000;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 24px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      padding: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(255, 105, 180, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
-    .whatsapp-fixed img {
-      width: 50px;
-      height: 50px;
-    }
-
-    /* Hamburger menu */
-    #menu-toggle {
-      position: fixed;
-      top: 20px;
-      left: 10px;
-      z-index: 10000;
-      cursor: pointer;
-      width: 30px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    #menu-toggle span {
-      display: block;
-      height: 4px;
-      background: #ff69b4;
-      border-radius: 2px;
-      transition: 0.3s ease;
-    }
-
-    /* Menu panel */
-    #menu-panel {
+    /* NAV MENU KIRI (SEBELAH KIRI, SAJA SEUKURAN TULISAN) */
+    #nav-menu {
       position: fixed;
       top: 60px;
       left: 10px;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.7);
       border: 1px solid #ff69b4;
-      border-radius: 8px;
-      padding: 10px 15px;
-      display: none;
-      z-index: 9999;
-      min-width: 180px;
-    }
-
-    #menu-panel.show {
-      display: block;
-    }
-
-    #menu-panel ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    #menu-panel ul li {
-      padding: 8px 5px;
-      border-bottom: 1px solid #ff69b4;
+      border-radius: 6px;
+      padding: 10px 12px;
       color: #ff69b4;
-      cursor: pointer;
       font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      z-index: 10001;
+      user-select: none;
+      max-width: 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    #menu-panel ul li:last-child {
-      border-bottom: none;
+    #nav-menu .nav-item {
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
     }
 
-    #menu-panel ul li:hover {
+    #nav-menu .nav-item:hover {
       background-color: rgba(255, 105, 180, 0.3);
+    }
+
+    #nav-menu .nav-item.back {
+      margin-top: 10px;
+      color: #00ff88;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -374,34 +442,29 @@
     <img src="logo.png" alt="Logo Kanan" class="logo-right" />
 
     <div class="marquee">
-      <div class="marquee-text">🚨 PROMO MINGGU INI: BELI DEVICE GRATIS LIQUID – STOCK TERBATAS! 🚨</div>
+      <div class="marquee-text">
+        🚨 PROMO MINGGU INI: BELI DEVICE GRATIS LIQUID – STOCK TERBATAS! 🚨
+      </div>
     </div>
 
-    <div class="info-stock-blink">⬇️ UNTUK STOCK READY ADA DI BAGIAN PALING BAWAH YA BOSKU 🔥📦</div>
+    <div class="info-stock-blink">
+      ⬇️ UNTUK STOCK READY ADA DI BAGIAN PALING BAWAH YA BOSKU 🔥📦
+    </div>
   </header>
 
-  <!-- Hamburger Menu Toggle -->
-  <div id="menu-toggle" aria-label="Toggle Menu" title="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Menu Panel -->
-  <nav id="menu-panel" aria-label="Navigasi Menu">
-    <ul>
-      <li onclick="scrollToSection('liquid-foom')">Liquid FOOM</li>
-      <li onclick="scrollToSection('freebase-alacarte')">Freebase Ala Carte</li>
-      <li onclick="scrollToSection('saltnic-icepedia')">Saltnic Ice Pedia</li>
-      <li onclick="scrollToSection('liquid-buaqita')">Liquid BUAQITA</li>
-      <li onclick="scrollToSection('device-foom')">Device FOOM</li>
-      <li onclick="scrollToSection('catridge')">Catridge</li>
-      <li onclick="scrollToSection('produk-dari-firebase')">Stock Ready</li>
-      <li onclick="toggleMenu()">Tutup</li>
-    </ul>
+  <!-- NAV MENU KIRI -->
+  <nav id="nav-menu" aria-label="Menu Navigasi">
+    <div class="nav-item" onclick="scrollToSection('liquid-foom')">Liquid FOOM</div>
+    <div class="nav-item" onclick="scrollToSection('freebase')">Freebase Ala Carte</div>
+    <div class="nav-item" onclick="scrollToSection('saltnic')">Saltnic Ice Pedia</div>
+    <div class="nav-item" onclick="scrollToSection('buaqita')">Liquid BuaQita</div>
+    <div class="nav-item" onclick="scrollToSection('device-foom')">Device FOOM</div>
+    <div class="nav-item" onclick="scrollToSection('stok-device')">Stok Device</div>
+    <div class="nav-item" onclick="scrollToSection('catridge')">Catridge</div>
+    <div class="nav-item" onclick="scrollToSection('gambar-produk')">Gambar Produk</div>
   </nav>
 
-  <!-- Sections -->
+  <!-- SECTIONS -->
   <section id="liquid-foom">
     <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
     <ul>
@@ -455,7 +518,7 @@
     </ul>
   </section>
 
-  <section id="freebase-alacarte">
+  <section id="freebase">
     <h2>💧 FREEBASE ALA CARTE – 550B</h2>
     <ul>
       <li onclick="tambahKePesanan('Cream Raisin')">Cream Raisin</li>
@@ -468,7 +531,7 @@
     </ul>
   </section>
 
-  <section id="saltnic-icepedia">
+  <section id="saltnic">
     <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
     <ul>
       <li onclick="tambahKePesanan('Mango 🔥🔥')">Mango 🔥🔥</li>
@@ -481,8 +544,9 @@
     </ul>
   </section>
 
-  <section id="liquid-buaqita">
+  <section id="buaqita">
     <h2>🍓🍇 LIQUID BUAQITA 🍉🍍</h2>
+
     <p><strong>Rasa Buah:</strong></p>
     <ul>
       <li onclick="tambahKePesanan('🫐 Blueberry')">🫐 Blueberry</li>
@@ -515,7 +579,7 @@
     </ul>
   </section>
 
-  <section style="color: #ff69b4; font-weight: bold; font-size: 1.15em; max-width: 960px; margin: 30px auto;">
+  <section style="text-align:center; margin: 30px auto; max-width: 960px; color: #ff69b4; font-weight: bold; font-size: 1.15em;">
     📞 Jika bosku memiliki varian liquid atau merk liquid lain, bosku bisa melakukan pemesanan melalui nomor WhatsApp kami ya bosku! 🔥
   </section>
 
@@ -529,11 +593,9 @@
       <li onclick="tambahKePesanan('Banyak lagi, silakan request langsung hubungi kami!')">Banyak lagi, silakan request langsung hubungi kami!</li>
     </ul>
 
-    <h2>🛠️ Device Lain</h2>
-    <div class="keterangan-box">📱 Silahkan request melalui WhatsApp ya bosku 😄🔥</div>
-
-    <!-- Stock Produk Dinamis dari Firebase -->
-    <div id="produk-dari-firebase" style="margin-top: 25px;"></div>
+    <!-- Stok barang rapi di bawah Device FOOM -->
+    <h2 id="stok-device" style="margin-top: 40px;">📦 STOCK READY DEVICE</h2>
+    <div id="produk-dari-firebase"></div>
   </section>
 
   <section id="catridge">
@@ -541,11 +603,11 @@
     <ul>
       <li onclick="tambahKePesanan('Catridge X: 1 pcs 150B | 1 pack 420B')">Catridge X: 1 pcs 150B | 1 pack 420B</li>
       <li onclick="tambahKePesanan('Catridge Y: 1 pcs 155B | 1 pack 450B')">Catridge Y: 1 pcs 155B | 1 pack 450B</li>
-      <li onclick="tambahKePesanan('📦 Catridge lain atau tidak ada di menu kami')">📦 Catridge lain atau tidak ada di menu kami, Kami siap melayani melalui WhatsApp ya bosku 😊🔥</li>
+      <li onclick="tambahKePesanan('📦 Catridge lain atau tidak ada di menu kami, Kami siap melayani melalui WhatsApp ya bosku 😊🔥')">📦 Catridge lain atau tidak ada di menu kami, Kami siap melayani melalui WhatsApp ya bosku 😊🔥</li>
     </ul>
   </section>
 
-  <section>
+  <section id="gambar-produk">
     <h2>🖼️ Contoh Gambar Produk</h2>
     <div class="product-images">
       <img src="foom_custom1.webp" alt="Foom Custom 1" onclick="openLightbox('foom_custom1.webp')" />
@@ -570,51 +632,48 @@
     </div>
   </section>
 
+  <!-- CTA -->
   <section class="cta">
     <h2>📲 Chat & Order Sekarang!</h2>
     <p>💬 BEBAS REQUEST POD BRAND LAIN BOSKUUU!</p>
-    <p>
-      📱 Whatsapp: <strong>082183088613</strong><br />
-      📨 Telegram: <strong>083115018221</strong>
-    </p>
-    <a
-      class="whatsapp"
-      href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+Liquid,device+liquid+atau+catridge+BurungSP!"
-      target="_blank"
-      >Chat via WhatsApp</a
-    >
+    <p>📱 Whatsapp: <strong>082183088613</strong><br />📨 Telegram: <strong>083115018221</strong></p>
+    <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+Liquid,device+liquid+atau+catridge+BurungSP!" target="_blank">Chat via WhatsApp</a>
     <a class="telegram" href="https://t.me/@sashaaaaaabuy" target="_blank">Chat via Telegram</a>
   </section>
 
-  <a
-    href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!"
-    class="whatsapp-fixed"
-    target="_blank"
-    aria-label="Chat WhatsApp"
-    ><img src="E96F0016-EF7C-4D27-AE64-A926E2E15F47.png" alt="WhatsApp Icon" /></a
-  >
+  <!-- Tombol WhatsApp Fixed -->
+  <a href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" class="whatsapp-fixed" target="_blank" aria-label="Chat WhatsApp">
+    <img src="E96F0016-EF7C-4D27-AE64-A926E2E15F47.png" alt="WhatsApp Icon" />
+  </a>
 
   <!-- Footer -->
-  <footer
-    style="
-      text-align: center;
-      padding: 30px 10px;
-      font-size: 0.9em;
-      color: #aaa;
-      border-top: 1px solid #444;
-      margin-top: 40px;
-    "
-  >
+  <footer style="text-align:center; padding: 30px 10px; font-size: 0.9em; color: #aaa; border-top: 1px solid #444; margin-top: 40px;">
     <p>Hak Cipta © 2025 BurungSP. Seluruh hak cipta dilindungi.</p>
     <p>
-      <a href="/tentang-kami.html" target="_blank" style="color: #ff69b4; text-decoration: none; margin: 0 8px;">Tentang Kami</a> |
-      <a href="/cara-order.html" target="_blank" style="color: #ff69b4; text-decoration: none; margin: 0 8px;">Cara Order</a> |
-      <a href="/faq.html" target="_blank" style="color: #ff69b4; text-decoration: none; margin: 0 8px;">FAQ</a> |
-      <a href="/pages.html" target="_blank" style="color: #ff69b4; text-decoration: none; margin: 0 8px;">Peta Situs</a>
+      <a href="/tentang-kami.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">Tentang Kami</a> |
+      <a href="/cara-order.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">Cara Order</a> |
+      <a href="/faq.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">FAQ</a> |
+      <a href="/pages.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">Peta Situs</a>
     </p>
   </footer>
 
-  <!-- Firebase Produk Dinamis -->
+  <!-- Lightbox Viewer -->
+  <div class="lightbox-target" id="lightbox" aria-hidden="true" role="dialog" aria-label="Preview Gambar Produk">
+    <span class="close" onclick="closeLightbox()" role="button" tabindex="0" aria-label="Tutup Preview">×</span>
+    <img id="lightbox-img" src="" alt="Preview" />
+  </div>
+
+  <!-- Keranjang Sticky -->
+  <div id="keranjang-sticky" role="region" aria-label="Keranjang Belanja">
+    🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
+    <ul id="daftar-pesanan-sticky"></ul>
+    <button id="btn-lanjutkan" onclick="buatLinkWhatsApp()" disabled>Lanjutkan Pesanan</button>
+  </div>
+
+  <!-- Tombol Keranjang Kecil Bundar -->
+  <button id="keranjang-fixed" aria-label="Buka/tutup keranjang" title="Keranjang">🛒</button>
+
+  <!-- Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -626,7 +685,7 @@
       storageBucket: "burungsp-69fdb.firebasestorage.app",
       messagingSenderId: "743244451524",
       appId: "1:743244451524:web:c55f9871a8debfa6238391",
-      measurementId: "G-LSYDF74Q16",
+      measurementId: "G-LSYDF74Q16"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -636,8 +695,7 @@
       const querySnapshot = await getDocs(collection(db, "produk"));
       const container = document.getElementById("produk-dari-firebase");
       container.innerHTML = "";
-
-      querySnapshot.forEach((docItem) => {
+      querySnapshot.forEach(docItem => {
         const item = docItem.data();
         container.innerHTML += `
           <div class="produk-box">
@@ -651,9 +709,35 @@
     document.addEventListener("DOMContentLoaded", tampilkanProduk);
   </script>
 
-  <!-- Fungsi keranjang -->
   <script>
+    // Fungsi lightbox
+    function openLightbox(src) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = src;
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.getElementById('lightbox-img').src = '';
+    }
+
+    // Navigasi scroll ke section
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Keranjang belanja
     const pesanan = [];
+    const keranjangSticky = document.getElementById('keranjang-sticky');
+    const keranjangFixedBtn = document.getElementById('keranjang-fixed');
 
     function tambahKePesanan(item) {
       pesanan.push(item);
@@ -666,31 +750,38 @@
     }
 
     function updateKeranjang() {
-      const daftarSticky = document.getElementById("daftar-pesanan-sticky");
-      const jumlahPesanan = document.getElementById("jumlah-pesanan");
+      const daftarSticky = document.getElementById('daftar-pesanan-sticky');
+      const jumlahPesanan = document.getElementById('jumlah-pesanan');
 
-      daftarSticky.innerHTML = "";
+      daftarSticky.innerHTML = '';
 
       pesanan.forEach((item, i) => {
-        const li = document.createElement("li");
-        li.style.marginBottom = "6px";
-        li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
+        const li = document.createElement('li');
+        li.textContent = item;
+
+        const btnHapus = document.createElement('button');
+        btnHapus.textContent = 'Hapus';
+        btnHapus.onclick = e => {
+          e.stopPropagation();
+          hapusPesanan(i);
+        };
+
+        li.appendChild(btnHapus);
         daftarSticky.appendChild(li);
       });
 
       jumlahPesanan.textContent = pesanan.length;
 
-      // Disable tombol jika keranjang kosong
-      const btnLanjutkan = document.getElementById("btn-lanjutkan");
-      btnLanjutkan.disabled = pesanan.length === 0;
+      const btnLanjut = document.getElementById('btn-lanjutkan');
+      btnLanjut.disabled = pesanan.length === 0;
       if (pesanan.length === 0) {
-        btnLanjutkan.style.background = "#555";
-        btnLanjutkan.style.color = "#aaa";
-        btnLanjutkan.style.cursor = "not-allowed";
+        btnLanjut.style.background = '#555';
+        btnLanjut.style.color = '#aaa';
+        btnLanjut.style.cursor = 'not-allowed';
       } else {
-        btnLanjutkan.style.background = "#00ff88";
-        btnLanjutkan.style.color = "#000";
-        btnLanjutkan.style.cursor = "pointer";
+        btnLanjut.style.background = '#00ff88';
+        btnLanjut.style.color = '#000';
+        btnLanjut.style.cursor = 'pointer';
       }
     }
 
@@ -699,51 +790,25 @@
         alert("Keranjang masih kosong!");
         return;
       }
-
       const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
       window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
     }
-  </script>
 
-  <!-- Lightbox -->
-  <script>
-    function openLightbox(src) {
-      const lightbox = document.getElementById("lightbox");
-      const lightboxImg = document.getElementById("lightbox-img");
-      lightboxImg.src = src;
-      lightbox.classList.add("active");
-    }
-
-    function closeLightbox() {
-      const lightbox = document.getElementById("lightbox");
-      lightbox.classList.remove("active");
-    }
-  </script>
-
-  <!-- Lightbox markup -->
-  <div class="lightbox-target" id="lightbox" role="dialog" aria-modal="true" aria-label="Preview gambar produk">
-    <span class="close" onclick="closeLightbox()" aria-label="Tutup">&times;</span>
-    <img id="lightbox-img" src="" alt="Preview" />
-  </div>
-
-  <!-- Navigasi Menu Toggle Script -->
-  <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const menuPanel = document.getElementById("menu-panel");
-
-    menuToggle.addEventListener("click", toggleMenu);
-
-    function toggleMenu() {
-      menuPanel.classList.toggle("show");
-    }
-
-    function scrollToSection(id) {
-      const section = document.getElementById(id);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+    // Toggle keranjang sticky dengan tombol kecil bundar
+    keranjangFixedBtn.addEventListener('click', () => {
+      if (keranjangSticky.style.display === 'none' || keranjangSticky.style.display === '') {
+        keranjangSticky.style.display = 'block';
+      } else {
+        keranjangSticky.style.display = 'none';
       }
-      toggleMenu();
-    }
+    });
+
+    // Init keranjang hidden
+    document.addEventListener('DOMContentLoaded', () => {
+      keranjangSticky.style.display = 'none';
+      updateKeranjang();
+    });
   </script>
 </body>
+
 </html>
