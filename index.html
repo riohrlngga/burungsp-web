@@ -698,52 +698,72 @@
 
   <!-- ... isi halaman ... -->
 
-  <!-- Keranjang sticky -->
-  <div id="keranjang-sticky" style="position: fixed; bottom: 20px; left: 20px; background: #ff69b4; color: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(255,105,180,0.7); z-index: 9999; max-width: 280px; font-weight: bold; cursor: pointer;" onclick="buatLinkWhatsApp()" title="Klik buat checkout via WhatsApp">
-    🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
-    <ul id="daftar-pesanan-sticky" style="margin-top: 8px; max-height: 200px; overflow-y: auto; padding-left: 15px;"></ul>
-  </div>
+  <div id="keranjang-sticky" 
+  style="position: fixed; bottom: 20px; left: 20px; background: #ff69b4; color: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(255,105,180,0.7); z-index: 9999; max-width: 280px; font-weight: bold; cursor: pointer;">
+  🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
+  <ul id="daftar-pesanan-sticky" style="margin-top: 8px; max-height: 200px; overflow-y: auto; padding-left: 15px;"></ul>
+  
+  <!-- Tombol lanjutkan pesanan -->
+  <button 
+    id="btn-lanjutkan" 
+    style="margin-top: 10px; width: 100%; padding: 8px 0; border:none; border-radius: 8px; background: #00ff88; color: #000; font-weight: bold; cursor: pointer;"
+    onclick="buatLinkWhatsApp()"
+  >
+    Lanjutkan Pesanan
+  </button>
+</div>
 
-  <script>
-    const pesanan = [];
+<script>
+  const pesanan = [];
 
-    function tambahKePesanan(item) {
-      pesanan.push(item);
-      updateKeranjang();
+  function tambahKePesanan(item) {
+    pesanan.push(item);
+    updateKeranjang();
+  }
+
+  function hapusPesanan(index) {
+    pesanan.splice(index, 1);
+    updateKeranjang();
+  }
+
+  function updateKeranjang() {
+    const daftarSticky = document.getElementById('daftar-pesanan-sticky');
+    const jumlahPesanan = document.getElementById('jumlah-pesanan');
+
+    daftarSticky.innerHTML = '';
+
+    pesanan.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.style.marginBottom = '6px';
+      li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
+      daftarSticky.appendChild(li);
+    });
+
+    jumlahPesanan.textContent = pesanan.length;
+
+    // Disable tombol jika keranjang kosong
+    document.getElementById('btn-lanjutkan').disabled = pesanan.length === 0;
+    if(pesanan.length === 0) {
+      document.getElementById('btn-lanjutkan').style.background = '#555'; // warna disabled
+      document.getElementById('btn-lanjutkan').style.color = '#aaa';
+      document.getElementById('btn-lanjutkan').style.cursor = 'not-allowed';
+    } else {
+      document.getElementById('btn-lanjutkan').style.background = '#00ff88';
+      document.getElementById('btn-lanjutkan').style.color = '#000';
+      document.getElementById('btn-lanjutkan').style.cursor = 'pointer';
+    }
+  }
+
+  function buatLinkWhatsApp() {
+    if(pesanan.length === 0) {
+      alert("Keranjang masih kosong!");
+      return;
     }
 
-    function hapusPesanan(index) {
-      pesanan.splice(index, 1);
-      updateKeranjang();
-    }
-
-    function updateKeranjang() {
-      const daftarSticky = document.getElementById('daftar-pesanan-sticky');
-      const jumlahPesanan = document.getElementById('jumlah-pesanan');
-
-      daftarSticky.innerHTML = '';
-
-      pesanan.forEach((item, i) => {
-        const li = document.createElement('li');
-        li.style.marginBottom = '6px';
-        li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" ...>Hapus</button>`;
-
-        daftarSticky.appendChild(li);
-      });
-
-      jumlahPesanan.textContent = pesanan.length;
-    }
-
-    function buatLinkWhatsApp() {
-      if(pesanan.length === 0) {
-        alert("Keranjang masih kosong!");
-        return;
-      }
-
-      const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-      window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
-    }
-  </script>
+    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
+    window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
+  }
+</script>
 
 </body>
 
