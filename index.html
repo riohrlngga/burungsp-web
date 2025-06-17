@@ -1,620 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>BURUNG SP POD STORE</title>
-  <!-- SEO Meta Tags untuk BurungSP -->
-<meta name="description" content="BURUNG SP POD STORE - Surga-nya Para Vapers! Menjual liquid, device FOOM, catridge, dan custom pod original di Indonesia.">
-<meta name="keywords" content="vape, liquid foom, pod Indonesia, catridge, burungsp, vape murah, custom pod, foom original">
-<meta name="author" content="BurungSP">
-
-<!-- OpenGraph (Facebook, WhatsApp, LinkedIn, dll) -->
-<meta property="og:title" content="BURUNG SP POD STORE - Surga-nya Para Vapers!">
-<meta property="og:description" content="Liquid, Device FOOM, dan Custom Pod Terpercaya di Indonesia. 100% Original & Garansi!">
-<meta property="og:image" content="https://burungsp.com/logo.png">
-<meta property="og:url" content="https://burungsp.com/">
-<meta property="og:type" content="website">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BURUNG SP POD STORE">
-<meta name="twitter:description" content="Liquid FOOM, pod original, dan promo menarik buat vapers sejati!">
-<meta name="twitter:image" content="https://burungsp.com/logo.png">
-
-<!-- Favicon -->
-<link rel="icon" href="https://burungsp.com/logo.png" type="image/png">
-
-<!-- Structured Data Logo Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Burung SP",
-  "url": "https://burungsp.com",
-  "logo": "https://burungsp.com/logo.png"
-}
-</script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    body
-    {
-      font-size: 1.15em;
-      font-weight: bold;
-      background-color: #000;
-      background-image: url('logo_bg_optimized.png');
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: 900px;
-      background-attachment: fixed;
-      color: #ff69b4;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-    }
-    
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 60px 20px 40px;
-      color: #ff69b4;
-      position: relative;
-      text-align: center;
-    }
-
-    header .logo-left,
-    header .logo-right {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 200px;
-      height: auto;
-    }
-
-    header .logo-left { left: 20px; }
-    header .logo-right { right: 20px; }
-
-    header h1 {
-      font-size: 2.8em;
-      margin: 10px 0 0.3em;
-    }
-
-    header p {
-      margin: 6px 0;
-      font-size: 1.15em;
-    }
-
-    section {
-      max-width: 960px;
-      margin: 30px auto;
-      padding: 25px 20px;
-      border-radius: 10px;
-      background-color: rgba(0,0,0,0.3);
-    }
-
-    h2 {
-      font-size: 1.6em;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #ff69b4;
-      padding-bottom: 5px;
-    }
-
-    ul {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      padding: 0;
-      list-style: none;
-      margin-top: 10px;
-    }
-
-    li {
-      background-color: rgba(255,255,255,0.05);
-      border: 1px solid #ff69b4;
-      border-radius: 8px;
-      padding: 10px 15px;
-      box-sizing: border-box;
-    }
-
-    .product-images {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
-  gap: 20px;
-  margin-top: 20px;
-}
-
-    .product-images img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-
-    .cta {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .cta a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      color: white;
-    }
-
-    .cta a.whatsapp { background-color: #25D366; }
-    .cta a.telegram { background-color: #0088cc; }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 1.8em; }
-      header p { font-size: 1em; }
-
-      header .logo-left,
-      header .logo-right {
-        width: 120px;
-      }
-    }
-.marquee {
-  margin-top: 20px;
-  overflow: hidden;
-  position: relative;
-  height: 40px;
-}
-
-.marquee-text {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 180px;
-  padding-right: 180px;
-  animation: scroll-left 12s linear infinite;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-@keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}.lightbox:target {
-  display: flex;
-}
-
-.lightbox {
-  display: none;
-  position: fixed;
-  z-index: 100;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255,255,255,0.3);
-}
-
-.lightbox:target::before {
-  content: '✕';
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 3rem;
-  color: white;
-  cursor: pointer;
-}
-.whatsapp-fixed {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  background-color: #25D366;
-  border-radius: 50%;
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.whatsapp-fixed img {
-  width: 44px;
-  height: 44px;
-  width: 50px;
-  height: 50px;
-}
-} .notifikasi-blink {
-  background-color: #ff69b4;
-  color: #00ff88;
-  text-align: center;
-  font-size: 1.1em;
-  font-weight: bold;
-  padding: 14px;
-  animation: nyala 1s infinite alternate;
-  box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-}
-
-@keyframes nyala {
-  0% { opacity: 1; }
-  100% { opacity: 0.5; }
-}
-.product-images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-.product-images img {
-  width: 100px;
-  height: auto;
-  cursor: pointer;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
-    .product-images {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.product-images img {
-  width: 100px;
-  height: auto;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
-  transition: transform 0.2s ease;
-}
-
-.product-images img:hover {
-  transform: scale(1.05);
-}
-
-.lightbox-target {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.lightbox-target.active {
-  display: flex;
-}
-
-.lightbox-target img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-}
-
-.keterangan-box {
-  border: 1px solid #ff69b4;
-  padding: 12px 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-weight: bold;
-  color: #ff69b4;
-  background-color: rgba(255, 105, 180, 0.1);
-  text-align: center;
-  max-width: 960px;  /* batas maksimal lebar */
-  margin-left: auto;
-  margin-right: auto;
-  word-wrap: break-word; /* biar teks gak meluber */
-}
-    section {
-  text-align: center;
-}
-   h2 {
-  display: block;
-  text-align: center;
-  border-bottom: 2px solid #ff69b4;
-  padding-bottom: 5px;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-
-</style>
-
-  </style>
-</head>
- 
-
-<body>
-  <header>
-  <img src="logo.png" alt="Logo Kiri" class="logo-left" />
-  <h1>BURUNG SP (POD STORE)</h1>
-  <p>🔥 Surga-nya Para Vapers! 🔥</p>
-  <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
-  <img src="logo.png" alt="Logo Kanan" class="logo-right" />
-
-  <div class="marquee">
-    <div class="marquee-text">
-      🚨 PROMO MINGGU INI: BELI DEVICE GRATIS LIQUID – STOCK TERBATAS! 🚨
-    </div>
-  </div>
-    <div class="info-stock-blink">
-  ⬇️ UNTUK STOCK READY ADA DI BAGIAN PALING BAWAH YA BOSKU 🔥📦
-</div>
-
-<style>
-.info-stock-blink {
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.2em;
-  color: #00ff88;
-  background-color: #ff69b4;
-  padding: 14px;
-  margin: 20px auto;
-  animation: blink 1s infinite alternate;
-  box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
-  width: fit-content;
-  border-radius: 8px;
-}
-
-@keyframes blink {
-  0% { opacity: 1; }
-  100% { opacity: 0.5; }
-}.lightbox-target {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.lightbox-target img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-.lightbox-target .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 40px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.lightbox-target.active {
-  display: flex;
-}
-
-.product-images {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.product-images img {
-  width: 100px;
-  height: auto;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
-}
-
-.product-images img:hover {
-  transform: scale(1.05);
-}
-<style>
-  /* ...CSS lainnya... */
-
-  .keranjang-fixed {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 9999;
-    background-color: #ff69b4;
-    color: white;
-    font-size: 40px;
-    padding: 12px 18px;
-    border-radius: 50%;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-
-  .keranjang-fixed:hover {
-    transform: scale(1.1);
-    background-color: #ff4fa2;
-  }
-</style>
-
-</style>
-
-</header>
-  <section>
-  <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
-  <ul>
-    <li onclick="tambahKePesanan('🍑 Icy Mango')" style="cursor:pointer;">🍑 Icy Mango</li>
-    <li onclick="tambahKePesanan('🍓 Icy Strawberry')" style="cursor:pointer;">🍓 Icy Strawberry</li>
-    <li onclick="tambahKePesanan('🫐 Icy Berry')" style="cursor:pointer;">🫐 Icy Berry</li>
-    <li onclick="tambahKePesanan('🍈 Icy Honeydew')" style="cursor:pointer;">🍈 Icy Honeydew</li>
-    <li onclick="tambahKePesanan('🍒 Icy Lychee')" style="cursor:pointer;">🍒 Icy Lychee</li>
-    <li onclick="tambahKePesanan('🍏 Icy Apple')" style="cursor:pointer;">🍏 Icy Apple</li>
-    <li onclick="tambahKePesanan('🍇 Icy Grape')" style="cursor:pointer;">🍇 Icy Grape</li>
-    <li onclick="tambahKePesanan('🍍 Icy Pineapple Salt')" style="cursor:pointer;">🍍 Icy Pineapple Salt</li>
-    <li onclick="tambahKePesanan('🍌 Icy Banana')" style="cursor:pointer;">🍌 Icy Banana</li>
-    <li onclick="tambahKePesanan('❄️ Icy Menthol')" style="cursor:pointer;">❄️ Icy Menthol</li>
-    <li onclick="tambahKePesanan('🍒 Guava Cherry')" style="cursor:pointer;">🍒 Guava Cherry</li>
-    <li onclick="tambahKePesanan('🥭 Mango Cranberry')" style="cursor:pointer;">🥭 Mango Cranberry</li>
-    <li onclick="tambahKePesanan('🍒 Lychee Raspberry')" style="cursor:pointer;">🍒 Lychee Raspberry</li>
-    <li onclick="tambahKePesanan('🍌 Banana Cream')" style="cursor:pointer;">🍌 Banana Cream</li>
-    <li onclick="tambahKePesanan('🍓 Lite Berry')" style="cursor:pointer;">🍓 Lite Berry</li>
-    <li onclick="tambahKePesanan('🥭 Lite Mango')" style="cursor:pointer;">🥭 Lite Mango</li>
-    <li onclick="tambahKePesanan('🍉 Lite Watermelon')" style="cursor:pointer;">🍉 Lite Watermelon</li>
-    <li onclick="tambahKePesanan('🍇 Fresh Berry')" style="cursor:pointer;">🍇 Fresh Berry</li>
-    <li onclick="tambahKePesanan('🥭 Fresh Mango')" style="cursor:pointer;">🥭 Fresh Mango</li>
-    <li onclick="tambahKePesanan('🍎 Red Apple')" style="cursor:pointer;">🍎 Red Apple</li>
-    <li onclick="tambahKePesanan('🥝 Green Kiwi x Ericarl')" style="cursor:pointer;">🥝 Green Kiwi x Ericarl</li>
-    <li onclick="tambahKePesanan('🍑 Iced Peach Tea')" style="cursor:pointer;">🍑 Iced Peach Tea</li>
-    <li onclick="tambahKePesanan('🍒 Iced Lychee Tea')" style="cursor:pointer;">🍒 Iced Lychee Tea</li>
-    <li onclick="tambahKePesanan('🍋 Iced Lemon Tea')" style="cursor:pointer;">🍋 Iced Lemon Tea</li>
-    <li onclick="tambahKePesanan('☕ Iced Cappuccino')" style="cursor:pointer;">☕ Iced Cappuccino</li>
-    <li onclick="tambahKePesanan('🥑 Avocado Shake')" style="cursor:pointer;">🥑 Avocado Shake</li>
-    <li onclick="tambahKePesanan('🍓 Strawberry Mint')" style="cursor:pointer;">🍓 Strawberry Mint</li>
-    <li onclick="tambahKePesanan('🍓 Strawberry Soda')" style="cursor:pointer;">🍓 Strawberry Soda</li>
-    <li onclick="tambahKePesanan('🥤 Sarsaparilla')" style="cursor:pointer;">🥤 Sarsaparilla</li>
-    <li onclick="tambahKePesanan('🌱 Mung Bean')" style="cursor:pointer;">🌱 Mung Bean</li>
-    <li onclick="tambahKePesanan('🍵 Matchalatte')" style="cursor:pointer;">🍵 Matchalatte</li>
-    <li onclick="tambahKePesanan('🥤 Frappuccino')" style="cursor:pointer;">🥤 Frappuccino</li>
-    <li onclick="tambahKePesanan('🍫 Chocolate Ice Cream')" style="cursor:pointer;">🍫 Chocolate Ice Cream</li>
-    <li onclick="tambahKePesanan('🍦 Vanila Ice Cream')" style="cursor:pointer;">🍦 Vanila Ice Cream</li>
-    <li onclick="tambahKePesanan('🍰 Tiramisu Ice Cream')" style="cursor:pointer;">🍰 Tiramisu Ice Cream</li>
-    <li onclick="tambahKePesanan('🍓 Strawberry Ice Cream')" style="cursor:pointer;">🍓 Strawberry Ice Cream</li>
-    <li onclick="tambahKePesanan('🫐 Blueberry Cheese Ice Cream')" style="cursor:pointer;">🫐 Blueberry Cheese Ice Cream</li>
-    <li onclick="tambahKePesanan('🍈 Tropical Starfruit')" style="cursor:pointer;">🍈 Tropical Starfruit</li>
-    <li onclick="tambahKePesanan('🍈 Vidi Soursop')" style="cursor:pointer;">🍈 Vidi Soursop</li>
-    <li onclick="tambahKePesanan('🍑 Vici Guava')" style="cursor:pointer;">🍑 Vici Guava</li>
-    <li onclick="tambahKePesanan('🍑 Vini Peach')" style="cursor:pointer;">🍑 Vini Peach</li>
-    <li onclick="tambahKePesanan('🍨 Mix Berry Ice Cream')" style="cursor:pointer;">🍨 Mix Berry Ice Cream</li>
-    <li onclick="tambahKePesanan('🥭 Mango Bubblegum')" style="cursor:pointer;">🥭 Mango Bubblegum</li>
-    <li onclick="tambahKePesanan('🍇 Blackcurrant Lychee Tea')" style="cursor:pointer;">🍇 Blackcurrant Lychee Tea</li>
-    <li onclick="tambahKePesanan('🥭 Passionfruit Mango Tea')" style="cursor:pointer;">🥭 Passionfruit Mango Tea</li>
-    <li onclick="tambahKePesanan('🥛 Milk Tobacco')" style="cursor:pointer;">🥛 Milk Tobacco</li>
-    <li onclick="tambahKePesanan('🥥 Coconut Water')" style="cursor:pointer;">🥥 Coconut Water</li>
-  </ul>
-</section>
-
-
-  <section>
-  <h2>💧 FREEBASE ALA CARTE – 550B</h2>
-  <ul>
-    <li onclick="tambahKePesanan('Cream Raisin')" style="cursor:pointer;">Cream Raisin</li>
-    <li onclick="tambahKePesanan('Cream Banana')" style="cursor:pointer;">Cream Banana</li>
-    <li onclick="tambahKePesanan('Cream Biscuit')" style="cursor:pointer;">Cream Biscuit</li>
-    <li onclick="tambahKePesanan('Cream Poundcake')" style="cursor:pointer;">Cream Poundcake</li>
-    <li onclick="tambahKePesanan('Banana Pudding')" style="cursor:pointer;">Banana Pudding</li>
-    <li onclick="tambahKePesanan('Cheesecake Delight')" style="cursor:pointer;">Cheesecake Delight</li>
-    <li onclick="tambahKePesanan('Vanilla Custard')" style="cursor:pointer;">Vanilla Custard</li>
-  </ul>
-</section>
-
-
-  <section>
-  <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
-  <ul>
-    <li onclick="tambahKePesanan('Mango 🔥🔥')" style="cursor:pointer;">Mango 🔥🔥</li>
-    <li onclick="tambahKePesanan('Banana 🌪️')" style="cursor:pointer;">Banana 🌪️</li>
-    <li onclick="tambahKePesanan('Lychee ⚡⚡')" style="cursor:pointer;">Lychee ⚡⚡</li>
-    <li onclick="tambahKePesanan('Grape Bubblegum 💨💜')" style="cursor:pointer;">Grape Bubblegum 💨💜</li>
-    <li onclick="tambahKePesanan('Watermelon 🌊🍃')" style="cursor:pointer;">Watermelon 🌊🍃</li>
-    <li onclick="tambahKePesanan('Guava 🌟✨')" style="cursor:pointer;">Guava 🌟✨</li>
-    <li onclick="tambahKePesanan('Peach Tea ☕🌸')" style="cursor:pointer;">Peach Tea ☕🌸</li>
-  </ul>
-</section>
-
-  <section>
-  <h2>🍓🍇 LIQUID BUAQITA 🍉🍍</h2>
-
-  <p><strong>Rasa Buah:</strong></p>
-  <ul>
-    <li onclick="tambahKePesanan('🫐 Blueberry')" style="cursor:pointer;">🫐 Blueberry</li>
-    <li onclick="tambahKePesanan('🍈 Honeydew')" style="cursor:pointer;">🍈 Honeydew</li>
-    <li onclick="tambahKePesanan('🍓 Strawberry')" style="cursor:pointer;">🍓 Strawberry</li>
-    <li onclick="tambahKePesanan('🥭 Guava')" style="cursor:pointer;">🥭 Guava</li>
-    <li onclick="tambahKePesanan('🍇 Grape')" style="cursor:pointer;">🍇 Grape</li>
-    <li onclick="tambahKePesanan('🥑 Avocado')" style="cursor:pointer;">🥑 Avocado</li>
-    <li onclick="tambahKePesanan('🫐 Blackcurrant')" style="cursor:pointer;">🫐 Blackcurrant</li>
-    <li onclick="tambahKePesanan('🍊 Orange')" style="cursor:pointer;">🍊 Orange</li>
-    <li onclick="tambahKePesanan('🍏 Apple')" style="cursor:pointer;">🍏 Apple</li>
-    <li onclick="tambahKePesanan('🍉 Watermelon')" style="cursor:pointer;">🍉 Watermelon</li>
-    <li onclick="tambahKePesanan('🥭 Mango')" style="cursor:pointer;">🥭 Mango</li>
-  </ul>
-
-  <p><strong>Varian Gummy:</strong></p>
-  <ul>
-    <li onclick="tambahKePesanan('🍇 Grape Gummy')" style="cursor:pointer;">🍇 Grape</li>
-    <li onclick="tambahKePesanan('🍓 Strawberry Gummy')" style="cursor:pointer;">🍓 Strawberry</li>
-    <li onclick="tambahKePesanan('🍈 Honeydew Gummy')" style="cursor:pointer;">🍈 Honeydew</li>
-  </ul>
-
-  <p><strong>Varian Salt Nic:</strong></p>
-  <ul>
-    <li onclick="tambahKePesanan('🍓 BuaQita Strawberry Salt Nic')" style="cursor:pointer;">🍓 BuaQita Strawberry Salt Nic</li>
-    <li onclick="tambahKePesanan('🥭 BuaQita Mango Salt Nic')" style="cursor:pointer;">🥭 BuaQita Mango Salt Nic</li>
-    <li onclick="tambahKePesanan('🍉 BuaQita Watermelon Salt Nic')" style="cursor:pointer;">🍉 BuaQita Watermelon Salt Nic</li>
-    <li onclick="tambahKePesanan('🥑 BuaQita Avocado Salt Nic')" style="cursor:pointer;">🥑 BuaQita Avocado Salt Nic</li>
-    <li onclick="tambahKePesanan('🍊 BuaQita Orange Salt Nic')" style="cursor:pointer;">🍊 BuaQita Orange Salt Nic</li>
-  </ul>
-</section>
-
-  <section style="text-align: center; margin: 30px auto; max-width: 960px; color: #ff69b4; font-weight: bold; font-size: 1.15em;">
-  📞 Jika bosku memiliki varian liquid atau merk liquid lain, bosku bisa melakukan pemesanan melalui nomor WhatsApp kami ya bosku! 🔥
-</section>
-
-
- <section>
-  <h2>🔥 DEVICE FOOM</h2>
-  <ul>
-    <li onclick="tambahKePesanan('POD X (Hot Pink / Wild Purple / Black) – 1700B')" style="cursor:pointer;">
-      POD X (Hot Pink / Wild Purple / Black) – 1700B
-    </li>
-    <li onclick="tambahKePesanan('POD X SIGNATURE + FREE LIQUID – 1900B')" style="cursor:pointer;">
-      POD X SIGNATURE + FREE LIQUID – 1900B
-    </li>
-    <li onclick="tambahKePesanan('POD X WEIRD GENIUS + FREE LIQUID – 1750B')" style="cursor:pointer;">
-      POD X WEIRD GENIUS + FREE LIQUID – 1750B
-    </li>
-    <li onclick="tambahKePesanan('✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!')" style="cursor:pointer;">
-      <strong>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!</strong>
-    </li>
-    <li onclick="tambahKePesanan('Banyak lagi, silakan request langsung hubungi kami!')" style="cursor:pointer;">
-      Banyak lagi, silakan request langsung hubungi kami!
-    </li>
-  </ul>
-</section>
-
-  <h2>🛠️ Device Lain</h2>
-  <div class="keterangan-box">
-    📱 Silahkan request melalui WhatsApp ya bosku 😄🔥
-  </div>
-</section>
-
-
-  <section>
-  <h2>🔄 CATRIDGE</h2>
-  <ul>
-    <li onclick="tambahKePesanan('Catridge X: 1 pcs 150B | 1 pack 420B')" style="cursor:pointer;">
-      Catridge X: 1 pcs 150B | 1 pack 420B
-    </li>
-    <li onclick="tambahKePesanan('Catridge Y: 1 pcs 155B | 1 pack 450B')" style="cursor:pointer;">
-      Catridge Y: 1 pcs 155B | 1 pack 450B
-    </li>
-    <li onclick="tambahKePesanan('📦 Catridge lain atau tidak ada di menu kami')" style="cursor:pointer;">
-      📦 Catridge lain atau tidak ada di menu kami,Kami siap melayani melalui WhatsApp ya bosku 😊🔥
+@@ -618,7 +618,117 @@ <h2>🔄 CATRIDGE</h2>
     </li>
   </ul>
 </section>
@@ -622,7 +6,6 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
     authDomain: "burungsp-69fdb.firebaseapp.com",
@@ -632,32 +15,25 @@
     appId: "1:743244451524:web:c55f9871a8debfa6238391",
     measurementId: "G-LSYDF74Q16"
   };
-
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
   async function tampilkanProduk() {
     const querySnapshot = await getDocs(collection(db, "produk"));
-
     const sections = {
       foom: document.querySelector('section h2:contains("DEVICE FOOM")')?.nextElementSibling,
       liquid: document.querySelector('section h2:contains("LIQUID FOOM")')?.nextElementSibling,
       catridge: document.querySelector('section h2:contains("CATRIDGE")')?.nextElementSibling,
     };
-
     querySnapshot.forEach(docItem => {
       const item = docItem.data();
       const kategori = item.kategori?.toLowerCase();
-
       if (sections[kategori]) {
         sections[kategori].innerHTML += `<li>${item.nama} – ${item.harga}B | Stok: ${item.stok}</li>`;
       }
     });
   }
-
   document.addEventListener("DOMContentLoaded", tampilkanProduk);
 </script>
-
 <!-- Tambah CSS opsional -->
 <style>
   .produk-box {
@@ -669,16 +45,12 @@
     margin-bottom: 10px;
   }
 </style>
-
         <section id="produk-dari-firebase"></section>
-
         <!-- Paste this inside your index.html before </body> -->
-
 <!-- Tambah Firebase Produk Display -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
     authDomain: "burungsp-69fdb.firebaseapp.com",
@@ -688,10 +60,8 @@
     appId: "1:743244451524:web:c55f9871a8debfa6238391",
     measurementId: "G-LSYDF74Q16"
   };
-
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
   async function tampilkanProduk() {
     const querySnapshot = await getDocs(collection(db, "produk"));
     const container = document.getElementById("produk-dari-firebase");
@@ -706,11 +76,9 @@
         </div>`;
     });
   }
-
   // Jalankan saat halaman siap
   document.addEventListener("DOMContentLoaded", tampilkanProduk);
 </script>
-
 <!-- Tambah elemen tampungan -->
 <div id="produk-dari-firebase"></div>
 
@@ -732,159 +100,105 @@
 
   <section>
  <section>
-  <h2>🖼️ Contoh Gambar Produk</h2>
-  <div class="product-images">
-    <img src="foom_custom1.webp" alt="Foom Custom 1" onclick="openLightbox('foom_custom1.webp')">
-    <img src="foom_custom2.webp" alt="Foom Custom 2" onclick="openLightbox('foom_custom2.webp')">
-    <img src="foom_custom3.webp" alt="Foom Custom 3" onclick="openLightbox('foom_custom3.webp')">
-    <img src="ALA CARTE.png" alt="À La Carte Saltnic Edition" loading="lazy" onclick="openLightbox('ALA CARTE.png')">
-    <img src="BUAQITA LIQUID.png" alt="BuaQita Liquid" loading="lazy" onclick="openLightbox('BUAQITA LIQUID.png')">
-    <img src="cartidge oxva.png" alt="Cartidge OXVA" loading="lazy" onclick="openLightbox('cartidge oxva.png')">
-    <img src="catridge x foom.png" alt="Catridge X FOOM" loading="lazy" onclick="openLightbox('catridge x foom.png')">
-    <img src="prediski.png" alt="Prediski Liquid" loading="lazy" onclick="openLightbox('prediski.png')">
-    <img src="WG FOOM.png" alt="WG FOOM" loading="lazy" onclick="openLightbox('WG FOOM.png')">
-    <img src="foom_custom4.webp" alt="Foom Custom 4" onclick="openLightbox('foom_custom4.webp')">
-    <img src="foom_custom5.webp" alt="Foom Custom 5" onclick="openLightbox('foom_custom5.webp')">
-    <img src="foom_custom6.webp" alt="Foom Custom 6" onclick="openLightbox('foom_custom6.webp')">
-    <img src="foom_custom7.webp" alt="Foom Custom 7" onclick="openLightbox('foom_custom7.webp')">
-    <img src="foom_custom8.webp" alt="Foom Custom 8" onclick="openLightbox('foom_custom8.webp')">
-    <img src="foom_custom9.webp" alt="Foom Custom 9" onclick="openLightbox('foom_custom9.webp')">
-    <img src="foom_liquids.webp" alt="Foom Liquids" onclick="openLightbox('foom_liquids.webp')">
-    <img src="foom_now_device.webp" alt="Foom Now Device" onclick="openLightbox('foom_now_device.webp')">
-    <img src="foom_pod_x.webp" alt="Foom Pod X" onclick="openLightbox('foom_pod_x.webp')">
-    <img src="foom_signature.webp" alt="Foom Signature" onclick="openLightbox('foom_signature.webp')">
-  </div>
-</section>
-
-<!-- Lightbox Viewer -->
-<div class="lightbox-target" id="lightbox">
-  <span class="close" onclick="closeLightbox()">×</span>
-  <img id="lightbox-img" src="" alt="Preview" />
-</div>
-
-
-
-  </section>
-
-  <section class="cta">
-    <h2>📲 Chat & Order Sekarang!</h2>
-    <p>💬 BEBAS REQUEST POD BRAND LAIN BOSKUUU!</p>
-    <p>📱 Whatsapp: <strong>082183088613</strong><br>📨 Telegram: <strong>083115018221</strong></p>
-    <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+Liquid,device+liquid+atau+catridge+BurungSP!" target="_blank">Chat via WhatsApp</a>
-    <a class="telegram" href="https://t.me/@sashaaaaaabuy" target="_blank">Chat via Telegram</a>
-  </section>
-  <a href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!"
-   class="whatsapp-fixed"
-   target="_blank"
-   aria-label="Chat WhatsApp">
-  <img src="E96F0016-EF7C-4D27-AE64-A926E2E15F47.png" alt="WhatsApp Icon">
-</a>
-</a>
-<!-- Tempatkan footer DI SINI -->
-<footer style="text-align:center; padding: 30px 10px; font-size: 0.9em; color: #aaa; border-top: 1px solid #444; margin-top: 40px;">
-  <p>Hak Cipta © 2025 BurungSP. Seluruh hak cipta dilindungi.</p>
-  <p>
-    <a href="/tentang-kami.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">Tentang Kami</a> |
-    <a href="/cara-order.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">Cara Order</a> |
-    <a href="/faq.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">FAQ</a> |
-    <a href="/pages.html" target="_blank" style="color:#ff69b4; text-decoration:none; margin:0 8px;">Peta Situs</a>
-  </p>
-</footer>
-
-        
-
-<!-- Firebase script di bawah ini boleh tetap di sini -->
-<script type="module">
-  // ...
-</script>
-  <script>
-  function openLightbox(src) {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    lightboxImg.src = src;
-    lightbox.classList.add('active');
-  }
-
-  function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    lightbox.classList.remove('active');
-  }
-</script>
-
-  <!-- Keranjang Sticky di kiri bawah -->
- 
-
-  <!-- ... isi halaman ... -->
-
-  <div id="keranjang-sticky" 
-  style="position: fixed; bottom: 20px; left: 20px; background: #ff69b4; color: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(255,105,180,0.7); z-index: 9999; max-width: 280px; font-weight: bold; cursor: pointer;">
-  🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
-  <ul id="daftar-pesanan-sticky" style="margin-top: 8px; max-height: 200px; overflow-y: auto; padding-left: 15px;"></ul>
-  
-  <!-- Tombol lanjutkan pesanan -->
-  <button 
-    id="btn-lanjutkan" 
-    style="margin-top: 10px; width: 100%; padding: 8px 0; border:none; border-radius: 8px; background: #00ff88; color: #000; font-weight: bold; cursor: pointer;"
-    onclick="buatLinkWhatsApp()"
-  >
-    Lanjutkan Pesanan
-  </button>
-</div>
-
-<script>
-  const pesanan = [];
-
-  function tambahKePesanan(item) {
-    pesanan.push(item);
-    updateKeranjang();
-  }
-
-  function hapusPesanan(index) {
-    pesanan.splice(index, 1);
-    updateKeranjang();
-  }
-
-  function updateKeranjang() {
-    const daftarSticky = document.getElementById('daftar-pesanan-sticky');
-    const jumlahPesanan = document.getElementById('jumlah-pesanan');
-
-    daftarSticky.innerHTML = '';
-
-    pesanan.forEach((item, i) => {
-      const li = document.createElement('li');
-      li.style.marginBottom = '6px';
-      li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
-      daftarSticky.appendChild(li);
-    });
-
-    jumlahPesanan.textContent = pesanan.length;
-
-    // Disable tombol jika keranjang kosong
-    document.getElementById('btn-lanjutkan').disabled = pesanan.length === 0;
-    if(pesanan.length === 0) {
-      document.getElementById('btn-lanjutkan').style.background = '#555'; // warna disabled
-      document.getElementById('btn-lanjutkan').style.color = '#aaa';
-      document.getElementById('btn-lanjutkan').style.cursor = 'not-allowed';
-    } else {
-      document.getElementById('btn-lanjutkan').style.background = '#00ff88';
-      document.getElementById('btn-lanjutkan').style.color = '#000';
-      document.getElementById('btn-lanjutkan').style.cursor = 'pointer';
-    }
-  }
-
-  function buatLinkWhatsApp() {
-    if(pesanan.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
-    }
-
-    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-    window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
-  }
-</script>
+@@ -775,120 +885,6 @@ <h2>📲 Chat & Order Sekarang!</h2>
 
 </body>
 
+        
+<!-- Tambah Firebase Produk Display Berdasarkan Kategori -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+    authDomain: "burungsp-69fdb.firebaseapp.com",
+    projectId: "burungsp-69fdb",
+    storageBucket: "burungsp-69fdb.firebasestorage.app",
+    messagingSenderId: "743244451524",
+    appId: "1:743244451524:web:c55f9871a8debfa6238391",
+    measurementId: "G-LSYDF74Q16"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  async function tampilkanProduk() {
+    const querySnapshot = await getDocs(collection(db, "produk"));
+    const sections = {
+      foom: document.querySelector('section h2:contains("DEVICE FOOM")')?.nextElementSibling,
+      liquid: document.querySelector('section h2:contains("LIQUID FOOM")')?.nextElementSibling,
+      catridge: document.querySelector('section h2:contains("CATRIDGE")')?.nextElementSibling,
+    };
+    querySnapshot.forEach(docItem => {
+      const item = docItem.data();
+      const kategori = item.kategori?.toLowerCase();
+      if (sections[kategori]) {
+        sections[kategori].innerHTML += `<li>${item.nama} – ${item.harga}B | Stok: ${item.stok}</li>`;
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", tampilkanProduk);
+</script>
+<!-- Tambah CSS opsional -->
+<style>
+  .produk-box {
+    background: #111;
+    color: #fff;
+    border: 1px solid #ff69b4;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+</style>
+        <section id="produk-dari-firebase"></section>
+        <!-- Paste this inside your index.html before </body> -->
+<!-- Tambah Firebase Produk Display -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+    authDomain: "burungsp-69fdb.firebaseapp.com",
+    projectId: "burungsp-69fdb",
+    storageBucket: "burungsp-69fdb.firebasestorage.app",
+    messagingSenderId: "743244451524",
+    appId: "1:743244451524:web:c55f9871a8debfa6238391",
+    measurementId: "G-LSYDF74Q16"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  async function tampilkanProduk() {
+    const querySnapshot = await getDocs(collection(db, "produk"));
+    const container = document.getElementById("produk-dari-firebase");
+    container.innerHTML = "";
+    querySnapshot.forEach(docItem => {
+      const item = docItem.data();
+      container.innerHTML += `
+        <div class="produk-box">
+          <h3>${item.nama}</h3>
+          <p>Harga: ${item.harga}B</p>
+          <p>Stok: ${item.stok}</p>
+        </div>`;
+    });
+  }
+  // Jalankan saat halaman siap
+  document.addEventListener("DOMContentLoaded", tampilkanProduk);
+</script>
+<!-- Tambah elemen tampungan -->
+<div id="produk-dari-firebase"></div>
+<!-- Tambah CSS opsional -->
+<style>
+  #produk-dari-firebase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .produk-box {
+    background: #111;
+    color: #fff;
+    border: 1px solid #ff69b4;
+    padding: 12px;
+    border-radius: 8px;
+  }
 </style>
 
 </html>
