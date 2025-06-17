@@ -424,133 +424,158 @@
 </style>
 
 </header>
+<!-- 🛒 Keranjang Pesanan -->
+<div id="keranjang" style="background:#111; color:#fff; border:1px solid #ff69b4; padding:15px; margin:30px auto; max-width:600px; border-radius:10px;">
+  <h3 style="color:#ff69b4;">🛍️ Pesanan Anda:</h3>
+  <ul id="daftar-pesanan" style="padding-left:18px;"></ul>
+  <button onclick="buatLinkWhatsApp()" style="margin-top:15px; background:#25D366; color:#fff; padding:10px 18px; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">
+    📲 Checkout via WhatsApp
+  </button>
+</div>
 
-  <section>
-    <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
-    <ul>
-      <li>🍑 Icy Mango</li>
-      <li>🍓 Icy Strawberry</li>
-      <li>🫐 Icy Berry</li>
-      <li>🍈 Icy Honeydew</li>
-      <li>🍒 Icy Lychee</li>
-      <li>🍏 Icy Apple</li>
-      <li>🍇 Icy Grape</li>
-      <li>🍍 Icy Pineapple Salt</li>
-      <li>🍌 Icy Banana</li>
-      <li>❄️ Icy Menthol</li>
-      <li>🍒 Guava Cherry</li>
-      <li>🥭 Mango Cranberry</li>
-      <li>🍒 Lychee Raspberry</li>
-      <li>🍌 Banana Cream</li>
-      <li>🍓 Lite Berry</li>
-      <li>🥭 Lite Mango</li>
-      <li>🍉 Lite Watermelon</li>
-      <li>🍇 Fresh Berry</li>
-      <li>🥭 Fresh Mango</li>
-      <li>🍎 Red Apple</li>
-      <li>🥝 Green Kiwi x Ericarl</li>
-      <li>🍑 Iced Peach Tea</li>
-      <li>🍒 Iced Lychee Tea</li>
-      <li>🍋 Iced Lemon Tea</li>
-      <li>☕ Iced Cappuccino</li>
-      <li>🥑 Avocado Shake</li>
-      <li>🍓 Strawberry Mint</li>
-      <li>🍓 Strawberry Soda</li>
-      <li>🥤 Sarsaparilla</li>
-      <li>🌱 Mung Bean</li>
-      <li>🍵 Matchalatte</li>
-      <li>🥤 Frappuccino</li>
-      <li>🍫 Chocolate Ice Cream</li>
-      <li>🍦 Vanila Ice Cream</li>
-      <li>🍰 Tiramisu Ice Cream</li>
-      <li>🍓 Strawberry Ice Cream</li>
-      <li>🫐 Blueberry Cheese Ice Cream</li>
-      <li>🍈 Tropical Starfruit</li>
-      <li>🍈 Vidi Soursop</li>
-      <li>🍑 Vici Guava</li>
-      <li>🍑 Vini Peach</li>
-      <li>🍨 Mix Berry Ice Cream</li>
-      <li>🥭 Mango Bubblegum</li>
-      <li>🍇 Blackcurrant Lychee Tea</li>
-      <li>🥭 Passionfruit Mango Tea</li>
-      <li>🥛 Milk Tobacco</li>
-      <li>🥥 Coconut Water</li>
-    </ul>
-  </section>
 
-  <section>
-    <h2>💧 FREEBASE ALA CARTE – 550B</h2>
-    <ul>
-      <li>Cream Raisin</li>
-      <li>Cream Banana</li>
-      <li>Cream Biscuit</li>
-      <li>Cream Poundcake</li>
-      <li>Banana Pudding</li>
-      <li>Cheesecake Delight</li>
-      <li>Vanilla Custard</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
-   <ul>
-  <li>Mango 🔥🔥</li>
-  <li>Banana 🌪️</li>
-  <li>Lychee ⚡⚡</li>
-  <li>Grape Bubblegum 💨💜</li>
-  <li>Watermelon 🌊🍃</li>
-  <li>Guava 🌟✨</li>
-  <li>Peach Tea ☕🌸</li>
-</ul>
-
-  </section>
-  <section>
-  <h2>🍓🍇 LIQUID BUAQITA 🍉🍍</h2>
-  <p><strong>Rasa buah:</strong></p>
+  <<section>
+  <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
   <ul>
-    <li>🫐 Blueberry</li>
-    <li>🍈 Honeydew</li>
-    <li>🍓 Strawberry</li>
-    <li>🥭 Guava</li>
-    <li>🍇 Grape</li>
-    <li>🥑 Avocado</li>
-    <li>🫐 Blackcurrant</li>
-    <li>🍊 Orange</li>
-    <li>🍏 Apple</li>
-    <li>🍉 Watermelon</li>
-    <li>🥭 Mango</li>
-  </ul>
-  <p><strong>Varian Gummy:</strong></p>
-  <ul>
-    <li>🍇 Grape</li>
-    <li>🍓 Strawberry</li>
-    <li>🍈 Honeydew</li>
-  </ul>
-  <p><strong>Varian Salt Nic:</strong></p>
-  <ul>
-    <li>🍓 BuaQita Strawberry Salt Nic</li>
-    <li>🥭 BuaQita Mango Salt Nic</li>
-    <li>🍉 BuaQita Watermelon Salt Nic</li>
-    <li>🥑 BuaQita Avocado Salt Nic</li>
-    <li>🍊 BuaQita Orange Salt Nic</li>
+    <li onclick="tambahKePesanan('🍑 Icy Mango')" style="cursor:pointer;">🍑 Icy Mango</li>
+    <li onclick="tambahKePesanan('🍓 Icy Strawberry')" style="cursor:pointer;">🍓 Icy Strawberry</li>
+    <li onclick="tambahKePesanan('🫐 Icy Berry')" style="cursor:pointer;">🫐 Icy Berry</li>
+    <li onclick="tambahKePesanan('🍈 Icy Honeydew')" style="cursor:pointer;">🍈 Icy Honeydew</li>
+    <li onclick="tambahKePesanan('🍒 Icy Lychee')" style="cursor:pointer;">🍒 Icy Lychee</li>
+    <li onclick="tambahKePesanan('🍏 Icy Apple')" style="cursor:pointer;">🍏 Icy Apple</li>
+    <li onclick="tambahKePesanan('🍇 Icy Grape')" style="cursor:pointer;">🍇 Icy Grape</li>
+    <li onclick="tambahKePesanan('🍍 Icy Pineapple Salt')" style="cursor:pointer;">🍍 Icy Pineapple Salt</li>
+    <li onclick="tambahKePesanan('🍌 Icy Banana')" style="cursor:pointer;">🍌 Icy Banana</li>
+    <li onclick="tambahKePesanan('❄️ Icy Menthol')" style="cursor:pointer;">❄️ Icy Menthol</li>
+    <li onclick="tambahKePesanan('🍒 Guava Cherry')" style="cursor:pointer;">🍒 Guava Cherry</li>
+    <li onclick="tambahKePesanan('🥭 Mango Cranberry')" style="cursor:pointer;">🥭 Mango Cranberry</li>
+    <li onclick="tambahKePesanan('🍒 Lychee Raspberry')" style="cursor:pointer;">🍒 Lychee Raspberry</li>
+    <li onclick="tambahKePesanan('🍌 Banana Cream')" style="cursor:pointer;">🍌 Banana Cream</li>
+    <li onclick="tambahKePesanan('🍓 Lite Berry')" style="cursor:pointer;">🍓 Lite Berry</li>
+    <li onclick="tambahKePesanan('🥭 Lite Mango')" style="cursor:pointer;">🥭 Lite Mango</li>
+    <li onclick="tambahKePesanan('🍉 Lite Watermelon')" style="cursor:pointer;">🍉 Lite Watermelon</li>
+    <li onclick="tambahKePesanan('🍇 Fresh Berry')" style="cursor:pointer;">🍇 Fresh Berry</li>
+    <li onclick="tambahKePesanan('🥭 Fresh Mango')" style="cursor:pointer;">🥭 Fresh Mango</li>
+    <li onclick="tambahKePesanan('🍎 Red Apple')" style="cursor:pointer;">🍎 Red Apple</li>
+    <li onclick="tambahKePesanan('🥝 Green Kiwi x Ericarl')" style="cursor:pointer;">🥝 Green Kiwi x Ericarl</li>
+    <li onclick="tambahKePesanan('🍑 Iced Peach Tea')" style="cursor:pointer;">🍑 Iced Peach Tea</li>
+    <li onclick="tambahKePesanan('🍒 Iced Lychee Tea')" style="cursor:pointer;">🍒 Iced Lychee Tea</li>
+    <li onclick="tambahKePesanan('🍋 Iced Lemon Tea')" style="cursor:pointer;">🍋 Iced Lemon Tea</li>
+    <li onclick="tambahKePesanan('☕ Iced Cappuccino')" style="cursor:pointer;">☕ Iced Cappuccino</li>
+    <li onclick="tambahKePesanan('🥑 Avocado Shake')" style="cursor:pointer;">🥑 Avocado Shake</li>
+    <li onclick="tambahKePesanan('🍓 Strawberry Mint')" style="cursor:pointer;">🍓 Strawberry Mint</li>
+    <li onclick="tambahKePesanan('🍓 Strawberry Soda')" style="cursor:pointer;">🍓 Strawberry Soda</li>
+    <li onclick="tambahKePesanan('🥤 Sarsaparilla')" style="cursor:pointer;">🥤 Sarsaparilla</li>
+    <li onclick="tambahKePesanan('🌱 Mung Bean')" style="cursor:pointer;">🌱 Mung Bean</li>
+    <li onclick="tambahKePesanan('🍵 Matchalatte')" style="cursor:pointer;">🍵 Matchalatte</li>
+    <li onclick="tambahKePesanan('🥤 Frappuccino')" style="cursor:pointer;">🥤 Frappuccino</li>
+    <li onclick="tambahKePesanan('🍫 Chocolate Ice Cream')" style="cursor:pointer;">🍫 Chocolate Ice Cream</li>
+    <li onclick="tambahKePesanan('🍦 Vanila Ice Cream')" style="cursor:pointer;">🍦 Vanila Ice Cream</li>
+    <li onclick="tambahKePesanan('🍰 Tiramisu Ice Cream')" style="cursor:pointer;">🍰 Tiramisu Ice Cream</li>
+    <li onclick="tambahKePesanan('🍓 Strawberry Ice Cream')" style="cursor:pointer;">🍓 Strawberry Ice Cream</li>
+    <li onclick="tambahKePesanan('🫐 Blueberry Cheese Ice Cream')" style="cursor:pointer;">🫐 Blueberry Cheese Ice Cream</li>
+    <li onclick="tambahKePesanan('🍈 Tropical Starfruit')" style="cursor:pointer;">🍈 Tropical Starfruit</li>
+    <li onclick="tambahKePesanan('🍈 Vidi Soursop')" style="cursor:pointer;">🍈 Vidi Soursop</li>
+    <li onclick="tambahKePesanan('🍑 Vici Guava')" style="cursor:pointer;">🍑 Vici Guava</li>
+    <li onclick="tambahKePesanan('🍑 Vini Peach')" style="cursor:pointer;">🍑 Vini Peach</li>
+    <li onclick="tambahKePesanan('🍨 Mix Berry Ice Cream')" style="cursor:pointer;">🍨 Mix Berry Ice Cream</li>
+    <li onclick="tambahKePesanan('🥭 Mango Bubblegum')" style="cursor:pointer;">🥭 Mango Bubblegum</li>
+    <li onclick="tambahKePesanan('🍇 Blackcurrant Lychee Tea')" style="cursor:pointer;">🍇 Blackcurrant Lychee Tea</li>
+    <li onclick="tambahKePesanan('🥭 Passionfruit Mango Tea')" style="cursor:pointer;">🥭 Passionfruit Mango Tea</li>
+    <li onclick="tambahKePesanan('🥛 Milk Tobacco')" style="cursor:pointer;">🥛 Milk Tobacco</li>
+    <li onclick="tambahKePesanan('🥥 Coconut Water')" style="cursor:pointer;">🥥 Coconut Water</li>
   </ul>
 </section>
+
+
+  <section>
+  <h2>💧 FREEBASE ALA CARTE – 550B</h2>
+  <ul>
+    <li onclick="tambahKePesanan('Cream Raisin')" style="cursor:pointer;">Cream Raisin</li>
+    <li onclick="tambahKePesanan('Cream Banana')" style="cursor:pointer;">Cream Banana</li>
+    <li onclick="tambahKePesanan('Cream Biscuit')" style="cursor:pointer;">Cream Biscuit</li>
+    <li onclick="tambahKePesanan('Cream Poundcake')" style="cursor:pointer;">Cream Poundcake</li>
+    <li onclick="tambahKePesanan('Banana Pudding')" style="cursor:pointer;">Banana Pudding</li>
+    <li onclick="tambahKePesanan('Cheesecake Delight')" style="cursor:pointer;">Cheesecake Delight</li>
+    <li onclick="tambahKePesanan('Vanilla Custard')" style="cursor:pointer;">Vanilla Custard</li>
+  </ul>
+</section>
+
+
+  <section>
+  <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
+  <ul>
+    <li onclick="tambahKePesanan('Mango 🔥🔥')" style="cursor:pointer;">Mango 🔥🔥</li>
+    <li onclick="tambahKePesanan('Banana 🌪️')" style="cursor:pointer;">Banana 🌪️</li>
+    <li onclick="tambahKePesanan('Lychee ⚡⚡')" style="cursor:pointer;">Lychee ⚡⚡</li>
+    <li onclick="tambahKePesanan('Grape Bubblegum 💨💜')" style="cursor:pointer;">Grape Bubblegum 💨💜</li>
+    <li onclick="tambahKePesanan('Watermelon 🌊🍃')" style="cursor:pointer;">Watermelon 🌊🍃</li>
+    <li onclick="tambahKePesanan('Guava 🌟✨')" style="cursor:pointer;">Guava 🌟✨</li>
+    <li onclick="tambahKePesanan('Peach Tea ☕🌸')" style="cursor:pointer;">Peach Tea ☕🌸</li>
+  </ul>
+</section>
+
+  <section>
+  <h2>🍓🍇 LIQUID BUAQITA 🍉🍍</h2>
+
+  <p><strong>Rasa Buah:</strong></p>
+  <ul>
+    <li onclick="tambahKePesanan('🫐 Blueberry')" style="cursor:pointer;">🫐 Blueberry</li>
+    <li onclick="tambahKePesanan('🍈 Honeydew')" style="cursor:pointer;">🍈 Honeydew</li>
+    <li onclick="tambahKePesanan('🍓 Strawberry')" style="cursor:pointer;">🍓 Strawberry</li>
+    <li onclick="tambahKePesanan('🥭 Guava')" style="cursor:pointer;">🥭 Guava</li>
+    <li onclick="tambahKePesanan('🍇 Grape')" style="cursor:pointer;">🍇 Grape</li>
+    <li onclick="tambahKePesanan('🥑 Avocado')" style="cursor:pointer;">🥑 Avocado</li>
+    <li onclick="tambahKePesanan('🫐 Blackcurrant')" style="cursor:pointer;">🫐 Blackcurrant</li>
+    <li onclick="tambahKePesanan('🍊 Orange')" style="cursor:pointer;">🍊 Orange</li>
+    <li onclick="tambahKePesanan('🍏 Apple')" style="cursor:pointer;">🍏 Apple</li>
+    <li onclick="tambahKePesanan('🍉 Watermelon')" style="cursor:pointer;">🍉 Watermelon</li>
+    <li onclick="tambahKePesanan('🥭 Mango')" style="cursor:pointer;">🥭 Mango</li>
+  </ul>
+
+  <p><strong>Varian Gummy:</strong></p>
+  <ul>
+    <li onclick="tambahKePesanan('🍇 Grape Gummy')" style="cursor:pointer;">🍇 Grape</li>
+    <li onclick="tambahKePesanan('🍓 Strawberry Gummy')" style="cursor:pointer;">🍓 Strawberry</li>
+    <li onclick="tambahKePesanan('🍈 Honeydew Gummy')" style="cursor:pointer;">🍈 Honeydew</li>
+  </ul>
+
+  <p><strong>Varian Salt Nic:</strong></p>
+  <ul>
+    <li onclick="tambahKePesanan('🍓 BuaQita Strawberry Salt Nic')" style="cursor:pointer;">🍓 BuaQita Strawberry Salt Nic</li>
+    <li onclick="tambahKePesanan('🥭 BuaQita Mango Salt Nic')" style="cursor:pointer;">🥭 BuaQita Mango Salt Nic</li>
+    <li onclick="tambahKePesanan('🍉 BuaQita Watermelon Salt Nic')" style="cursor:pointer;">🍉 BuaQita Watermelon Salt Nic</li>
+    <li onclick="tambahKePesanan('🥑 BuaQita Avocado Salt Nic')" style="cursor:pointer;">🥑 BuaQita Avocado Salt Nic</li>
+    <li onclick="tambahKePesanan('🍊 BuaQita Orange Salt Nic')" style="cursor:pointer;">🍊 BuaQita Orange Salt Nic</li>
+  </ul>
+</section>
+
   <section style="text-align: center; margin: 30px auto; max-width: 960px; color: #ff69b4; font-weight: bold; font-size: 1.15em;">
   📞 Jika bosku memiliki varian liquid atau merk liquid lain, bosku bisa melakukan pemesanan melalui nomor WhatsApp kami ya bosku! 🔥
 </section>
 
 
-  <section>
-    <h2>🔥 DEVICE FOOM</h2>
-    <ul>
-      <li>POD X (Hot Pink / Wild Purple / Black) – 1700B</li>
-      <li>POD X SIGNATURE + FREE LIQUID – 1900B</li>
-      <li>POD X WEIRD GENIUS + FREE LIQUID – 1750B</li>
-      <li><strong>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!</strong></li>
-      <li>Banyak lagi, silakan request langsung hubungi kami!</li>
-    </ul>
-  </section>
-<section>
+ <section>
+  <h2>🔥 DEVICE FOOM</h2>
+  <ul>
+    <li onclick="tambahKePesanan('POD X (Hot Pink / Wild Purple / Black) – 1700B')" style="cursor:pointer;">
+      POD X (Hot Pink / Wild Purple / Black) – 1700B
+    </li>
+    <li onclick="tambahKePesanan('POD X SIGNATURE + FREE LIQUID – 1900B')" style="cursor:pointer;">
+      POD X SIGNATURE + FREE LIQUID – 1900B
+    </li>
+    <li onclick="tambahKePesanan('POD X WEIRD GENIUS + FREE LIQUID – 1750B')" style="cursor:pointer;">
+      POD X WEIRD GENIUS + FREE LIQUID – 1750B
+    </li>
+    <li onclick="tambahKePesanan('✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!')" style="cursor:pointer;">
+      <strong>✨ CUSTOM DEVICE + FREE LIQUID: Ukir Nama Mulai 2000B!</strong>
+    </li>
+    <li onclick="tambahKePesanan('Banyak lagi, silakan request langsung hubungi kami!')" style="cursor:pointer;">
+      Banyak lagi, silakan request langsung hubungi kami!
+    </li>
+  </ul>
+</section>
+
   <h2>🛠️ Device Lain</h2>
   <div class="keterangan-box">
     📱 Silahkan request melalui WhatsApp ya bosku 😄🔥
@@ -559,14 +584,20 @@
 
 
   <section>
-    <h2>🔄 CATRIDGE</h2>
-    <ul>
-  <li>Catridge X: 1 pcs 150B | 1 pack 420B</li>
-  <li>Catridge Y: 1 pcs 155B | 1 pack 450B</li>
-  <li>📦 Catridge lain atau tidak ada di menu kami,Kami siap melayani melalui WhatsApp ya bosku 😊🔥</li>
-</ul>
+  <h2>🔄 CATRIDGE</h2>
+  <ul>
+    <li onclick="tambahKePesanan('Catridge X: 1 pcs 150B | 1 pack 420B')" style="cursor:pointer;">
+      Catridge X: 1 pcs 150B | 1 pack 420B
+    </li>
+    <li onclick="tambahKePesanan('Catridge Y: 1 pcs 155B | 1 pack 450B')" style="cursor:pointer;">
+      Catridge Y: 1 pcs 155B | 1 pack 450B
+    </li>
+    <li onclick="tambahKePesanan('📦 Catridge lain atau tidak ada di menu kami')" style="cursor:pointer;">
+      📦 Catridge lain atau tidak ada di menu kami,Kami siap melayani melalui WhatsApp ya bosku 😊🔥
+    </li>
+  </ul>
+</section>
 
-  </section>
 
   <section>
  <section>
@@ -648,7 +679,41 @@
     lightbox.classList.remove('active');
   }
 </script>
+
 <script>
+  const pesanan = [];
+
+  function tambahKePesanan(item) {
+    pesanan.push(item);
+    updateKeranjang();
+  }
+
+  function hapusPesanan(index) {
+    pesanan.splice(index, 1);
+    updateKeranjang();
+  }
+
+  function updateKeranjang() {
+    const daftar = document.getElementById('daftar-pesanan');
+    daftar.innerHTML = '';
+    pesanan.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `${item} <button onclick="hapusPesanan(${i})" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
+      daftar.appendChild(li);
+    });
+  }
+
+  function buatLinkWhatsApp() {
+    if (pesanan.length === 0) {
+      alert("Belum ada produk yang dipilih bosku.");
+      return;
+    }
+    const noHP = '6282183088613';
+    const pesan = encodeURIComponent("Halo kak, saya mau pesan:\n\n" + pesanan.join("\n"));
+    const link = `https://wa.me/${noHP}?text=${pesan}`;
+    window.open(link, '_blank');
+  }
+</script>
 
 </body>
         
