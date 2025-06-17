@@ -420,6 +420,29 @@
 .product-images img:hover {
   transform: scale(1.05);
 }
+<style>
+  /* ...CSS lainnya... */
+
+  .keranjang-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    background-color: #ff69b4;
+    color: white;
+    font-size: 40px;
+    padding: 12px 18px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .keranjang-fixed:hover {
+    transform: scale(1.1);
+    background-color: #ff4fa2;
+  }
+</style>
 
 </style>
 
@@ -703,17 +726,10 @@
     });
   }
 
-  function buatLinkWhatsApp() {
-    if (pesanan.length === 0) {
-      alert("Belum ada produk yang dipilih bosku.");
-      return;
-    }
-    const noHP = '6282183088613';
-    const pesan = encodeURIComponent("Halo kak, saya mau pesan:\n\n" + pesanan.join("\n"));
-    const link = `https://wa.me/${noHP}?text=${pesan}`;
-    window.open(link, '_blank');
-  }
-</script>
+ <!-- Tombol Keranjang di Kiri Bawah -->
+<div class="keranjang-fixed" onclick="buatLinkWhatsApp()" title="Lihat Pesanan & Checkout">
+  🛒
+</div>
 
 </body>
         
