@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8" />
   <title>BURUNG SP POD STORE</title>
-
-  <!-- SEO Meta Tags untuk BurungSP -->
+  <!-- SEO Meta Tags -->
   <meta name="description" content="BURUNG SP POD STORE - Surga-nya Para Vapers! Menjual liquid, device FOOM, catridge, dan custom pod original di Indonesia." />
   <meta name="keywords" content="vape, liquid foom, pod Indonesia, catridge, burungsp, vape murah, custom pod, foom original" />
   <meta name="author" content="BurungSP" />
@@ -26,20 +24,11 @@
   <!-- Favicon -->
   <link rel="icon" href="https://burungsp.com/logo.png" type="image/png" />
 
-  <!-- Structured Data Logo Schema -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Burung SP",
-      "url": "https://burungsp.com",
-      "logo": "https://burungsp.com/logo.png"
-    }
-  </script>
-
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 
   <style>
+    /* --- Style umum --- */
     body {
       font-size: 1.15em;
       font-weight: bold;
@@ -53,7 +42,6 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
     }
-
     header {
       display: flex;
       align-items: center;
@@ -64,7 +52,6 @@
       position: relative;
       text-align: center;
     }
-
     header .logo-left,
     header .logo-right {
       position: absolute;
@@ -73,25 +60,20 @@
       width: 200px;
       height: auto;
     }
-
     header .logo-left {
       left: 20px;
     }
-
     header .logo-right {
       right: 20px;
     }
-
     header h1 {
       font-size: 2.8em;
       margin: 10px 0 0.3em;
     }
-
     header p {
       margin: 6px 0;
       font-size: 1.15em;
     }
-
     section {
       max-width: 960px;
       margin: 30px auto;
@@ -100,7 +82,6 @@
       background-color: rgba(0, 0, 0, 0.3);
       text-align: center;
     }
-
     h2 {
       font-size: 1.6em;
       margin-bottom: 15px;
@@ -109,10 +90,7 @@
       width: fit-content;
       margin-left: auto;
       margin-right: auto;
-      display: block;
-      text-align: center;
     }
-
     ul {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -121,7 +99,6 @@
       list-style: none;
       margin-top: 10px;
     }
-
     li {
       background-color: rgba(255, 255, 255, 0.05);
       border: 1px solid #ff69b4;
@@ -130,7 +107,11 @@
       box-sizing: border-box;
       cursor: pointer;
     }
+    li:hover {
+      background-color: rgba(255, 105, 180, 0.3);
+    }
 
+    /* Product images */
     .product-images {
       display: flex;
       flex-wrap: wrap;
@@ -138,7 +119,6 @@
       gap: 10px;
       margin-top: 20px;
     }
-
     .product-images img {
       width: 100px;
       height: auto;
@@ -147,100 +127,11 @@
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s ease;
     }
-
     .product-images img:hover {
       transform: scale(1.05);
     }
 
-    .cta {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .cta a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      color: white;
-    }
-
-    .cta a.whatsapp {
-      background-color: #25d366;
-    }
-
-    .cta a.telegram {
-      background-color: #0088cc;
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.8em;
-      }
-
-      header p {
-        font-size: 1em;
-      }
-
-      header .logo-left,
-      header .logo-right {
-        width: 120px;
-      }
-    }
-
-    .marquee {
-      margin-top: 20px;
-      overflow: hidden;
-      position: relative;
-      height: 40px;
-    }
-
-    .marquee-text {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 180px;
-      padding-right: 180px;
-      animation: scroll-left 12s linear infinite;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(100%);
-      }
-
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    .notifikasi-blink {
-      background-color: #ff69b4;
-      color: #00ff88;
-      text-align: center;
-      font-size: 1.1em;
-      font-weight: bold;
-      padding: 14px;
-      animation: nyala 1s infinite alternate;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-    }
-
-    @keyframes nyala {
-      0% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0.5;
-      }
-    }
-
+    /* Lightbox */
     .lightbox-target {
       position: fixed;
       top: 0;
@@ -253,18 +144,15 @@
       justify-content: center;
       z-index: 9999;
     }
-
     .lightbox-target.active {
       display: flex;
     }
-
     .lightbox-target img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
-
     .lightbox-target .close {
       position: absolute;
       top: 20px;
@@ -273,23 +161,31 @@
       color: white;
       cursor: pointer;
       font-weight: bold;
+      user-select: none;
     }
 
-    .keterangan-box {
-      border: 1px solid #ff69b4;
+    /* CTA buttons */
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta a {
+      display: inline-block;
+      margin: 10px;
       padding: 12px 20px;
       border-radius: 8px;
-      margin-bottom: 20px;
       font-weight: bold;
-      color: #ff69b4;
-      background-color: rgba(255, 105, 180, 0.1);
-      text-align: center;
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
-      word-wrap: break-word;
+      text-decoration: none;
+      color: white;
+    }
+    .cta a.whatsapp {
+      background-color: #25d366;
+    }
+    .cta a.telegram {
+      background-color: #0088cc;
     }
 
+    /* Sticky WhatsApp button */
     .whatsapp-fixed {
       position: fixed;
       bottom: 20px;
@@ -303,32 +199,145 @@
       justify-content: center;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
-
     .whatsapp-fixed img {
       width: 50px;
       height: 50px;
     }
 
-    #produk-dari-firebase {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 30px;
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
+    /* Keranjang Sticky */
+    #keranjang-sticky {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #ff69b4;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+      z-index: 9999;
+      max-width: 280px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    #keranjang-sticky ul {
+      margin-top: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      padding-left: 15px;
+      list-style: none;
+      font-weight: normal;
+      font-size: 0.95em;
+    }
+    #keranjang-sticky button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px 0;
+      border: none;
+      border-radius: 8px;
+      background: #00ff88;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #keranjang-sticky button:disabled {
+      background: #555 !important;
+      color: #aaa !important;
+      cursor: not-allowed !important;
     }
 
-    .produk-box {
-      background: #111;
-      color: #fff;
-      border: 1px solid #ff69b4;
-      padding: 12px;
+    /* Info blink */
+    .info-stock-blink {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #00ff88;
+      background-color: #ff69b4;
+      padding: 14px;
+      margin: 20px auto;
+      animation: blink 1s infinite alternate;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+      width: fit-content;
       border-radius: 8px;
+    }
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.5;
+      }
+    }
+
+    /* Menu navigasi kiri kecil */
+    #menu-kiri {
+      position: fixed;
+      top: 100px;
+      left: 0;
+      width: 120px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #ff69b4;
+      border-radius: 0 10px 10px 0;
+      padding: 8px;
+      font-size: 0.9em;
+      color: #ff69b4;
+      z-index: 10000;
+      user-select: none;
+    }
+    #menu-kiri .menu-item {
+      cursor: pointer;
+      padding: 8px 6px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    #menu-kiri .menu-item:hover,
+    #menu-kiri .menu-item:focus {
+      background-color: #ff69b4;
+      color: #000;
+      outline: none;
+      border-color: #000;
+    }
+    #menu-kiri .btn-kembali {
+      cursor: pointer;
+      text-align: center;
+      margin-top: 10px;
+      padding: 6px 0;
+      background-color: #ff69b4;
+      color: #000;
+      border-radius: 6px;
+      font-weight: bold;
+      user-select: none;
+      border: none;
+    }
+    #menu-kiri .btn-kembali:hover,
+    #menu-kiri .btn-kembali:focus {
+      background-color: #e055a2;
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      header .logo-left,
+      header .logo-right {
+        width: 120px;
+      }
+      #menu-kiri {
+        top: 80px;
+        width: 110px;
+        font-size: 0.85em;
+      }
     }
   </style>
 </head>
-
 <body>
   <header>
     <img src="logo.png" alt="Logo Kiri" class="logo-left" />
@@ -338,9 +347,7 @@
     <img src="logo.png" alt="Logo Kanan" class="logo-right" />
 
     <div class="marquee">
-      <div class="marquee-text">
-        🚨 PROMO MINGGU INI: BELI DEVICE GRATIS LIQUID – STOCK TERBATAS! 🚨
-      </div>
+      <div class="marquee-text">🚨 PROMO MINGGU INI: BELI DEVICE GRATIS LIQUID – STOCK TERBATAS! 🚨</div>
     </div>
 
     <div class="info-stock-blink">
@@ -348,7 +355,20 @@
     </div>
   </header>
 
-  <section>
+  <!-- Menu navigasi kecil di kiri -->
+  <nav id="menu-kiri" aria-label="Menu Navigasi">
+    <div tabindex="0" class="menu-item" data-target="liquid-foom">LIQUID FOOM</div>
+    <div tabindex="0" class="menu-item" data-target="freebase-ala-carte">FREEBASE ALA CARTE</div>
+    <div tabindex="0" class="menu-item" data-target="saltnic-ice-pedia">SALTNIC ICE PEDIA</div>
+    <div tabindex="0" class="menu-item" data-target="liquid-buaqita">LIQUID BUAQITA</div>
+    <div tabindex="0" class="menu-item" data-target="device-foom">DEVICE FOOM</div>
+    <div tabindex="0" class="menu-item" data-target="device-lain">DEVICE LAIN</div>
+    <div tabindex="0" class="menu-item" data-target="catridge">CATRIDGE</div>
+    <button id="btn-kembali-menu" class="btn-kembali" aria-label="Tutup Menu">Kembali</button>
+  </nav>
+
+  <!-- Konten utama -->
+  <section id="liquid-foom">
     <h2>💧 LIQUID FOOM ALL VARIAN – 400B</h2>
     <ul>
       <li onclick="tambahKePesanan('🍑 Icy Mango')">🍑 Icy Mango</li>
@@ -401,7 +421,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="freebase-ala-carte">
     <h2>💧 FREEBASE ALA CARTE – 550B</h2>
     <ul>
       <li onclick="tambahKePesanan('Cream Raisin')">Cream Raisin</li>
@@ -414,7 +434,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="saltnic-ice-pedia">
     <h2>💧 SALTNIC ICE PEDIA – 400B</h2>
     <ul>
       <li onclick="tambahKePesanan('Mango 🔥🔥')">Mango 🔥🔥</li>
@@ -427,9 +447,8 @@
     </ul>
   </section>
 
-  <section>
+  <section id="liquid-buaqita">
     <h2>🍓🍇 LIQUID BUAQITA 🍉🍍</h2>
-
     <p><strong>Rasa Buah:</strong></p>
     <ul>
       <li onclick="tambahKePesanan('🫐 Blueberry')">🫐 Blueberry</li>
@@ -444,14 +463,12 @@
       <li onclick="tambahKePesanan('🍉 Watermelon')">🍉 Watermelon</li>
       <li onclick="tambahKePesanan('🥭 Mango')">🥭 Mango</li>
     </ul>
-
     <p><strong>Varian Gummy:</strong></p>
     <ul>
       <li onclick="tambahKePesanan('🍇 Grape Gummy')">🍇 Grape</li>
       <li onclick="tambahKePesanan('🍓 Strawberry Gummy')">🍓 Strawberry</li>
       <li onclick="tambahKePesanan('🍈 Honeydew Gummy')">🍈 Honeydew</li>
     </ul>
-
     <p><strong>Varian Salt Nic:</strong></p>
     <ul>
       <li onclick="tambahKePesanan('🍓 BuaQita Strawberry Salt Nic')">🍓 BuaQita Strawberry Salt Nic</li>
@@ -466,7 +483,7 @@
     📞 Jika bosku memiliki varian liquid atau merk liquid lain, bosku bisa melakukan pemesanan melalui nomor WhatsApp kami ya bosku! 🔥
   </section>
 
-  <section>
+  <section id="device-foom">
     <h2>🔥 DEVICE FOOM</h2>
     <ul>
       <li onclick="tambahKePesanan('POD X (Hot Pink / Wild Purple / Black) – 1700B')">POD X (Hot Pink / Wild Purple / Black) – 1700B</li>
@@ -477,14 +494,14 @@
     </ul>
   </section>
 
-  <section>
+  <section id="device-lain">
     <h2>🛠️ Device Lain</h2>
     <div class="keterangan-box">
       📱 Silahkan request melalui WhatsApp ya bosku 😄🔥
     </div>
   </section>
 
-  <section>
+  <section id="catridge">
     <h2>🔄 CATRIDGE</h2>
     <ul>
       <li onclick="tambahKePesanan('Catridge X: 1 pcs 150B | 1 pack 420B')">Catridge X: 1 pcs 150B | 1 pack 420B</li>
@@ -493,7 +510,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="gambar-produk">
     <h2>🖼️ Contoh Gambar Produk</h2>
     <div class="product-images">
       <img src="foom_custom1.webp" alt="Foom Custom 1" onclick="openLightbox('foom_custom1.webp')" />
@@ -519,17 +536,21 @@
   </section>
 
   <!-- Lightbox Viewer -->
-  <div class="lightbox-target" id="lightbox">
-    <span class="close" onclick="closeLightbox()">×</span>
+  <div class="lightbox-target" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-label" tabindex="-1">
+    <span class="close" onclick="closeLightbox()" aria-label="Tutup gambar">×</span>
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
+  <!-- Call to action -->
   <section class="cta">
     <h2>📲 Chat & Order Sekarang!</h2>
     <p>💬 BEBAS REQUEST POD BRAND LAIN BOSKUUU!</p>
-    <p>📱 Whatsapp: <strong>082183088613</strong><br />📨 Telegram: <strong>083115018221</strong></p>
-    <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+Liquid,device+liquid+atau+catridge+BurungSP!" target="_blank">Chat via WhatsApp</a>
-    <a class="telegram" href="https://t.me/@sashaaaaaabuy" target="_blank">Chat via Telegram</a>
+    <p>
+      📱 Whatsapp: <strong>082183088613</strong><br />
+      📨 Telegram: <strong>083115018221</strong>
+    </p>
+    <a class="whatsapp" href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+Liquid,device+liquid+atau+catridge+BurungSP!" target="_blank" rel="noopener">Chat via WhatsApp</a>
+    <a class="telegram" href="https://t.me/@sashaaaaaabuy" target="_blank" rel="noopener">Chat via Telegram</a>
   </section>
 
   <a href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" class="whatsapp-fixed" target="_blank" aria-label="Chat WhatsApp">
@@ -548,118 +569,98 @@
   </footer>
 
   <!-- Keranjang Sticky di kiri bawah -->
-  <div id="keranjang-sticky" style="position: fixed; bottom: 20px; left: 20px; background: #ff69b4; color: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(255,105,180,0.7); z-index: 9999; max-width: 280px; font-weight: bold; cursor: pointer;">
+  <div id="keranjang-sticky" role="region" aria-label="Keranjang Pesanan">
     🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
-    <ul id="daftar-pesanan-sticky" style="margin-top: 8px; max-height: 200px; overflow-y: auto; padding-left: 15px;"></ul>
-    <button id="btn-lanjutkan" style="margin-top: 10px; width: 100%; padding: 8px 0; border:none; border-radius: 8px; background: #00ff88; color: #000; font-weight: bold; cursor: pointer;" onclick="buatLinkWhatsApp()">
-      Lanjutkan Pesanan
-    </button>
+    <ul id="daftar-pesanan-sticky" aria-live="polite" style="margin-top: 8px; max-height: 200px; overflow-y: auto; padding-left: 15px;"></ul>
+    <button id="btn-lanjutkan" disabled>Lanjutkan Pesanan</button>
   </div>
 
-  <!-- Script JavaScript -->
+  <!-- Script JS -->
   <script>
+    // Fungsi tambah ke pesanan
     const pesanan = [];
-
     function tambahKePesanan(item) {
       pesanan.push(item);
       updateKeranjang();
     }
-
     function hapusPesanan(index) {
       pesanan.splice(index, 1);
       updateKeranjang();
     }
-
     function updateKeranjang() {
       const daftarSticky = document.getElementById('daftar-pesanan-sticky');
       const jumlahPesanan = document.getElementById('jumlah-pesanan');
       daftarSticky.innerHTML = '';
-
       pesanan.forEach((item, i) => {
         const li = document.createElement('li');
         li.style.marginBottom = '6px';
-        li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
+        li.innerHTML = `${item} <button onclick="hapusPesanan(${i}); event.stopPropagation();" aria-label="Hapus ${item}" style="margin-left:10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer;">Hapus</button>`;
         daftarSticky.appendChild(li);
       });
-
       jumlahPesanan.textContent = pesanan.length;
-
       const btnLanjutkan = document.getElementById('btn-lanjutkan');
+      btnLanjutkan.disabled = pesanan.length === 0;
       if (pesanan.length === 0) {
-        btnLanjutkan.disabled = true;
         btnLanjutkan.style.background = '#555';
         btnLanjutkan.style.color = '#aaa';
         btnLanjutkan.style.cursor = 'not-allowed';
       } else {
-        btnLanjutkan.disabled = false;
         btnLanjutkan.style.background = '#00ff88';
         btnLanjutkan.style.color = '#000';
         btnLanjutkan.style.cursor = 'pointer';
       }
     }
-
     function buatLinkWhatsApp() {
       if (pesanan.length === 0) {
-        alert("Keranjang masih kosong!");
+        alert('Keranjang masih kosong!');
         return;
       }
-
-      const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-      window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
+      const pesan = encodeURIComponent('Halo! Saya mau pesan:\n' + pesanan.join('\n'));
+      window.open('https://wa.me/6282183088613?text=' + pesan, '_blank');
     }
+    document.getElementById('btn-lanjutkan').addEventListener('click', buatLinkWhatsApp);
 
+    // Lightbox open/close
     function openLightbox(src) {
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');
       lightboxImg.src = src;
       lightbox.classList.add('active');
+      lightbox.focus();
     }
-
     function closeLightbox() {
       const lightbox = document.getElementById('lightbox');
       lightbox.classList.remove('active');
     }
-  </script>
 
-  <!-- Firebase Produk -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    // Menu navigasi kiri
+    const menuKiri = document.getElementById('menu-kiri');
+    const btnKembaliMenu = document.getElementById('btn-kembali-menu');
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-      authDomain: "burungsp-69fdb.firebaseapp.com",
-      projectId: "burungsp-69fdb",
-      storageBucket: "burungsp-69fdb.firebasestorage.app",
-      messagingSenderId: "743244451524",
-      appId: "1:743244451524:web:c55f9871a8debfa6238391",
-      measurementId: "G-LSYDF74Q16"
-    };
+    menuKiri.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.classList.contains('menu-item')) {
+        const targetId = target.getAttribute('data-target');
+        if (targetId) {
+          const section = document.getElementById(targetId);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      } else if (target.id === 'btn-kembali-menu') {
+        menuKiri.style.display = 'none';
+      }
+    });
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function tampilkanProduk() {
-      const querySnapshot = await getDocs(collection(db, "produk"));
-      const container = document.getElementById("produk-dari-firebase");
-      container.innerHTML = "";
-
-      querySnapshot.forEach(docItem => {
-        const item = docItem.data();
-        container.innerHTML += `
-          <div class="produk-box">
-            <h3>${item.nama}</h3>
-            <p>Harga: ${item.harga}B</p>
-            <p>Stok: ${item.stok}</p>
-          </div>`;
+    // Keyboard accessibility (Enter and Space)
+    menuKiri.querySelectorAll('.menu-item, .btn-kembali').forEach((item) => {
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
       });
-    }
-
-    document.addEventListener("DOMContentLoaded", tampilkanProduk);
+    });
   </script>
-
-  <section id="produk-dari-firebase"></section>
-
 </body>
-
 </html>
