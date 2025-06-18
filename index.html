@@ -523,6 +523,56 @@
   }
 }
 
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  flex-direction: column;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #fff;
+  border-top: 6px solid #00ff88;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 768px) {
+  #loading-overlay {
+    font-size: 1em;
+    padding: 20px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+  }
+}
 
 
   </style>
@@ -952,52 +1002,62 @@ async function tampilkanProduk() {
 document.addEventListener("DOMContentLoaded", tampilkanProduk);
 
  
-  window.buatLinkWhatsApp = async function () {
-    if (pesanan.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
-    }
+ window.buatLinkWhatsApp = async function () {
+  if (pesanan.length === 0) {
+    alert("Keranjang masih kosong!");
+    return;
+  }
 
-    const dataPesanan = {
-      items: [...pesanan],
-      waktu: serverTimestamp(),
-      status: "Menunggu",
-      via: "WhatsApp"
-    };
+  const overlay = document.getElementById("loading-overlay");
+  overlay.style.display = "flex";
 
-    try {
-      // Simpan ke Firestore
-      await addDoc(collection(db, "pesanan"), dataPesanan);
-
-      // Update stok
-      for (let namaProduk of pesanan) {
-        const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
-        const snapshot = await getDocs(q);
-        if (!snapshot.empty) {
-          const docItem = snapshot.docs[0];
-          const data = docItem.data();
-          const stokBaru = Math.max(0, (data.stok || 0) - 1);
-          await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
-        }
-      }
-
-      // Buka WhatsApp
-      const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-     const waWindow = window.open("", "_blank"); // buka dulu
-
-waWindow.location.href = "https://wa.me/62895334221342?text=" + pesan; // baru arahkan ke WhatsApp
-
-
-      // Bersihkan keranjang
-      pesanan.length = 0;
-      updateKeranjang();
-
-    } catch (err) {
-      console.error("❌ Gagal menyimpan pesanan:", err);
-      alert("Gagal menyimpan pesanan.");
-    }
+  const dataPesanan = {
+    items: [...pesanan],
+    waktu: serverTimestamp(),
+    status: "Menunggu",
+    via: "WhatsApp"
   };
-</script>
+
+  try {
+    await addDoc(collection(db, "pesanan"), dataPesanan);
+
+    for (let namaProduk of pesanan) {
+      const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        const docItem = snapshot.docs[0];
+        const data = docItem.data();
+        const stokBaru = Math.max(0, (data.stok || 0) - 1);
+        await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
+      }
+    }
+
+    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
+    const waWindow = window.open("", "_blank");
+    waWindow.location.href = "https://wa.me/62895334221342?text=" + pesan;
+
+    overlay.style.display = "none"; // sembunyikan loading
+
+    pesanan.length = 0;
+    updateKeranjang();
+
+  } catch (err) {
+  console.error("❌ Gagal menyimpan pesanan:", err);
+  overlay.style.display = "none"; // pastikan loading ditutup sebelum alert
+  alert("Gagal menyimpan pesanan.");
+}
+
+};
+
+  </script>
+  <!-- Loading Overlay -->
+<div id="loading-overlay" style="display:none;">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <p>Sebentar ya bosku, pesanan sedang dibuat...</p>
+  </div>
+</div>
+
 
 
 
