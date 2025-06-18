@@ -430,6 +430,28 @@
       color: #00ff88;
       cursor: pointer;
     }
+    .wa-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+.wa-float img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.wa-float img:hover {
+  transform: scale(1.1);
+}
+
   </style>
 </head>
 
@@ -641,10 +663,11 @@
     <a class="telegram" href="https://t.me/@sashaaaaaabuy" target="_blank">Chat via Telegram</a>
   </section>
 
-  <!-- Tombol WhatsApp Fixed -->
-  <a href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" class="whatsapp-fixed" target="_blank" aria-label="Chat WhatsApp">
-    <img src="E96F0016-EF7C-4D27-AE64-A926E2E15F47.png" alt="WhatsApp Icon" />
-  </a>
+ <a href="https://wa.me/6282183088613?text=Halo%2C+saya+mau+pesan+produk+BurungSP!" 
+   class="wa-float" target="_blank" aria-label="Chat WhatsApp">
+  <img src="E96F0016-EF7C-4D27-AE64-A926E2E15F47.png" alt="WA" />
+</a>
+
 
   <!-- Footer -->
   <footer style="text-align:center; padding: 30px 10px; font-size: 0.9em; color: #aaa; border-top: 1px solid #444; margin-top: 40px;">
