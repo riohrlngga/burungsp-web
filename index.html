@@ -1033,8 +1033,8 @@ document.addEventListener("DOMContentLoaded", tampilkanProduk);
     }
 
     const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-    const waWindow = window.open("", "_blank");
-    waWindow.location.href = "https://wa.me/62895334221342?text=" + pesan;
+    window.location.href = "https://wa.me/62895334221342?text=" + pesan;
+
 
     overlay.style.display = "none"; // sembunyikan loading
 
