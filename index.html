@@ -801,41 +801,8 @@
 <!-- Tombol Keranjang Kecil Bundar -->
 <button id="keranjang-fixed" aria-label="Buka keranjang" title="Keranjang">🛒</button>
 
-  <!-- Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-      authDomain: "burungsp-69fdb.firebaseapp.com",
-      projectId: "burungsp-69fdb",
-      storageBucket: "burungsp-69fdb.firebasestorage.app",
-      messagingSenderId: "743244451524",
-      appId: "1:743244451524:web:c55f9871a8debfa6238391",
-      measurementId: "G-LSYDF74Q16"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function tampilkanProduk() {
-      const querySnapshot = await getDocs(collection(db, "produk"));
-      const container = document.getElementById("produk-dari-firebase");
-      container.innerHTML = "";
-      querySnapshot.forEach(docItem => {
-        const item = docItem.data();
-        container.innerHTML += `
-          <div class="produk-box">
-            <h3>${item.nama}</h3>
-            <p>Harga: ${item.harga}B</p>
-            <p>Stok: ${item.stok}</p>
-          </div>`;
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", tampilkanProduk);
-  </script>
 
  <script>
   // Fungsi lightbox
@@ -908,11 +875,6 @@
     btnLanjut.style.cursor = pesanan.length === 0 ? 'not-allowed' : 'pointer';
   }
 
-  window.buatLinkWhatsApp = function() {
-    if (pesanan.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
-    }
     const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
     window.open("https://wa.me/62895334221342?text=" + pesan, "_blank");
   }
@@ -960,36 +922,7 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  <script type="module">
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    doc,
-    updateDoc,
-    query,
-    where,
-    limit,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-    authDomain: "burungsp-69fdb.firebaseapp.com",
-    projectId: "burungsp-69fdb",
-    storageBucket: "burungsp-69fdb.firebasestorage.app",
-    messagingSenderId: "743244451524",
-    appId: "1:743244451524:web:c55f9871a8debfa6238391",
-    measurementId: "G-LSYDF74Q16"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
+ 
   window.buatLinkWhatsApp = async function () {
     if (pesanan.length === 0) {
       alert("Keranjang masih kosong!");
@@ -1034,7 +967,7 @@
   };
 </script>
 
-</script>
+
 
 </body>
 
