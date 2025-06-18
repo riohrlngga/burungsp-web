@@ -333,7 +333,29 @@
   transform: translateY(20px);
   pointer-events: none;
 }
+    /* Tombol minimize dalam keranjang */
+#minimize-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10001;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  transition: background-color 0.3s ease;
+}
 
+#minimize-btn:hover {
+  background-color: #222;
+}
+
+/* Ketika keranjang di-minimize (sembunyi) */
 /* Daftar item */
 #keranjang-sticky ul {
   margin-top: 10px;
@@ -737,15 +759,18 @@
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
-  <!-- Keranjang Sticky -->
-  <div id="keranjang-sticky" role="region" aria-label="Keranjang Belanja">
-    🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
-    <ul id="daftar-pesanan-sticky"></ul>
-    <button id="btn-lanjutkan" onclick="buatLinkWhatsApp()" disabled>Lanjutkan Pesanan</button>
-  </div>
+ <!-- Keranjang Sticky -->
+<div id="keranjang-sticky" role="region" aria-label="Keranjang Belanja">
+  <!-- Tombol minimize di DALAM keranjang -->
+  <button id="minimize-btn" title="Tutup Keranjang">⬇️</button>
 
-  <!-- Tombol Keranjang Kecil Bundar -->
-  <button id="keranjang-fixed" aria-label="Buka/tutup keranjang" title="Keranjang">🛒</button>
+  🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
+  <ul id="daftar-pesanan-sticky"></ul>
+  <button id="btn-lanjutkan" onclick="buatLinkWhatsApp()" disabled>Lanjutkan Pesanan</button>
+</div>
+
+<!-- Tombol Keranjang Kecil Bundar -->
+<button id="keranjang-fixed" aria-label="Buka keranjang" title="Keranjang">🛒</button>
 
   <!-- Script -->
   <script type="module">
@@ -808,77 +833,78 @@
       }
     }
 
-    // Keranjang belanja
-    const pesanan = [];
-    const keranjangSticky = document.getElementById('keranjang-sticky');
-    const keranjangFixedBtn = document.getElementById('keranjang-fixed');
+  <script>
+  const pesanan = [];
+  const keranjangSticky = document.getElementById('keranjang-sticky');
+  const keranjangFixedBtn = document.getElementById('keranjang-fixed');
+  const minimizeBtn = document.getElementById('minimize-btn');
 
-    function tambahKePesanan(item) {
-      pesanan.push(item);
-      updateKeranjang();
+  function tambahKePesanan(item) {
+    pesanan.push(item);
+    updateKeranjang();
+  }
+
+  function hapusPesanan(index) {
+    pesanan.splice(index, 1);
+    updateKeranjang();
+  }
+
+  function updateKeranjang() {
+    const daftarSticky = document.getElementById('daftar-pesanan-sticky');
+    const jumlahPesanan = document.getElementById('jumlah-pesanan');
+    const btnLanjut = document.getElementById('btn-lanjutkan');
+
+    daftarSticky.innerHTML = '';
+
+    pesanan.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+
+      const btnHapus = document.createElement('button');
+      btnHapus.textContent = 'Hapus';
+      btnHapus.onclick = e => {
+        e.stopPropagation();
+        hapusPesanan(i);
+      };
+
+      li.appendChild(btnHapus);
+      daftarSticky.appendChild(li);
+    });
+
+    jumlahPesanan.textContent = pesanan.length;
+    btnLanjut.disabled = pesanan.length === 0;
+    btnLanjut.style.background = pesanan.length === 0 ? '#555' : '#00ff88';
+    btnLanjut.style.color = pesanan.length === 0 ? '#aaa' : '#000';
+    btnLanjut.style.cursor = pesanan.length === 0 ? 'not-allowed' : 'pointer';
+  }
+
+  function buatLinkWhatsApp() {
+    if (pesanan.length === 0) {
+      alert("Keranjang masih kosong!");
+      return;
     }
+    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
+    window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
+  }
 
-    function hapusPesanan(index) {
-      pesanan.splice(index, 1);
-      updateKeranjang();
-    }
+  // Klik tombol bulat untuk buka/tutup
+  keranjangFixedBtn.addEventListener('click', () => {
+    keranjangSticky.classList.toggle('minimized');
+  });
 
-    function updateKeranjang() {
-      const daftarSticky = document.getElementById('daftar-pesanan-sticky');
-      const jumlahPesanan = document.getElementById('jumlah-pesanan');
+  // Klik tombol ⬇️ dalam keranjang untuk minimize
+  if (minimizeBtn) {
+    minimizeBtn.addEventListener('click', () => {
+      keranjangSticky.classList.add('minimized');
+    });
+  }
 
-      daftarSticky.innerHTML = '';
-
-      pesanan.forEach((item, i) => {
-        const li = document.createElement('li');
-        li.textContent = item;
-
-        const btnHapus = document.createElement('button');
-        btnHapus.textContent = 'Hapus';
-        btnHapus.onclick = e => {
-          e.stopPropagation();
-          hapusPesanan(i);
-        };
-
-        li.appendChild(btnHapus);
-        daftarSticky.appendChild(li);
-      });
-
-      jumlahPesanan.textContent = pesanan.length;
-
-      const btnLanjut = document.getElementById('btn-lanjutkan');
-      btnLanjut.disabled = pesanan.length === 0;
-      if (pesanan.length === 0) {
-        btnLanjut.style.background = '#555';
-        btnLanjut.style.color = '#aaa';
-        btnLanjut.style.cursor = 'not-allowed';
-      } else {
-        btnLanjut.style.background = '#00ff88';
-        btnLanjut.style.color = '#000';
-        btnLanjut.style.cursor = 'pointer';
-      }
-    }
-
-    function buatLinkWhatsApp() {
-      if (pesanan.length === 0) {
-        alert("Keranjang masih kosong!");
-        return;
-      }
-      const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-      window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
-    }
-
-   // Toggle keranjang sticky minimize
-keranjangFixedBtn.addEventListener('click', () => {
-  keranjangSticky.classList.toggle('minimized');
-});
-
-
-  // Init keranjang tampil tapi minimized
-document.addEventListener('DOMContentLoaded', () => {
-  keranjangSticky.classList.add('minimized');
-  updateKeranjang();
-});
+  // Saat pertama load
+  document.addEventListener('DOMContentLoaded', () => {
+    keranjangSticky.classList.add('minimized');
+    updateKeranjang();
+  });
+</script>
 
   </script>
 </body>
