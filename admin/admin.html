@@ -224,6 +224,28 @@ table {
   margin: auto;
 }
 
+.produk-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.produk-tabel-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 200px;
+}
+
+.produk-tabel-wrap th,
+.produk-tabel-wrap td {
+  border: 1px solid #555;
+  padding: 8px;
+  text-align: center;
+  background-color: #111;
+  color: #fff;
+}
 
   </style>
 </head>
@@ -252,17 +274,8 @@ table {
       <button onclick="tambahProduk()">Tambah Produk</button>
     </div>
   <div style="overflow-x:auto;">
-  <table>
-    <thead>
-      <tr>
-        <th>Nama</th>
-        <th>Harga</th>
-        <th>Stok</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody id="tabel-produk"></tbody>
-  </table>
+  <div id="produk-grid-wrapper" class="produk-grid-wrapper"></div>
+
 </div>
 
 <h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
@@ -351,10 +364,52 @@ table {
   };
 
   // ------------------ PRODUK ----------------------
-  async function loadProduk() {
-    const snapshot = await getDocs(collection(db, "produk"));
-    const tbody = document.getElementById("tabel-produk");
-    tbody.innerHTML = "";
+async function loadProduk() {
+  const snapshot = await getDocs(collection(db, "produk"));
+  const dataList = [];
+
+  snapshot.forEach(docItem => {
+    const data = docItem.data();
+    dataList.push({ id: docItem.id, ...data });
+  });
+
+  // Urutkan berdasarkan nama (optional)
+  dataList.sort((a, b) => a.nama.localeCompare(b.nama));
+
+  const wrapper = document.getElementById("produk-grid-wrapper");
+  wrapper.innerHTML = "";
+
+  const groupSize = 12;
+
+  for (let i = 0; i < dataList.length; i += groupSize) {
+    const chunk = dataList.slice(i, i + groupSize);
+
+    const namaRow = `<tr><th>Nama</th>${chunk.map(p => `<td>${p.nama}</td>`).join("")}</tr>`;
+    const hargaRow = `<tr><th>Harga</th>${chunk.map(p => `<td>${p.harga}B</td>`).join("")}</tr>`;
+    const stokRow = `<tr><th>Stok</th>${chunk.map(p => `<td>${p.stok}</td>`).join("")}</tr>`;
+    const aksiRow = `<tr><th>Aksi</th>${chunk.map(p => `
+      <td>
+        <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
+        <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
+        <button onclick="hapusProduk('${p.id}')">❌</button>
+      </td>`).join("")}</tr>`;
+
+    const tabelHTML = `
+      <div class="produk-tabel-wrap">
+        <table>
+          <tbody>
+            ${namaRow}
+            ${hargaRow}
+            ${stokRow}
+            ${aksiRow}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    wrapper.insertAdjacentHTML("beforeend", tabelHTML);
+  }
+}
 
     snapshot.forEach(docItem => {
       const item = docItem.data();
