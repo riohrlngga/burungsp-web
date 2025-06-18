@@ -298,127 +298,144 @@ table {
       }, 2000);
     });
   </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import {
+    getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+    authDomain: "burungsp-69fdb.firebaseapp.com",
+    projectId: "burungsp-69fdb",
+    storageBucket: "burungsp-69fdb.firebasestorage.app",
+    messagingSenderId: "743244451524",
+    appId: "1:743244451524:web:c55f9871a8debfa6238391",
+    measurementId: "G-LSYDF74Q16"
+  };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-      authDomain: "burungsp-69fdb.firebaseapp.com",
-      projectId: "burungsp-69fdb",
-      storageBucket: "burungsp-69fdb.firebasestorage.app",
-      messagingSenderId: "743244451524",
-      appId: "1:743244451524:web:c55f9871a8debfa6238391",
-      measurementId: "G-LSYDF74Q16"
-    };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
+  const loginBox = document.getElementById("login-box");
+  const adminBox = document.getElementById("admin-box");
 
-    const loginBox = document.getElementById("login-box");
-    const adminBox = document.getElementById("admin-box");
-
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        loginBox.style.display = "none";
-        adminBox.style.display = "block";
-        loadProduk();
-        loadPesanan();
-
-      } else {
-        loginBox.style.display = "flex";
-        adminBox.style.display = "none";
-      }
-    });
-
-    window.login = async function () {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-      } catch (err) {
-        alert("Login gagal: " + err.message);
-      }
-    }
-
-    window.logout = async function () {
-      await signOut(auth);
-    }
-
-    async function loadProduk() {
-      const querySnapshot = await getDocs(collection(db, "produk"));
-      const tbody = document.getElementById("tabel-produk");
-      tbody.innerHTML = "";
-      querySnapshot.forEach((docItem) => {
-        const item = docItem.data();
-        tbody.innerHTML += `
-          <tr>
-            <td>${item.nama}</td>
-            <td>${item.harga}B</td>
-            <td>${item.stok}</td>
-            <td>
-              <button onclick="ubahStok('${docItem.id}', ${item.stok + 1})">+</button>
-              <button onclick="ubahStok('${docItem.id}', ${item.stok - 1})">−</button>
-              <button onclick="hapusProduk('${docItem.id}')">❌</button>
-            </td>
-          </tr>`;
-      });
-    }
-
-    window.tambahProduk = async function () {
-      const nama = document.getElementById("nama").value;
-      const harga = parseInt(document.getElementById("harga").value);
-      const stok = parseInt(document.getElementById("stok").value);
-      if (nama && !isNaN(harga) && !isNaN(stok)) {
-        await addDoc(collection(db, "produk"), { nama, harga, stok });
-        loadProduk();
-      }
-    }
-
-    window.ubahStok = async function (id, stokBaru) {
-      if (stokBaru < 0) stokBaru = 0;
-      const produkRef = doc(db, "produk", id);
-      await updateDoc(produkRef, { stok: stokBaru });
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      loginBox.style.display = "none";
+      adminBox.style.display = "block";
       loadProduk();
+      loadPesanan();
+    } else {
+      loginBox.style.display = "flex";
+      adminBox.style.display = "none";
     }
-
-    window.hapusProduk = async function (id) {
-      await deleteDoc(doc(db, "produk", id));
-      loadProduk();
-    }
-    async function loadPesanan() {
-  const snapshot = await getDocs(collection(db, "pesanan"));
-  const tbody = document.getElementById("tabel-pesanan");
-  tbody.innerHTML = "";
-
-  snapshot.forEach(docItem => {
-    const item = docItem.data();
-    const waktu = item.waktu?.toDate().toLocaleString() || "-";
-    const items = (item.items || []).join(", ");
-    const status = item.status || "Menunggu";
-
-    tbody.innerHTML += `
-      <tr>
-        <td>${waktu}</td>
-        <td>${items}</td>
-        <td>${status}</td>
-        <td>
-          <button onclick="hapusPesanan('${docItem.id}')">❌</button>
-        </td>
-      </tr>
-    `;
   });
-}
 
-window.hapusPesanan = async function(id) {
-  await deleteDoc(doc(db, "pesanan", id));
-  loadPesanan();
-}
+  window.login = async function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      alert("Login gagal: " + err.message);
+    }
+  };
 
-  </script>
+  window.logout = async function () {
+    await signOut(auth);
+  };
+
+  // ------------------ PRODUK ----------------------
+  async function loadProduk() {
+    const snapshot = await getDocs(collection(db, "produk"));
+    const tbody = document.getElementById("tabel-produk");
+    tbody.innerHTML = "";
+
+    snapshot.forEach(docItem => {
+      const item = docItem.data();
+      tbody.innerHTML += `
+        <tr>
+          <td>${item.nama}</td>
+          <td>${item.harga}B</td>
+          <td>${item.stok}</td>
+          <td>
+            <button onclick="ubahStok('${docItem.id}', ${item.stok + 1})">+</button>
+            <button onclick="ubahStok('${docItem.id}', ${item.stok - 1})">−</button>
+            <button onclick="hapusProduk('${docItem.id}')">❌</button>
+          </td>
+        </tr>`;
+    });
+  }
+
+  window.tambahProduk = async function () {
+    const nama = document.getElementById("nama").value;
+    const harga = parseInt(document.getElementById("harga").value);
+    const stok = parseInt(document.getElementById("stok").value);
+    if (nama && !isNaN(harga) && !isNaN(stok)) {
+      await addDoc(collection(db, "produk"), { nama, harga, stok });
+      loadProduk();
+    }
+  };
+
+  window.ubahStok = async function (id, stokBaru) {
+    if (stokBaru < 0) stokBaru = 0;
+    await updateDoc(doc(db, "produk", id), { stok: stokBaru });
+    loadProduk();
+  };
+
+  window.hapusProduk = async function (id) {
+    await deleteDoc(doc(db, "produk", id));
+    loadProduk();
+  };
+
+  // ------------------ PESANAN ----------------------
+  async function loadPesanan() {
+    const tbody = document.getElementById("tabel-pesanan");
+    tbody.innerHTML = "<tr><td colspan='4'>⏳ Mengambil data...</td></tr>";
+
+    try {
+      const snapshot = await getDocs(collection(db, "pesanan"));
+      tbody.innerHTML = "";
+
+      snapshot.forEach(docItem => {
+        const data = docItem.data();
+        const waktu = data.waktu?.toDate?.()
+          ? data.waktu.toDate().toLocaleString()
+          : (typeof data.waktu === "string" ? data.waktu : "-");
+
+        const items = Array.isArray(data.items) ? data.items.join(", ") : "-";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${waktu}</td>
+          <td>${items}</td>
+          <td>${data.status || "Menunggu"}</td>
+          <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      if (!tbody.innerHTML.trim()) {
+        tbody.innerHTML = "<tr><td colspan='4'>📭 Belum ada pesanan.</td></tr>";
+      }
+
+    } catch (err) {
+      console.error("❌ Gagal mengambil pesanan:", err);
+      tbody.innerHTML = "<tr><td colspan='4' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
+    }
+  }
+
+  window.hapusPesanan = async function (id) {
+    await deleteDoc(doc(db, "pesanan", id));
+    loadPesanan();
+  };
+</script>
+
   <script>
   document.addEventListener("keydown", function (e) {
     const loginBox = document.getElementById("login-box");
