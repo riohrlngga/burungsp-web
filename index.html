@@ -923,6 +923,33 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+async function tampilkanProduk() {
+  const container = document.getElementById("produk-dari-firebase");
+  container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
+
+  try {
+    const snapshot = await getDocs(collection(db, "produk"));
+    if (snapshot.empty) {
+      container.innerHTML = "<p style='color:yellow'>⚠️ Belum ada produk yang tersedia.</p>";
+      return;
+    }
+
+    container.innerHTML = "";
+    snapshot.forEach(docItem => {
+      const item = docItem.data();
+      container.innerHTML += `
+        <div class="produk-box">
+          <h3>${item.nama}</h3>
+          <p>Harga: ${item.harga}B</p>
+          <p>Stok: ${item.stok}</p>
+        </div>`;
+    });
+  } catch (err) {
+    console.error("❌ Gagal ambil produk:", err);
+    container.innerHTML = "<p style='color:red'>❌ Gagal mengambil data produk!</p>";
+  }
+}
+document.addEventListener("DOMContentLoaded", tampilkanProduk);
 
  
   window.buatLinkWhatsApp = async function () {
