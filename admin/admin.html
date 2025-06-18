@@ -410,5 +410,15 @@ window.hapusPesanan = async function(id) {
 }
 
   </script>
+  <script>
+  document.addEventListener("keydown", function (e) {
+    const loginBox = document.getElementById("login-box");
+    if (e.key === "Enter" && loginBox.style.display === "flex") {
+      e.preventDefault();
+      login();
+    }
+  });
+</script>
+
 </body>
 </html>
