@@ -956,7 +956,10 @@
 
       // Buka WhatsApp
       const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-      window.open("https://wa.me/62895334221342?text=" + pesan, "_blank");
+     const waWindow = window.open("", "_blank"); // buka dulu
+
+waWindow.location.href = "https://wa.me/62895334221342?text=" + pesan; // baru arahkan ke WhatsApp
+
 
       // Bersihkan keranjang
       pesanan.length = 0;
