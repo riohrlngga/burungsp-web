@@ -253,6 +253,25 @@
     gap: 20px;
   }
 }
+.produk-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  animation: fadein 0.3s ease-in-out;
+}
+
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.produk-tabel-wrap {
+  min-width: 250px; /* Biar gak terlalu sempit */
+  max-width: 100%;
+  overflow-x: auto;
+}
 
     </style>
   </head>
@@ -383,49 +402,47 @@ async function loadProduk() {
   // Urutkan berdasarkan nama
   dataList.sort((a, b) => a.nama.localeCompare(b.nama));
 
- const wrapper = document.getElementById("produk-grid-wrapper");
-wrapper.innerHTML = "";
+  const wrapper = document.getElementById("produk-grid-wrapper");
+  wrapper.innerHTML = "";
 
-const groupSize = 12;
-const rowMax = 7;
+  const groupSize = 12;
+  const maxPerRow = 7;
+  const tables = [];
 
-let tabelList = [];
+  for (let i = 0; i < dataList.length; i += groupSize) {
+    const group = dataList.slice(i, i + groupSize);
+    const rows = group.map(p => `
+      <tr>
+        <td>${p.nama}</td>
+        <td>${p.harga}B</td>
+        <td>${p.stok}</td>
+        <td>
+          <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
+          <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
+          <button onclick="hapusProduk('${p.id}')">❌</button>
+        </td>
+      </tr>
+    `).join("");
 
-for (let i = 0; i < dataList.length; i += groupSize) {
-  const chunk = dataList.slice(i, i + groupSize);
+    const tableHTML = `
+      <div class="produk-tabel-wrap">
+        <table>
+          <thead>
+            <tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
 
-  const namaRow = `<tr><th>Nama</th>${chunk.map(p => `<td>${p.nama}</td>`).join("")}</tr>`;
-  const hargaRow = `<tr><th>Harga</th>${chunk.map(p => `<td>${p.harga}B</td>`).join("")}</tr>`;
-  const stokRow = `<tr><th>Stok</th>${chunk.map(p => `<td>${p.stok}</td>`).join("")}</tr>`;
-  const aksiRow = `<tr><th>Aksi</th>${chunk.map(p => `
-    <td>
-      <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
-      <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
-      <button onclick="hapusProduk('${p.id}')">❌</button>
-    </td>`).join("")}</tr>`;
+    tables.push(tableHTML);
+  }
 
-  const tabelHTML = `
-    <div class="produk-tabel-wrap">
-      <table>
-        <tbody>
-          ${namaRow}
-          ${hargaRow}
-          ${stokRow}
-          ${aksiRow}
-        </tbody>
-      </table>
-    </div>
-  `;
-
-  tabelList.push(tabelHTML);
-}
-
-// Bagi per baris (7 tabel maksimal per baris)
-for (let j = 0; j < tabelList.length; j += rowMax) {
-  const row = tabelList.slice(j, j + rowMax).join("");
-  wrapper.insertAdjacentHTML("beforeend", `<div style="display:flex; gap: 20px; flex-wrap: nowrap;">${row}</div>`);
-}
-
+  // Tampilkan baris per baris, maksimal 7 tabel per baris
+  for (let i = 0; i < tables.length; i += maxPerRow) {
+    const rowHTML = tables.slice(i, i + maxPerRow).join("");
+    wrapper.insertAdjacentHTML("beforeend", `<div class="produk-row">${rowHTML}</div>`);
+  }
 }
 
 // ------------------ TAMBAH PRODUK ----------------------
