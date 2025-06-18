@@ -242,8 +242,25 @@ html, body {
   transform: translateY(0);
   animation: fadein 0.6s ease;
 }
-
-
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff69b4;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+}
+.logout-btn:hover {
+  background-color: #ff1493;
+}
+#admin-box {
+  position: relative;
+}
 
   </style>
 </head>
@@ -279,13 +296,14 @@ html, body {
       }, 2000); // 2 detik
     });
   </script>
-</body>
-
-
 
   <div id="admin-box" style="display:none;">
-    <h1>Dashboard Admin - BurungSP</h1>
-    <button onclick="logout()">Logout</button>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+  <h1>Dashboard Admin - BurungSP</h1>
+    
+
+    
+    
     <div>
       <input type="text" id="nama" placeholder="Nama Produk">
       <input type="number" id="harga" placeholder="Harga">
