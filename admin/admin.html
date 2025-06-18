@@ -188,18 +188,100 @@
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+    .fullscreen-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 1.5s ease 2s forwards; /* 2 detik delay, lalu hilang */
+}
+
+.fullscreen-logo img {
+  max-width: 200px;
+  animation: logoZoom 1.2s ease;
+}
+
+/* Efek zoom pada logo */
+@keyframes logoZoom {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Efek hilang pelan */
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #111; /* fallback kalau logo hilang */
+  position: relative;
+  z-index: 1;
+}
+.login-box {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.login-box.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadein 0.6s ease;
+}
+
+
 
   </style>
 </head>
 <body>
-  <div id="login-box" class="login-container">
-  <form onsubmit="event.preventDefault(); login();" class="login-box">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <button type="submit">Login</button>
-  </form>
-</div>
+  <!-- Logo fullscreen dulu -->
+  <div id="fullscreen-logo" class="fullscreen-logo">
+    <img src="logo.png" alt="Logo BurungSP" />
+  </div>
+
+  <!-- Login form muncul setelah logo hilang -->
+  <div id="login-box" class="login-container" style="display: none;">
+    <form onsubmit="event.preventDefault(); login();" class="login-box">
+      <h2>Admin Login</h2>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Script animasi logo & muncul login -->
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('fullscreen-logo').style.display = 'none';
+
+        const loginBox = document.getElementById('login-box');
+        loginBox.style.display = 'flex';
+
+        // Aktifkan animasi muncul
+        setTimeout(() => {
+          loginBox.querySelector('.login-box').classList.add('show');
+        }, 50);
+      }, 2000); // 2 detik
+    });
+  </script>
+</body>
+
+
 
   <div id="admin-box" style="display:none;">
     <h1>Dashboard Admin - BurungSP</h1>
