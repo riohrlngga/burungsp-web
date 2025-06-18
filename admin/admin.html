@@ -125,8 +125,17 @@
       to { opacity: 0; visibility: hidden; }
     }
     #admin-box {
-      position: relative;
-    }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: #111;
+  z-index: 10;
+  display: none; /* default disembunyikan */
+}
+
+ 
     .logout-btn {
       position: absolute;
       top: 20px;
