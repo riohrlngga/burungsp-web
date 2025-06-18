@@ -821,7 +821,7 @@
     document.getElementById('lightbox-img').src = '';
   }
 
-  // Navigasi scroll ke section
+  // Scroll ke section
   function scrollToSection(id) {
     const section = document.getElementById(id);
     if (section) {
@@ -835,7 +835,7 @@
   const keranjangFixedBtn = document.getElementById('keranjang-fixed');
   const minimizeBtn = document.getElementById('minimize-btn');
 
-  // Fungsi global agar bisa diakses dari onclick HTML
+  // Fungsi tambah ke keranjang
   window.tambahKePesanan = function(item) {
     pesanan.push(item);
     updateKeranjang();
@@ -875,25 +875,27 @@
     btnLanjut.style.cursor = pesanan.length === 0 ? 'not-allowed' : 'pointer';
   }
 
-    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
-    window.open("https://wa.me/62895334221342?text=" + pesan, "_blank");
-  }
+ 
 
+  // Event tombol kecil bundar
   keranjangFixedBtn.addEventListener('click', () => {
     keranjangSticky.classList.toggle('minimized');
   });
 
+  // Tombol ⬇️ dalam keranjang
   if (minimizeBtn) {
     minimizeBtn.addEventListener('click', () => {
       keranjangSticky.classList.add('minimized');
     });
   }
 
+  // Pas pertama kali buka
   document.addEventListener('DOMContentLoaded', () => {
     keranjangSticky.classList.add('minimized');
     updateKeranjang();
   });
 </script>
+
 <script>
   function salin(id) {
     const teks = document.getElementById(id).innerText;
