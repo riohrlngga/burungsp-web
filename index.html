@@ -960,37 +960,62 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Fungsi global buat WhatsApp + simpan ke Firestore
+  <script type="module">
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    query,
+    where,
+    limit,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+    authDomain: "burungsp-69fdb.firebaseapp.com",
+    projectId: "burungsp-69fdb",
+    storageBucket: "burungsp-69fdb.firebasestorage.app",
+    messagingSenderId: "743244451524",
+    appId: "1:743244451524:web:c55f9871a8debfa6238391",
+    measurementId: "G-LSYDF74Q16"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
   window.buatLinkWhatsApp = async function () {
     if (pesanan.length === 0) {
       alert("Keranjang masih kosong!");
       return;
     }
 
-    // Simpan pesanan ke koleksi "pesanan"
     const dataPesanan = {
-      items: pesanan,
+      items: [...pesanan],
       waktu: serverTimestamp(),
       status: "Menunggu",
       via: "WhatsApp"
     };
 
     try {
+      // Simpan ke Firestore
       await addDoc(collection(db, "pesanan"), dataPesanan);
 
-      // Kurangi stok per item (anggap 1 item = qty 1)
+      // Update stok
       for (let namaProduk of pesanan) {
         const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
         const snapshot = await getDocs(q);
-
         if (!snapshot.empty) {
           const docItem = snapshot.docs[0];
           const data = docItem.data();
           const stokBaru = Math.max(0, (data.stok || 0) - 1);
-
-          await updateDoc(doc(db, "produk", docItem.id), {
-            stok: stokBaru
-          });
+          await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
         }
       }
 
@@ -998,15 +1023,17 @@
       const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
       window.open("https://wa.me/62895334221342?text=" + pesan, "_blank");
 
-      // Kosongkan keranjang
+      // Bersihkan keranjang
       pesanan.length = 0;
       updateKeranjang();
 
     } catch (err) {
-      console.error("❌ Gagal memproses pesanan:", err);
+      console.error("❌ Gagal menyimpan pesanan:", err);
       alert("Gagal menyimpan pesanan.");
     }
   };
+</script>
+
 </script>
 
 </body>
