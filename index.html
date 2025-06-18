@@ -808,38 +808,39 @@
     document.addEventListener("DOMContentLoaded", tampilkanProduk);
   </script>
 
-  <script>
-    // Fungsi lightbox
-    function openLightbox(src) {
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightboxImg.src = src;
-      lightbox.classList.add('active');
-      lightbox.setAttribute('aria-hidden', 'false');
-    }
+ <script>
+  // Fungsi lightbox
+  function openLightbox(src) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+  }
 
-    function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.classList.remove('active');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.getElementById('lightbox-img').src = '';
-    }
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.getElementById('lightbox-img').src = '';
+  }
 
-    // Navigasi scroll ke section
-    function scrollToSection(id) {
-      const section = document.getElementById(id);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
+  // Navigasi scroll ke section
+  function scrollToSection(id) {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
+  }
 
-  <script>
+  // KERANJANG
   const pesanan = [];
   const keranjangSticky = document.getElementById('keranjang-sticky');
   const keranjangFixedBtn = document.getElementById('keranjang-fixed');
   const minimizeBtn = document.getElementById('minimize-btn');
 
-  function tambahKePesanan(item) {
+  // Fungsi global agar bisa diakses dari onclick HTML
+  window.tambahKePesanan = function(item) {
     pesanan.push(item);
     updateKeranjang();
   }
@@ -878,7 +879,7 @@
     btnLanjut.style.cursor = pesanan.length === 0 ? 'not-allowed' : 'pointer';
   }
 
-  function buatLinkWhatsApp() {
+  window.buatLinkWhatsApp = function() {
     if (pesanan.length === 0) {
       alert("Keranjang masih kosong!");
       return;
@@ -887,26 +888,22 @@
     window.open("https://wa.me/6282183088613?text=" + pesan, "_blank");
   }
 
-  // Klik tombol bulat untuk buka/tutup
   keranjangFixedBtn.addEventListener('click', () => {
     keranjangSticky.classList.toggle('minimized');
   });
 
-  // Klik tombol ⬇️ dalam keranjang untuk minimize
   if (minimizeBtn) {
     minimizeBtn.addEventListener('click', () => {
       keranjangSticky.classList.add('minimized');
     });
   }
 
-  // Saat pertama load
   document.addEventListener('DOMContentLoaded', () => {
     keranjangSticky.classList.add('minimized');
     updateKeranjang();
   });
 </script>
 
-  </script>
 </body>
 
 </html>
