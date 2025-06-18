@@ -188,7 +188,21 @@
       </thead>
       <tbody id="tabel-produk"></tbody>
     </table>
+    <h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Waktu</th>
+      <th>Items</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody id="tabel-pesanan"></tbody>
+</table>
+
   </div>
+  
 
   <script>
     window.addEventListener('load', () => {
@@ -230,6 +244,8 @@
         loginBox.style.display = "none";
         adminBox.style.display = "block";
         loadProduk();
+        loadPesanan();
+
       } else {
         loginBox.style.display = "flex";
         adminBox.style.display = "none";
@@ -291,6 +307,35 @@
       await deleteDoc(doc(db, "produk", id));
       loadProduk();
     }
+    async function loadPesanan() {
+  const snapshot = await getDocs(collection(db, "pesanan"));
+  const tbody = document.getElementById("tabel-pesanan");
+  tbody.innerHTML = "";
+
+  snapshot.forEach(docItem => {
+    const item = docItem.data();
+    const waktu = item.waktu?.toDate().toLocaleString() || "-";
+    const items = (item.items || []).join(", ");
+    const status = item.status || "Menunggu";
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${waktu}</td>
+        <td>${items}</td>
+        <td>${status}</td>
+        <td>
+          <button onclick="hapusPesanan('${docItem.id}')">❌</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+window.hapusPesanan = async function(id) {
+  await deleteDoc(doc(db, "pesanan", id));
+  loadPesanan();
+}
+
   </script>
 </body>
 </html>
