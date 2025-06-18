@@ -1,369 +1,376 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-
-  <title>Dashboard Admin - BurungSP</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      color: #ff69b4;
-    }
-    table {
-  width: auto; /* biar menyesuaikan isi */
-  max-width: 100%; /* jangan lebih dari layar */
-  border-collapse: collapse;
-  margin-top: 20px;
-  table-layout: auto;
-}
-
-th, td {
-  border: 1px solid #555;
-  padding: 10px;
-  text-align: left;
-  word-break: break-word;
-}
-
-
-    th {
-      background-color: #222;
-    }
-    button {
-      background: #ff69b4;
-      color: #fff;
-      border: none;
-      padding: 5px 10px;
-      margin: 0 2px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    input {
-      padding: 6px;
-      margin: 5px;
-    }
-    .login-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('logo.png') no-repeat center center;
-      background-size: cover;
-    }
-    .login-box {
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 30px 25px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 350px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-      color: white;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-    .login-box.show {
-      opacity: 1;
-      transform: translateY(0);
-      animation: fadein 0.6s ease;
-    }
-    .login-box input {
-      width: 100%;
-      padding: 12px 10px;
-      margin: 12px 0;
-      border: none;
-      border-radius: 6px;
-      background: #222;
-      color: white;
-      font-size: 1em;
-    }
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      background: #2969ff;
-      color: white;
-      border: none;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s ease;
-    }
-    .login-box button:hover {
-      background: #1e4ed8;
-    }
-    @keyframes fadein {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-    .fullscreen-logo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      animation: fadeOut 1.5s ease 2s forwards;
-    }
-    .fullscreen-logo img {
-      max-width: 200px;
-      animation: logoZoom 1.2s ease;
-    }
-    @keyframes logoZoom {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-    #admin-box {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  background-color: #111;
-  z-index: 10;
-  display: none; /* default disembunyikan */
-}
-
- 
-    .logout-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #ff69b4;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
-    }
-    .logout-btn:hover {
-      background-color: #ff1493;
-    }
-    @media (max-width: 768px) {
-  body {
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  
+    <title>Dashboard Admin - BurungSP</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #fff;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        color: #ff69b4;
+      }
+      table {
+    width: auto; /* biar menyesuaikan isi */
+    max-width: 100%; /* jangan lebih dari layar */
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: auto;
+  }
+  
+  th, td {
+    border: 1px solid #555;
     padding: 10px;
+    text-align: left;
+    word-break: break-word;
   }
-
-  .login-box {
-    padding: 20px 15px;
-    max-width: 90%;
-  }
-
-  table, th, td {
-    font-size: 14px;
-  }
-
-  input, button {
+  
+  
+      th {
+        background-color: #222;
+      }
+      button {
+        background: #ff69b4;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        margin: 0 2px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      input {
+        padding: 6px;
+        margin: 5px;
+      }
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('logo.png') no-repeat center center;
+        background-size: cover;
+      }
+      .login-box {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 30px 25px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 350px;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+        color: white;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+      .login-box.show {
+        opacity: 1;
+        transform: translateY(0);
+        animation: fadein 0.6s ease;
+      }
+      .login-box input {
+        width: 100%;
+        padding: 12px 10px;
+        margin: 12px 0;
+        border: none;
+        border-radius: 6px;
+        background: #222;
+        color: white;
+        font-size: 1em;
+      }
+      .login-box button {
+        width: 100%;
+        padding: 12px;
+        background: #2969ff;
+        color: white;
+        border: none;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background 0.3s ease;
+      }
+      .login-box button:hover {
+        background: #1e4ed8;
+      }
+      @keyframes fadein {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      .fullscreen-logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeOut 1.5s ease 2s forwards;
+      }
+      .fullscreen-logo img {
+        max-width: 200px;
+        animation: logoZoom 1.2s ease;
+      }
+      @keyframes logoZoom {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      @keyframes fadeOut {
+        to { opacity: 0; visibility: hidden; }
+      }
+      #admin-box {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    margin: 8px 0;
-    font-size: 1em;
+    padding: 20px;
+    background-color: #111;
+    z-index: 10;
+    display: none; /* default disembunyikan */
   }
-
-  .logout-btn {
-    top: 10px;
-    right: 10px;
-    padding: 8px 12px;
-    font-size: 14px;
+  
+   
+      .logout-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #ff69b4;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10;
+      }
+      .logout-btn:hover {
+        background-color: #ff1493;
+      }
+      @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+  
+    .login-box {
+      padding: 20px 15px;
+      max-width: 90%;
+    }
+  
+    table, th, td {
+      font-size: 14px;
+    }
+  
+    input, button {
+      width: 100%;
+      margin: 8px 0;
+      font-size: 1em;
+    }
+  
+    .logout-btn {
+      top: 10px;
+      right: 10px;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  
+    h1 {
+      font-size: 22px;
+      text-align: center;
+    }
+  
+    #admin-box input {
+      margin-bottom: 10px;
+    }
   }
-
-  h1 {
-    font-size: 22px;
+      @media (max-width: 480px) {
+    h1 {
+      font-size: 18px;
+    }
+  
+    table, th, td {
+      font-size: 12px;
+    }
+  
+    .logout-btn {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  
+    input, button {
+      font-size: 0.9em;
+    }
+  }
+  table {
+    table-layout: auto;
+    word-wrap: break-word;
+  }
+  .container {
+    max-width: 1100px;
+    margin: auto;
+  }
+  
+  .produk-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .produk-tabel-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    min-width: 200px;
+  }
+  
+  .produk-tabel-wrap th,
+  .produk-tabel-wrap td {
+    border: 1px solid #555;
+    padding: 8px;
     text-align: center;
+    background-color: #111;
+    color: #fff;
   }
-
-  #admin-box input {
-    margin-bottom: 10px;
-  }
-}
-    @media (max-width: 480px) {
-  h1 {
-    font-size: 18px;
-  }
-
-  table, th, td {
-    font-size: 12px;
-  }
-
-  .logout-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  input, button {
-    font-size: 0.9em;
+  @media (max-width: 768px) {
+  .produk-grid-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }
-table {
-  table-layout: auto;
-  word-wrap: break-word;
-}
-.container {
-  max-width: 1100px;
-  margin: auto;
-}
 
-.produk-grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.produk-tabel-wrap table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  min-width: 200px;
-}
-
-.produk-tabel-wrap th,
-.produk-tabel-wrap td {
-  border: 1px solid #555;
-  padding: 8px;
-  text-align: center;
-  background-color: #111;
-  color: #fff;
-}
-
-  </style>
-</head>
-<body>
-  <div id="fullscreen-logo" class="fullscreen-logo">
-    <img src="logo.png" alt="Logo BurungSP" />
-  </div>
-
-  <div id="login-box" class="login-container" style="display: none;">
-    <form onsubmit="event.preventDefault(); login();" class="login-box">
-      <h2>Admin Login</h2>
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-  </div>
-
-<div class="container">
-  <div id="admin-box" style="display: none;">
-    <button class="logout-btn" onclick="logout()">Logout</button>
-    <h1>Dashboard Admin - BurungSP</h1>
-    <div>
-      <input type="text" id="nama" placeholder="Nama Produk">
-      <input type="number" id="harga" placeholder="Harga">
-      <input type="number" id="stok" placeholder="Stok">
-      <button onclick="tambahProduk()">Tambah Produk</button>
+    </style>
+  </head>
+  <body>
+    <div id="fullscreen-logo" class="fullscreen-logo">
+      <img src="logo.png" alt="Logo BurungSP" />
     </div>
-  <div style="overflow-x:auto;">
-  <div id="produk-grid-wrapper" class="produk-grid-wrapper"></div>
-
-</div>
-
-<h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
-<div style="overflow-x:auto;">
-  <table>
-    <thead>
-      <tr>
-        <th>Waktu</th>
-        <th>Items</th>
-        <th>Status</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody id="tabel-pesanan"></tbody>
-  </table>
-</div>
-
-</div> <!-- penutup admin-box -->
-</div> <!-- penutup container -->
-
+  
+    <div id="login-box" class="login-container" style="display: none;">
+      <form onsubmit="event.preventDefault(); login();" class="login-box">
+        <h2>Admin Login</h2>
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  
+  <div class="container">
+    <div id="admin-box" style="display: none;">
+      <button class="logout-btn" onclick="logout()">Logout</button>
+      <h1>Dashboard Admin - BurungSP</h1>
+      <div>
+        <input type="text" id="nama" placeholder="Nama Produk">
+        <input type="number" id="harga" placeholder="Harga">
+        <input type="number" id="stok" placeholder="Stok">
+        <button onclick="tambahProduk()">Tambah Produk</button>
+      </div>
+    <div style="overflow-x:auto;">
+    <div id="produk-grid-wrapper" class="produk-grid-wrapper"></div>
+  
   </div>
   
-
-  <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('fullscreen-logo').style.display = 'none';
-        const loginBox = document.getElementById('login-box');
-        loginBox.style.display = 'flex';
+  <h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Waktu</th>
+          <th>Items</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tabel-pesanan"></tbody>
+    </table>
+  </div>
+  
+  </div> <!-- penutup admin-box -->
+  </div> <!-- penutup container -->
+  
+    </div>
+    
+  
+    <script>
+      window.addEventListener('load', () => {
         setTimeout(() => {
-          loginBox.querySelector('.login-box').classList.add('show');
-        }, 50);
-      }, 2000);
+          document.getElementById('fullscreen-logo').style.display = 'none';
+          const loginBox = document.getElementById('login-box');
+          loginBox.style.display = 'flex';
+          setTimeout(() => {
+            loginBox.querySelector('.login-box').classList.add('show');
+          }, 50);
+        }, 2000);
+      });
+    </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import {
+      getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+      authDomain: "burungsp-69fdb.firebaseapp.com",
+      projectId: "burungsp-69fdb",
+      storageBucket: "burungsp-69fdb.firebasestorage.app",
+      messagingSenderId: "743244451524",
+      appId: "1:743244451524:web:c55f9871a8debfa6238391",
+      measurementId: "G-LSYDF74Q16"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+  
+    const loginBox = document.getElementById("login-box");
+    const adminBox = document.getElementById("admin-box");
+  
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        loginBox.style.display = "none";
+        adminBox.style.display = "block";
+        loadProduk();
+        loadPesanan();
+      } else {
+        loginBox.style.display = "flex";
+        adminBox.style.display = "none";
+      }
     });
-  </script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-  import {
-    getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-    authDomain: "burungsp-69fdb.firebaseapp.com",
-    projectId: "burungsp-69fdb",
-    storageBucket: "burungsp-69fdb.firebasestorage.app",
-    messagingSenderId: "743244451524",
-    appId: "1:743244451524:web:c55f9871a8debfa6238391",
-    measurementId: "G-LSYDF74Q16"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-
-  const loginBox = document.getElementById("login-box");
-  const adminBox = document.getElementById("admin-box");
-
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      loginBox.style.display = "none";
-      adminBox.style.display = "block";
-      loadProduk();
-      loadPesanan();
-    } else {
-      loginBox.style.display = "flex";
-      adminBox.style.display = "none";
-    }
-  });
-
-  window.login = async function () {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      alert("Login gagal: " + err.message);
-    }
-  };
-
-  window.logout = async function () {
-    await signOut(auth);
-  };
-
-  // ------------------ PRODUK ----------------------
+  
+    window.login = async function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        alert("Login gagal: " + err.message);
+      }
+    };
+  
+    window.logout = async function () {
+      await signOut(auth);
+    };
+  
+ // ------------------ PRODUK ----------------------
 async function loadProduk() {
   const snapshot = await getDocs(collection(db, "produk"));
   const dataList = [];
@@ -373,143 +380,143 @@ async function loadProduk() {
     dataList.push({ id: docItem.id, ...data });
   });
 
-  // Urutkan berdasarkan nama (optional)
+  // Urutkan berdasarkan nama
   dataList.sort((a, b) => a.nama.localeCompare(b.nama));
 
-  const wrapper = document.getElementById("produk-grid-wrapper");
-  wrapper.innerHTML = "";
+ const wrapper = document.getElementById("produk-grid-wrapper");
+wrapper.innerHTML = "";
 
-  const groupSize = 12;
+const groupSize = 12;
+const rowMax = 7;
 
-  for (let i = 0; i < dataList.length; i += groupSize) {
-    const chunk = dataList.slice(i, i + groupSize);
+let tabelList = [];
 
-    const namaRow = `<tr><th>Nama</th>${chunk.map(p => `<td>${p.nama}</td>`).join("")}</tr>`;
-    const hargaRow = `<tr><th>Harga</th>${chunk.map(p => `<td>${p.harga}B</td>`).join("")}</tr>`;
-    const stokRow = `<tr><th>Stok</th>${chunk.map(p => `<td>${p.stok}</td>`).join("")}</tr>`;
-    const aksiRow = `<tr><th>Aksi</th>${chunk.map(p => `
-      <td>
-        <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
-        <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
-        <button onclick="hapusProduk('${p.id}')">❌</button>
-      </td>`).join("")}</tr>`;
+for (let i = 0; i < dataList.length; i += groupSize) {
+  const chunk = dataList.slice(i, i + groupSize);
 
-    const tabelHTML = `
-      <div class="produk-tabel-wrap">
-        <table>
-          <tbody>
-            ${namaRow}
-            ${hargaRow}
-            ${stokRow}
-            ${aksiRow}
-          </tbody>
-        </table>
-      </div>
-    `;
+  const namaRow = `<tr><th>Nama</th>${chunk.map(p => `<td>${p.nama}</td>`).join("")}</tr>`;
+  const hargaRow = `<tr><th>Harga</th>${chunk.map(p => `<td>${p.harga}B</td>`).join("")}</tr>`;
+  const stokRow = `<tr><th>Stok</th>${chunk.map(p => `<td>${p.stok}</td>`).join("")}</tr>`;
+  const aksiRow = `<tr><th>Aksi</th>${chunk.map(p => `
+    <td>
+      <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
+      <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
+      <button onclick="hapusProduk('${p.id}')">❌</button>
+    </td>`).join("")}</tr>`;
 
-    wrapper.insertAdjacentHTML("beforeend", tabelHTML);
-  }
+  const tabelHTML = `
+    <div class="produk-tabel-wrap">
+      <table>
+        <tbody>
+          ${namaRow}
+          ${hargaRow}
+          ${stokRow}
+          ${aksiRow}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  tabelList.push(tabelHTML);
 }
 
-    snapshot.forEach(docItem => {
-      const item = docItem.data();
-      tbody.innerHTML += `
-        <tr>
-          <td>${item.nama}</td>
-          <td>${item.harga}B</td>
-          <td>${item.stok}</td>
-          <td>
-            <button onclick="ubahStok('${docItem.id}', ${item.stok + 1})">+</button>
-            <button onclick="ubahStok('${docItem.id}', ${item.stok - 1})">−</button>
-            <button onclick="hapusProduk('${docItem.id}')">❌</button>
-          </td>
-        </tr>`;
-    });
+// Bagi per baris (7 tabel maksimal per baris)
+for (let j = 0; j < tabelList.length; j += rowMax) {
+  const row = tabelList.slice(j, j + rowMax).join("");
+  wrapper.insertAdjacentHTML("beforeend", `<div style="display:flex; gap: 20px; flex-wrap: nowrap;">${row}</div>`);
+}
+
+}
+
+// ------------------ TAMBAH PRODUK ----------------------
+window.tambahProduk = async function () {
+  const nama = document.getElementById("nama").value;
+  const harga = parseInt(document.getElementById("harga").value);
+  const stok = parseInt(document.getElementById("stok").value);
+
+  if (nama && !isNaN(harga) && !isNaN(stok)) {
+    await addDoc(collection(db, "produk"), { nama, harga, stok });
+    loadProduk();
   }
+};
 
-  window.tambahProduk = async function () {
-    const nama = document.getElementById("nama").value;
-    const harga = parseInt(document.getElementById("harga").value);
-    const stok = parseInt(document.getElementById("stok").value);
-    if (nama && !isNaN(harga) && !isNaN(stok)) {
-      await addDoc(collection(db, "produk"), { nama, harga, stok });
-      loadProduk();
-    }
-  };
+// ------------------ UBAH STOK ----------------------
+window.ubahStok = async function (id, stokBaru) {
+  if (stokBaru < 0) stokBaru = 0;
+  await updateDoc(doc(db, "produk", id), { stok: stokBaru });
+  loadProduk();
+};
 
-  window.ubahStok = async function (id, stokBaru) {
-    if (stokBaru < 0) stokBaru = 0;
-    await updateDoc(doc(db, "produk", id), { stok: stokBaru });
-    loadProduk();
-  };
+// ------------------ HAPUS PRODUK ----------------------
+window.hapusProduk = async function (id) {
+  await deleteDoc(doc(db, "produk", id));
+  loadProduk();
+};
 
-  window.hapusProduk = async function (id) {
-    await deleteDoc(doc(db, "produk", id));
-    loadProduk();
-  };
-
-  // ------------------ PESANAN ----------------------
- async function loadPesanan() {
-  const tbody = document.getElementById("tabel-pesanan");
-  tbody.innerHTML = "<tr><td colspan='4'>⏳ Mengambil data...</td></tr>";
-
-  try {
-    const snapshot = await getDocs(collection(db, "pesanan"));
-    tbody.innerHTML = "";
-
-    snapshot.forEach(docItem => {
-      const data = docItem.data();
-
-      // Konversi waktu dengan aman
-      const waktu = data.waktu?.toDate?.()
-        ? data.waktu.toDate().toLocaleString()
-        : (typeof data.waktu === "string"
-            ? data.waktu
-            : new Date().toLocaleString());
-
-      // Menangani items baik array maupun objek
-      const items = Array.isArray(data.items)
-        ? data.items.join(", ")
-        : (typeof data.items === "object" && data.items !== null
-            ? Object.values(data.items).join(", ")
-            : "-");
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${waktu}</td>
-        <td>${items}</td>
-        <td>${data.status || "Menunggu"}</td>
-        <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
-      `;
-      tbody.appendChild(tr);
-    });
-
-
-      if (!tbody.innerHTML.trim()) {
-        tbody.innerHTML = "<tr><td colspan='4'>📭 Belum ada pesanan.</td></tr>";
+  
+  
+    // ------------------ PESANAN ----------------------
+   async function loadPesanan() {
+    const tbody = document.getElementById("tabel-pesanan");
+    tbody.innerHTML = "<tr><td colspan='4'>⏳ Mengambil data...</td></tr>";
+  
+    try {
+      const snapshot = await getDocs(collection(db, "pesanan"));
+      tbody.innerHTML = "";
+  
+      snapshot.forEach(docItem => {
+        const data = docItem.data();
+  
+        // Konversi waktu dengan aman
+        const waktu = data.waktu?.toDate?.()
+          ? data.waktu.toDate().toLocaleString()
+          : (typeof data.waktu === "string"
+              ? data.waktu
+              : new Date().toLocaleString());
+  
+        // Menangani items baik array maupun objek
+        const items = Array.isArray(data.items)
+          ? data.items.join(", ")
+          : (typeof data.items === "object" && data.items !== null
+              ? Object.values(data.items).join(", ")
+              : "-");
+  
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${waktu}</td>
+          <td>${items}</td>
+          <td>${data.status || "Menunggu"}</td>
+          <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+  
+  
+        if (!tbody.innerHTML.trim()) {
+          tbody.innerHTML = "<tr><td colspan='4'>📭 Belum ada pesanan.</td></tr>";
+        }
+  
+      } catch (err) {
+        console.error("❌ Gagal mengambil pesanan:", err);
+        tbody.innerHTML = "<tr><td colspan='4' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
       }
-
-    } catch (err) {
-      console.error("❌ Gagal mengambil pesanan:", err);
-      tbody.innerHTML = "<tr><td colspan='4' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
     }
-  }
-
-  window.hapusPesanan = async function (id) {
-    await deleteDoc(doc(db, "pesanan", id));
-    loadPesanan();
-  };
-</script>
-
-  <script>
-  document.addEventListener("keydown", function (e) {
-    const loginBox = document.getElementById("login-box");
-    if (e.key === "Enter" && loginBox.style.display === "flex") {
-      e.preventDefault();
-      login();
-    }
-  });
-</script>
-
-</body>
-</html>
+  
+    window.hapusPesanan = async function (id) {
+      await deleteDoc(doc(db, "pesanan", id));
+      loadPesanan();
+    };
+  </script>
+  
+    <script>
+    document.addEventListener("keydown", function (e) {
+      const loginBox = document.getElementById("login-box");
+      if (e.key === "Enter" && loginBox.style.display === "flex") {
+        e.preventDefault();
+        login();
+      }
+    });
+  </script>
+  
+  </body>
+  </html>
