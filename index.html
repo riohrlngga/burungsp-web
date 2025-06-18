@@ -726,6 +726,35 @@
       <img src="foom_signature.webp" alt="Foom Signature" onclick="openLightbox('foom_signature.webp')" />
     </div>
   </section>
+  <section id="metode-pembayaran" style="text-align: center; margin: 48px auto; max-width: 680px;">
+  <h2 style="color: #ff69b4; font-size: 1.4em; border-bottom: 2px solid #ff69b4; padding-bottom: 8px;">
+    💳 Metode Pembayaran
+  </h2>
+  <p style="color: #ccc;">Kami menerima pembayaran melalui rekening dan e-wallet berikut:</p>
+
+  <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+    <!-- BCA -->
+    <div>
+      <img src="BCA-1.webp" alt="Logo BCA" width="120" loading="lazy" />
+      <p style="margin-top: 8px; color: white; font-weight: bold;">
+        BCA – <span id="rekening-bca">2970716991</span>
+        <button onclick="salin('rekening-bca')" style="margin-left: 6px; cursor: pointer;" title="Salin">📋</button>
+      </p>
+      <p style="color: #ccc;">A/N: LILIS LUSIANTI BR TORUS</p>
+    </div>
+
+    <!-- DANA -->
+    <div>
+      <img src="DANA.webp" alt="Logo DANA" width="120" loading="lazy" />
+      <p style="margin-top: 8px; color: white; font-weight: bold;">
+        DANA – <span id="rekening-dana">081360941031</span>
+        <button onclick="salin('rekening-dana')" style="margin-left: 6px; cursor: pointer;" title="Salin">📋</button>
+      </p>
+      <p style="color: #ccc;">A/N: RIO HERLANGGA ANTONI</p>
+    </div>
+  </div>
+</section>
+
 
   <!-- CTA -->
   <section class="cta">
@@ -902,6 +931,17 @@
     keranjangSticky.classList.add('minimized');
     updateKeranjang();
   });
+</script>
+<script>
+  function salin(id) {
+    const teks = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(teks).then(() => {
+      alert("✅ Disalin: " + teks);
+    }).catch(err => {
+      alert("❌ Gagal menyalin");
+      console.error(err);
+    });
+  }
 </script>
 
 </body>
