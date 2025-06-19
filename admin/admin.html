@@ -323,14 +323,16 @@ table {
   <h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
   <div style="overflow-x:auto;">
     <table>
-      <thead>
-        <tr>
-          <th>Waktu</th>
-          <th>Items</th>
-          <th>Status</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
+     <thead>
+  <tr>
+    <th>Kode</th>
+    <th>Waktu</th>
+    <th>Items</th>
+    <th>Status</th>
+    <th>Aksi</th>
+  </tr>
+</thead>
+
       <tbody id="tabel-pesanan"></tbody>
     </table>
   </div>
@@ -535,12 +537,14 @@ const itemText = Object.entries(itemMap).map(([nama, jumlah], index) => {
 
   
         const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${waktu}</td>
-          <td>${itemText}</td>
-          <td>${data.status || "Menunggu"}</td>
-          <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
-        `;
+       tr.innerHTML = `
+  <td><strong>${data.kode || "❌"}</strong></td>
+  <td>${waktu}</td>
+  <td>${itemText}</td>
+  <td>${data.status || "Menunggu"}</td>
+  <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
+`;
+
         tbody.appendChild(tr);
       });
   
