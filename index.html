@@ -294,19 +294,36 @@
 
     /* PRODUK DARI FIREBASE */
     #produk-dari-firebase {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 30px;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
 
-    .produk-box {
-      background: #111;
-      color: #fff;
-      border: 1px solid #ff69b4;
-      padding: 12px;
-      border-radius: 8px;
-    }
+
+   .produk-box {
+  background: #111;
+  color: #fff;
+  border: 1px solid #ff69b4;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  line-height: 1.3;
+  box-shadow: 0 0 6px rgba(255, 105, 180, 0.25);
+  transition: transform 0.2s ease;
+}
+.produk-box:hover {
+  transform: scale(1.02);
+}
+.produk-box p {
+  margin: 4px 0;
+}
+.produk-box h3 {
+  font-size: 1em;
+  margin-bottom: 6px;
+}
+
 
 /* KERANJANG STICKY - Bisa Minimize */
 #keranjang-sticky {
@@ -562,20 +579,25 @@
     transform: rotate(360deg);
   }
 }
-@media (max-width: 768px) {
-  #loading-overlay {
-    font-size: 1em;
-    padding: 20px;
-  }
 
-  .spinner {
-    width: 40px;
-    height: 40px;
+/* ANIMASI MASUK UNTUK PRODUK BOX */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+.produk-box {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+</style>
 
-  </style>
 </head>
 
 <body>
