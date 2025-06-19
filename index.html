@@ -1055,6 +1055,37 @@ window.updateKeranjang = updateKeranjang;
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+async function loadProduk() {
+  const produkDiv = document.getElementById('produk-dari-firebase');
+  produkDiv.innerHTML = 'Loading produk...';
+
+  try {
+    const snapshot = await getDocs(collection(db, "produk"));
+    if (snapshot.empty) {
+      produkDiv.innerHTML = '<p>Tidak ada produk tersedia.</p>';
+      return;
+    }
+
+    produkDiv.innerHTML = ''; // kosongkan dulu
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const produkBox = document.createElement('div');
+      produkBox.className = 'produk-box';
+      produkBox.innerHTML = `
+        <h3>${data.nama}</h3>
+        <p>Harga: ${data.harga}B</p>
+        <p>Stok: ${data.stok}</p>
+      `;
+      produkDiv.appendChild(produkBox);
+    });
+  } catch (error) {
+    produkDiv.innerHTML = '<p>Error saat mengambil produk.</p>';
+    console.error('Error load produk:', error);
+  }
+}
+
+// Panggil saat halaman selesai load
+window.addEventListener('DOMContentLoaded', loadProduk);
 
   // Variabel pesanan global
   const pesanan = window.pesanan || [];
