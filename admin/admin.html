@@ -494,7 +494,14 @@ window.hapusProduk = async function (id) {
    async function loadPesanan() {
     const tbody = document.getElementById("tabel-pesanan");
     tbody.innerHTML = "<tr><td colspan='4'>⏳ Mengambil data...</td></tr>";
-  
+ // Ambil semua produk & simpan stoknya
+const produkSnapshot = await getDocs(collection(db, "produk"));
+const stokMap = {};
+produkSnapshot.forEach(doc => {
+  const data = doc.data();
+  stokMap[data.nama] = data.stok;
+});
+ 
     try {
       const snapshot = await getDocs(collection(db, "pesanan"));
       tbody.innerHTML = "";
@@ -517,9 +524,14 @@ itemsList.forEach(item => {
   itemMap[item] = (itemMap[item] || 0) + 1;
 });
 
-const itemText = Object.entries(itemMap).map(([nama, jumlah], index) =>
-  `${index + 1}. ${nama} x${jumlah}`
-).join("<br>");
+const itemText = Object.entries(itemMap).map(([nama, jumlah], index) => {
+  const stok = stokMap[nama] ?? 0;
+  const status = stok >= jumlah ? "Ready" : "PO";
+  const statusColor = stok >= jumlah ? "lightgreen" : "orange";
+  return `${index + 1}. ${nama} x${jumlah} <small style="color:${statusColor};">(${status})</small>`;
+}).join("<br>");
+
+
 
   
         const tr = document.createElement("tr");
