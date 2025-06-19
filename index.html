@@ -939,7 +939,9 @@
   }
 
   // KERANJANG
-  const pesanan = [];
+ const pesanan = window.pesanan || [];
+window.pesanan = pesanan;
+
   const keranjangSticky = document.getElementById('keranjang-sticky');
   const keranjangFixedBtn = document.getElementById('keranjang-fixed');
   const minimizeBtn = document.getElementById('minimize-btn');
@@ -983,6 +985,7 @@
     btnLanjut.style.color = pesanan.length === 0 ? '#aaa' : '#000';
     btnLanjut.style.cursor = pesanan.length === 0 ? 'not-allowed' : 'pointer';
   }
+window.updateKeranjang = updateKeranjang;
 
  
 
@@ -1018,8 +1021,20 @@
 </script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    query,
+    where,
+    limit,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+  // Inisialisasi Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
     authDomain: "burungsp-69fdb.firebaseapp.com",
@@ -1033,6 +1048,7 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // TAMPILKAN PRODUK DARI FIRESTORE
   async function tampilkanProduk() {
     const container = document.getElementById("produk-dari-firebase");
     container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
@@ -1061,34 +1077,86 @@
   }
 
   document.addEventListener("DOMContentLoaded", tampilkanProduk);
-</script>
 
-  <!-- Loading Overlay -->
-<div id="loading-overlay" style="display:none;">
-  <div class="loading-box">
-    <div class="spinner"></div>
-    <p>Sebentar ya bosku, pesanan sedang dibuat...</p>
-  </div>
-</div>
+  // ===============================
+  //      PESANAN DAN KERANJANG
+  // ===============================
 
-<script>
-  const toggleBtn = document.getElementById('toggle-menu');
-  const navMenu = document.getElementById('nav-menu');
 
-  toggleBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    const expanded = navMenu.classList.contains('active');
-    toggleBtn.setAttribute('aria-expanded', expanded);
-  });
+  async function generateKodePesanan() {
+    const snapshot = await getDocs(collection(db, "pesanan"));
+    const total = snapshot.size + 1;
+    const kode = `BSP-${String(total).padStart(2, '0')}`;
+    return kode;
+  }
 
-  // Menutup menu saat tombol Escape ditekan
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-      navMenu.classList.remove('active');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+  async function buatLinkWhatsApp() {
+    if (pesanan.length === 0) {
+      alert("Keranjang masih kosong!");
+      return;
     }
-  });
+
+    const overlay = document.getElementById("loading-overlay");
+    overlay.style.display = "flex";
+
+    try {
+      const kodePesanan = await generateKodePesanan();
+
+      const dataPesanan = {
+        kode: kodePesanan,
+        items: [...pesanan],
+        waktu: serverTimestamp(),
+        status: "Menunggu",
+        via: "WhatsApp"
+      };
+
+      await addDoc(collection(db, "pesanan"), dataPesanan);
+
+      // Update stok
+      for (let namaProduk of pesanan) {
+        const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+          const docItem = snapshot.docs[0];
+          const data = docItem.data();
+          let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
+
+          if (currentStok <= 0) {
+            alert(`⚠️ Barang "${namaProduk}" stok habis, akan diproses sebagai Pre-Order (PO).`);
+          }
+
+          const stokBaru = currentStok - 1;
+          try {
+            await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
+          } catch (updateErr) {
+            console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
+          }
+        } else {
+          console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
+        }
+      }
+
+      // Redirect ke WhatsApp
+      const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
+      window.location.href = "https://wa.me/62895334221342?text=" + pesan;
+
+      overlay.style.display = "none";
+      pesanan.length = 0;
+      if (window.updateKeranjang) updateKeranjang();
+
+    } catch (err) {
+      console.error("❌ Gagal menyimpan pesanan:", err);
+      overlay.style.display = "none";
+      alert("Gagal menyimpan pesanan: " + err.message);
+    }
+  }
+
+  // Biar bisa dipanggil dari tombol HTML
+  window.buatLinkWhatsApp = buatLinkWhatsApp;
+  window.pesanan = pesanan;
 </script>
+
 
 </body>
 
