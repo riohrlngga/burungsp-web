@@ -596,6 +596,60 @@
   animation: fadeInUp 0.5s ease forwards;
   opacity: 0;
 }
+    #toggle-menu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+  font-size: 1.5em;
+  padding: 10px 14px;
+  border-radius: 8px;
+  z-index: 10002;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.3s ease;
+}
+
+#toggle-menu:hover {
+  background-color: rgba(255, 105, 180, 0.2);
+}
+
+
+#nav-menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #ff69b4;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #ff69b4;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  z-index: 10001;
+  user-select: none;
+  max-width: 140px;
+  gap: 6px;
+
+  /** Tambahan transisi */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+#nav-menu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+
 </style>
 
 </head>
@@ -617,6 +671,8 @@
     <div class="info-stock-blink">
       ⬇️ UNTUK STOCK READY ADA DI BAGIAN PALING BAWAH YA BOSKU 🔥📦
     </div>
+    <button id="toggle-menu" aria-label="Buka Menu">☰</button>
+
   </header>
 
   <!-- NAV MENU KIRI -->
@@ -1096,8 +1152,24 @@ window.buatLinkWhatsApp = async function () {
   </div>
 </div>
 
+<script>
+  const toggleBtn = document.getElementById('toggle-menu');
+  const navMenu = document.getElementById('nav-menu');
 
+  toggleBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    const expanded = navMenu.classList.contains('active');
+    toggleBtn.setAttribute('aria-expanded', expanded);
+  });
 
+  // Menutup menu saat tombol Escape ditekan
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
 
 </body>
 
