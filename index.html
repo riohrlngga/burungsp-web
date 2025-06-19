@@ -468,41 +468,38 @@
 }
 
     /* NAV MENU KIRI (SEBELAH KIRI, SAJA SEUKURAN TULISAN) */
-    #nav-menu {
-      position: fixed;
-      top: 60px;
-      left: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid #ff69b4;
-      border-radius: 6px;
-      padding: 10px 12px;
-      color: #ff69b4;
-      font-weight: bold;
-      font-size: 1.1em;
-      cursor: pointer;
-      z-index: 10001;
-      user-select: none;
-      max-width: 140px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+   #nav-menu {
+  position: fixed;
+  top: 60px; /* posisi tepat di bawah toggle-menu */
+  right: 20px; /* supaya rata kanan dengan toggle-menu */
+  max-width: 200px; /* sesuaikan lebar menu */
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #ff69b4;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #ff69b4;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  z-index: 10001;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 
-    #nav-menu .nav-item {
-      padding: 4px 6px;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-    }
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
 
-    #nav-menu .nav-item:hover {
-      background-color: rgba(255, 105, 180, 0.3);
-    }
+#nav-menu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
-    #nav-menu .nav-item.back {
-      margin-top: 10px;
-      color: #00ff88;
-      cursor: pointer;
-    }
+
     .wa-float {
   position: fixed;
   width: 120px;
@@ -596,7 +593,7 @@
   animation: fadeInUp 0.5s ease forwards;
   opacity: 0;
 }
-    #toggle-menu {
+   #toggle-menu {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -617,24 +614,7 @@
 }
 
 
-#nav-menu {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 60px;
-  left: 10px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid #ff69b4;
-  border-radius: 6px;
-  padding: 10px 12px;
-  color: #ff69b4;
-  font-weight: bold;
-  font-size: 1.1em;
-  cursor: pointer;
-  z-index: 10001;
-  user-select: none;
-  max-width: 140px;
-  gap: 6px;
+
 
   /** Tambahan transisi */
   transition: opacity 0.3s ease, transform 0.3s ease;
