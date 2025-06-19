@@ -911,7 +911,7 @@
 
   🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
   <ul id="daftar-pesanan-sticky"></ul>
-  <button id="btn-lanjutkan" onclick="buatLinkWhatsApp()" disabled>Lanjutkan Pesanan</button>
+<button id="btn-lanjutkan" disabled>Lanjutkan Pesanan</button>
 </div>
 
 <!-- Tombol Keranjang Kecil Bundar -->
@@ -1013,6 +1013,7 @@ window.updateKeranjang = updateKeranjang;
     keranjangSticky.classList.add('minimized');
     updateKeranjang();
   });
+   
 </script>
 
 <script>
@@ -1167,6 +1168,18 @@ if (overlay) overlay.style.display = "flex";
   // Biar bisa dipanggil dari tombol HTML
   window.buatLinkWhatsApp = buatLinkWhatsApp;
   window.pesanan = pesanan;
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tombol = document.getElementById("btn-lanjutkan");
+    tombol.addEventListener("click", () => {
+      if (typeof window.buatLinkWhatsApp === "function") {
+        window.buatLinkWhatsApp();
+      } else {
+        alert("Fungsi belum siap, coba reload halaman.");
+      }
+    });
+  });
 </script>
 
 
