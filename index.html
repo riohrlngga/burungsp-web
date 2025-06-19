@@ -1125,7 +1125,7 @@ async function buatLinkWhatsApp() {
     // Simpan pesanan ke Firestore
     await addDoc(collection(db, "pesanan"), dataPesanan);
 
-    /*
+    
     // Bagian update stok produk **DIBERHENTIKAN** karena user bukan admin
     for (let namaProduk of pesanan) {
       const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
@@ -1150,7 +1150,7 @@ async function buatLinkWhatsApp() {
         console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
       }
     }
-    */
+    
 
     // Buat pesan WhatsApp yang berisi daftar pesanan dan kode pesanan
     const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
