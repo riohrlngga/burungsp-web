@@ -1044,7 +1044,7 @@ document.addEventListener("DOMContentLoaded", tampilkanProduk);
   } catch (err) {
   console.error("❌ Gagal menyimpan pesanan:", err);
   overlay.style.display = "none"; // pastikan loading ditutup sebelum alert
-  alert("Gagal menyimpan pesanan.");
+  alert("Gagal menyimpan pesanan: " + err.message);
 }
 
 };
