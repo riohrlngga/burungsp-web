@@ -1018,18 +1018,7 @@
 </script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    doc,
-    updateDoc,
-    query,
-    where,
-    limit,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
@@ -1044,110 +1033,36 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  async function generateKodePesanan() {
-    const snapshot = await getDocs(collection(db, "pesanan"));
-    const total = snapshot.size + 1;
-    const kode = `BSP-${String(total).padStart(2, '0')}`;
-    return kode;
-  }
-
-  window.generateKodePesanan = generateKodePesanan;
-
-  window.buatLinkWhatsApp = async function () {
-    if (pesanan.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
-    }
-
-    const overlay = document.getElementById("loading-overlay");
-    overlay.style.display = "flex";
+  async function tampilkanProduk() {
+    const container = document.getElementById("produk-dari-firebase");
+    container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
 
     try {
-      const kodePesanan = await generateKodePesanan();
-
-      const dataPesanan = {
-        kode: kodePesanan,
-        items: [...pesanan],
-        waktu: serverTimestamp(),
-        status: "Menunggu",
-        via: "WhatsApp"
-      };
-
-      await addDoc(collection(db, "pesanan"), dataPesanan);
-
-      // Cek dan update stok
-      for (let namaProduk of pesanan) {
-        const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
-        const snapshot = await getDocs(q);
-
-        if (!snapshot.empty) {
-          const docItem = snapshot.docs[0];
-          const data = docItem.data();
-          let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
-
-          if (currentStok <= 0) {
-            alert(`⚠️ Barang "${namaProduk}" stok habis, akan diproses sebagai Pre-Order (PO).`);
-          }
-
-          const stokBaru = currentStok - 1;
-          try {
-            await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
-          } catch (updateErr) {
-            console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
-          }
-        } else {
-          console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
-        }
+      const snapshot = await getDocs(collection(db, "produk"));
+      if (snapshot.empty) {
+        container.innerHTML = "<p style='color:yellow'>⚠️ Belum ada produk yang tersedia.</p>";
+        return;
       }
 
-      // Kirim ke WhatsApp
-      const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
-      window.location.href = "https://wa.me/62895334221342?text=" + pesan;
-
-      overlay.style.display = "none";
-      pesanan.length = 0;
-      updateKeranjang();
-
+      container.innerHTML = "";
+      snapshot.forEach(docItem => {
+        const item = docItem.data();
+        container.innerHTML += `
+          <div class="produk-box">
+            <h3>${item.nama}</h3>
+            <p>Harga: ${item.harga}B</p>
+            <p>Stok: ${item.stok}</p>
+          </div>`;
+      });
     } catch (err) {
-      console.error("❌ Gagal menyimpan pesanan:", err);
-      overlay.style.display = "none";
-      alert("Gagal menyimpan pesanan: " + err.message);
+      console.error("❌ Gagal ambil produk:", err);
+      container.innerHTML = "<p style='color:red'>❌ Gagal mengambil data produk!</p>";
     }
-  };
+  }
+
+  document.addEventListener("DOMContentLoaded", tampilkanProduk);
 </script>
 
-
-<script>
-async function tampilkanProduk() {
-  const container = document.getElementById("produk-dari-firebase");
-  container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
-
-  try {
-    const snapshot = await getDocs(collection(db, "produk"));
-    if (snapshot.empty) {
-      container.innerHTML = "<p style='color:yellow'>⚠️ Belum ada produk yang tersedia.</p>";
-      return;
-    }
-
-    container.innerHTML = "";
-    snapshot.forEach(docItem => {
-      const item = docItem.data();
-      container.innerHTML += `
-        <div class="produk-box">
-          <h3>${item.nama}</h3>
-          <p>Harga: ${item.harga}B</p>
-          <p>Stok: ${item.stok}</p>
-        </div>`;
-    });
-  } catch (err) {
-    console.error("❌ Gagal ambil produk:", err);
-    container.innerHTML = "<p style='color:red'>❌ Gagal mengambil data produk!</p>";
-  }
-}
-document.addEventListener("DOMContentLoaded", tampilkanProduk);
-
- 
-  </script>
   <!-- Loading Overlay -->
 <div id="loading-overlay" style="display:none;">
   <div class="loading-box">
