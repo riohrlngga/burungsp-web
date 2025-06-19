@@ -1018,7 +1018,18 @@
 </script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, where, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    query,
+    where,
+    limit,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
@@ -1030,6 +1041,21 @@
     measurementId: "G-LSYDF74Q16"
   };
 
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // === LANGKAH 1: Fungsi generate kode pesanan ===
+  async function generateKodePesanan() {
+    const snapshot = await getDocs(collection(db, "pesanan"));
+    const total = snapshot.size + 1;
+    const kode = `BSP-${String(total).padStart(2, '0')}`; // Contoh: BSP-01, BSP-02, ...
+    return kode;
+  }
+
+  // (fungsi lain nanti kita lanjut di langkah berikutnya)
+</script>
+
+<script>
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 async function tampilkanProduk() {
@@ -1070,16 +1096,20 @@ window.buatLinkWhatsApp = async function () {
   const overlay = document.getElementById("loading-overlay");
   overlay.style.display = "flex";
 
-  const dataPesanan = {
-    items: [...pesanan],
-    waktu: serverTimestamp(),
-    status: "Menunggu",
-    via: "WhatsApp"
-  };
-
   try {
+    const kodePesanan = await generateKodePesanan(); // Tambahkan kode unik
+
+    const dataPesanan = {
+      kode: kodePesanan,
+      items: [...pesanan],
+      waktu: serverTimestamp(),
+      status: "Menunggu",
+      via: "WhatsApp"
+    };
+
     await addDoc(collection(db, "pesanan"), dataPesanan);
 
+    // Cek stok dan update
     for (let namaProduk of pesanan) {
       const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
       const snapshot = await getDocs(q);
@@ -1087,11 +1117,10 @@ window.buatLinkWhatsApp = async function () {
       if (!snapshot.empty) {
         const docItem = snapshot.docs[0];
         const data = docItem.data();
-
         let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
 
         if (currentStok <= 0) {
-          alert(`⚠️ Barang "${namaProduk}" stok habis, tapi akan diproses sebagai Pre-Order (PO).`);
+          alert(`⚠️ Barang "${namaProduk}" stok habis, akan diproses sebagai Pre-Order (PO).`);
         }
 
         const stokBaru = currentStok - 1;
@@ -1100,13 +1129,13 @@ window.buatLinkWhatsApp = async function () {
         } catch (updateErr) {
           console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
         }
-
       } else {
-        console.warn(`❗ Produk "${namaProduk}" tidak ditemukan di database.`);
+        console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
       }
     }
 
-    const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
+    // Kirim ke WhatsApp (dengan kode)
+    const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
     window.location.href = "https://wa.me/62895334221342?text=" + pesan;
 
     overlay.style.display = "none";
@@ -1119,8 +1148,6 @@ window.buatLinkWhatsApp = async function () {
     alert("Gagal menyimpan pesanan: " + err.message);
   }
 };
-
-
 
 
   </script>
