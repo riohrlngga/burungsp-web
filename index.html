@@ -1056,58 +1056,26 @@ window.updateKeranjang = updateKeranjang;
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // TAMPILKAN PRODUK DARI FIRESTORE
-  async function tampilkanProduk() {
-  const container = document.getElementById("produk-dari-firebase");
-  container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
+  // Variabel pesanan global
+  const pesanan = window.pesanan || [];
+  window.pesanan = pesanan;
 
-  try {
-    const snapshot = await getDocs(collection(db, "produk"));
-    if (snapshot.empty) {
-      container.innerHTML = "<p style='color:yellow'>⚠️ Belum ada produk yang tersedia.</p>";
-      return;
-    }
-
-    container.innerHTML = "";
-    snapshot.forEach(docItem => {
-      const item = docItem.data();
-      container.innerHTML += `
-        <div class="produk-box">
-          <h3>${item.nama}</h3>
-          <p>Harga: ${item.harga}B</p>
-          <p>Stok: ${item.stok}</p>
-        </div>`;
-    });
-  } catch (err) {
-    console.error("❌ Gagal ambil produk:", err);
-    container.innerHTML = "<p style='color:red'>❌ Gagal mengambil data produk!</p>";
-  }
-}
-
-
-  document.addEventListener("DOMContentLoaded", tampilkanProduk);
-
-  // ===============================
-  //      PESANAN DAN KERANJANG
-  // ===============================
-
-
+  // Fungsi generate kode pesanan
   async function generateKodePesanan() {
     const snapshot = await getDocs(collection(db, "pesanan"));
     const total = snapshot.size + 1;
-    const kode = `BSP-${String(total).padStart(2, '0')}`;
-    return kode;
+    return `BSP-${String(total).padStart(2, '0')}`;
   }
 
+  // Fungsi buat link WhatsApp dan proses pesanan
   async function buatLinkWhatsApp() {
     if (pesanan.length === 0) {
       alert("Keranjang masih kosong!");
       return;
     }
 
-const overlay = document.getElementById("loading-overlay");
-if (overlay) overlay.style.display = "flex";
-
+    const overlay = document.getElementById("loading-overlay");
+    if (overlay) overlay.style.display = "flex";
 
     try {
       const kodePesanan = await generateKodePesanan();
@@ -1122,7 +1090,7 @@ if (overlay) overlay.style.display = "flex";
 
       await addDoc(collection(db, "pesanan"), dataPesanan);
 
-      // Update stok
+      // Update stok produk di Firestore
       for (let namaProduk of pesanan) {
         const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
         const snapshot = await getDocs(q);
@@ -1147,28 +1115,27 @@ if (overlay) overlay.style.display = "flex";
         }
       }
 
-      // Redirect ke WhatsApp
+      // Redirect ke WhatsApp dengan pesan berisi pesanan dan kode
       const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
       window.location.href = "https://wa.me/62895334221342?text=" + pesan;
 
-     if (overlay) overlay.style.display = "none";
+      if (overlay) overlay.style.display = "none";
 
+      // Reset keranjang
       pesanan.length = 0;
       if (window.updateKeranjang) updateKeranjang();
 
     } catch (err) {
-  console.error("❌ Gagal menyimpan pesanan:", err);
-  if (overlay) overlay.style.display = "none";
-  alert("Gagal menyimpan pesanan: " + err.message);
-}
-
+      console.error("❌ Gagal menyimpan pesanan:", err);
+      if (overlay) overlay.style.display = "none";
+      alert("Gagal menyimpan pesanan: " + err.message);
     }
   }
 
-  // Biar bisa dipanggil dari tombol HTML
+  // Export fungsi agar bisa dipanggil dari HTML
   window.buatLinkWhatsApp = buatLinkWhatsApp;
-  window.pesanan = pesanan;
 </script>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const tombol = document.getElementById("btn-lanjutkan");
