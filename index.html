@@ -1179,15 +1179,22 @@ window.buatLinkWhatsApp = buatLinkWhatsApp;
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const tombol = document.getElementById("btn-lanjutkan");
-    tombol.addEventListener("click", () => {
-      if (typeof window.buatLinkWhatsApp === "function") {
-        window.buatLinkWhatsApp();
-      } else {
-        alert("Fungsi belum siap, coba reload halaman.");
-      }
-    });
+  const tombol = document.getElementById("btn-lanjutkan");
+  tombol.addEventListener("click", () => {
+    if (typeof window.buatLinkWhatsApp === "function") {
+      window.buatLinkWhatsApp();
+    } else {
+      alert("Fungsi belum siap, coba reload halaman.");
+    }
   });
+
+  document.getElementById('toggle-menu').addEventListener('click', () => {
+    const navMenu = document.getElementById('nav-menu');
+    navMenu.classList.toggle('active');
+  });
+});
+
+  
 </script>
 
 
