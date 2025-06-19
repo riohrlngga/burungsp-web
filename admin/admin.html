@@ -510,16 +510,22 @@ window.hapusProduk = async function (id) {
               : new Date().toLocaleString());
   
         // Menangani items baik array maupun objek
-        const items = Array.isArray(data.items)
-          ? data.items.join(", ")
-          : (typeof data.items === "object" && data.items !== null
-              ? Object.values(data.items).join(", ")
-              : "-");
+        const itemsList = Array.isArray(data.items) ? data.items : [];
+const itemMap = {};
+
+itemsList.forEach(item => {
+  itemMap[item] = (itemMap[item] || 0) + 1;
+});
+
+const itemText = Object.entries(itemMap).map(([nama, jumlah], index) =>
+  `${index + 1}. ${nama} x${jumlah}`
+).join("<br>");
+
   
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${waktu}</td>
-          <td>${items}</td>
+          <td>${itemText}</td>
           <td>${data.status || "Menunggu"}</td>
           <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
         `;
