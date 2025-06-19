@@ -1055,126 +1055,123 @@ window.updateKeranjang = updateKeranjang;
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-async function loadProduk() {
-  const produkDiv = document.getElementById('produk-dari-firebase');
-  produkDiv.innerHTML = 'Loading produk...';
 
-  try {
-    const snapshot = await getDocs(collection(db, "produk"));
-    if (snapshot.empty) {
-      produkDiv.innerHTML = '<p>Tidak ada produk tersedia.</p>';
-      return;
+  // Load produk dari Firestore dan tampilkan
+  async function loadProduk() {
+    const produkDiv = document.getElementById('produk-dari-firebase');
+    produkDiv.innerHTML = 'Loading produk...';
+
+    try {
+      const snapshot = await getDocs(collection(db, "produk"));
+      if (snapshot.empty) {
+        produkDiv.innerHTML = '<p>Tidak ada produk tersedia.</p>';
+        return;
+      }
+
+      produkDiv.innerHTML = '';
+      snapshot.forEach(docItem => {
+        const data = docItem.data();
+        const produkBox = document.createElement('div');
+        produkBox.className = 'produk-box';
+        produkBox.innerHTML = `
+          <h3>${data.nama}</h3>
+          <p>Harga: ${data.harga}B</p>
+          <p>Stok: ${data.stok}</p>
+        `;
+        produkDiv.appendChild(produkBox);
+      });
+    } catch (error) {
+      produkDiv.innerHTML = '<p>Error saat mengambil produk.</p>';
+      console.error('Error load produk:', error);
     }
-
-    produkDiv.innerHTML = ''; // kosongkan dulu
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const produkBox = document.createElement('div');
-      produkBox.className = 'produk-box';
-      produkBox.innerHTML = `
-        <h3>${data.nama}</h3>
-        <p>Harga: ${data.harga}B</p>
-        <p>Stok: ${data.stok}</p>
-      `;
-      produkDiv.appendChild(produkBox);
-    });
-  } catch (error) {
-    produkDiv.innerHTML = '<p>Error saat mengambil produk.</p>';
-    console.error('Error load produk:', error);
   }
-}
 
-// Panggil saat halaman selesai load
-window.addEventListener('DOMContentLoaded', loadProduk);
+  // Panggil loadProduk saat halaman siap
+  window.addEventListener('DOMContentLoaded', loadProduk);
 
-  // Variabel pesanan global
+  // Global array pesanan
   const pesanan = window.pesanan || [];
   window.pesanan = pesanan;
 
-  // Fungsi generate kode pesanan
+  // Generate kode pesanan berdasarkan jumlah dokumen di koleksi 'pesanan'
   async function generateKodePesanan() {
     const snapshot = await getDocs(collection(db, "pesanan"));
     const total = snapshot.size + 1;
     return `BSP-${String(total).padStart(2, '0')}`;
   }
 
-  // Fungsi buat link WhatsApp dan proses pesanan
-  // Fungsi buat link WhatsApp dan proses pesanan
-// Fungsi buat link WhatsApp dan proses pesanan
-async function buatLinkWhatsApp() {
-  if (pesanan.length === 0) {
-    alert("Keranjang masih kosong!");
-    return;
-  }
-
-  const overlay = document.getElementById("loading-overlay");
-  if (overlay) overlay.style.display = "flex";
-
-  try {
-    const kodePesanan = await generateKodePesanan();
-
-    // Data pesanan yang akan disimpan ke Firestore
-    const dataPesanan = {
-      kode: kodePesanan,
-      items: [...pesanan],
-      waktu: serverTimestamp(),
-      status: "Menunggu",
-      via: "WhatsApp"
-    };
-
-    // Simpan pesanan ke Firestore
-    await addDoc(collection(db, "pesanan"), dataPesanan);
-
-    
-    // Bagian update stok produk **DIBERHENTIKAN** karena user bukan admin
-    for (let namaProduk of pesanan) {
-      const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
-      const snapshot = await getDocs(q);
-
-      if (!snapshot.empty) {
-        const docItem = snapshot.docs[0];
-        const data = docItem.data();
-        let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
-
-        if (currentStok <= 0) {
-          alert(`⚠️ Barang "${namaProduk}" stok habis, akan diproses sebagai Pre-Order (PO).`);
-        }
-
-        const stokBaru = currentStok - 1;
-        try {
-          await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
-        } catch (updateErr) {
-          console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
-        }
-      } else {
-        console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
-      }
+  // Fungsi untuk proses pesanan dan buat link WhatsApp
+  async function buatLinkWhatsApp() {
+    if (pesanan.length === 0) {
+      alert("Keranjang masih kosong!");
+      return;
     }
-    
 
-    // Buat pesan WhatsApp yang berisi daftar pesanan dan kode pesanan
-    const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
+    const overlay = document.getElementById("loading-overlay");
+    if (overlay) overlay.style.display = "flex";
 
-    // Redirect ke WhatsApp dengan pesan
-    window.location.href = "https://wa.me/62895334221342?text=" + pesan;
+    try {
+      const kodePesanan = await generateKodePesanan();
 
-    if (overlay) overlay.style.display = "none";
+      // Simpan pesanan ke Firestore
+      const dataPesanan = {
+        kode: kodePesanan,
+        items: [...pesanan],
+        waktu: serverTimestamp(),
+        status: "Menunggu",
+        via: "WhatsApp"
+      };
 
-    // Reset keranjang pesanan dan update UI
-    pesanan.length = 0;
-    if (window.updateKeranjang) updateKeranjang();
+      await addDoc(collection(db, "pesanan"), dataPesanan);
 
-  } catch (err) {
-    console.error("❌ Gagal menyimpan pesanan:", err);
-    if (overlay) overlay.style.display = "none";
-    alert("Gagal menyimpan pesanan: " + err.message);
+      // Update stok produk
+      for (let namaProduk of pesanan) {
+        const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+          const docItem = snapshot.docs[0];
+          const data = docItem.data();
+          let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
+
+          if (currentStok <= 0) {
+            alert(`⚠️ Barang "${namaProduk}" stok habis, akan diproses sebagai Pre-Order (PO).`);
+          }
+
+          const stokBaru = currentStok - 1;
+          try {
+            await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
+          } catch (updateErr) {
+            console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
+          }
+        } else {
+          console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
+        }
+      }
+
+      // Buat pesan WhatsApp
+      const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
+
+      if (overlay) overlay.style.display = "none";
+
+      // Reset keranjang dan update UI
+      pesanan.length = 0;
+      if (window.updateKeranjang) updateKeranjang();
+
+      // Delay sedikit agar alert terbaca, lalu redirect ke WhatsApp
+      setTimeout(() => {
+        window.location.href = "https://wa.me/62895334221342?text=" + pesan;
+      }, 1000);
+
+    } catch (err) {
+      console.error("❌ Gagal menyimpan pesanan:", err);
+      if (overlay) overlay.style.display = "none";
+      alert("Gagal menyimpan pesanan: " + err.message);
+    }
   }
-}
 
-// Export fungsi agar bisa dipanggil dari HTML
-window.buatLinkWhatsApp = buatLinkWhatsApp;
-
-
+  // Export agar bisa dipanggil dari HTML
+  window.buatLinkWhatsApp = buatLinkWhatsApp;
 </script>
 
 <script>
