@@ -634,7 +634,14 @@
 
 </head>
 
-<body>
+  <body>
+  <div id="loading-overlay" style="display:none;">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p>Sebentar ya bosku, pesanan sedang dibuat...</p>
+    </div>
+  </div>
+
   <header>
     <img src="logo.png" alt="Logo Kiri" class="logo-left" />
     <h1>BURUNG SP (POD STORE)</h1>
@@ -1050,31 +1057,32 @@ window.updateKeranjang = updateKeranjang;
 
   // TAMPILKAN PRODUK DARI FIRESTORE
   async function tampilkanProduk() {
-    const container = document.getElementById("produk-dari-firebase");
-    container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
+  const container = document.getElementById("produk-dari-firebase");
+  container.innerHTML = "<p style='color:white'>🔄 Mengambil data stok...</p>";
 
-    try {
-      const snapshot = await getDocs(collection(db, "produk"));
-      if (snapshot.empty) {
-        container.innerHTML = "<p style='color:yellow'>⚠️ Belum ada produk yang tersedia.</p>";
-        return;
-      }
-
-      container.innerHTML = "";
-      snapshot.forEach(docItem => {
-        const item = docItem.data();
-        container.innerHTML += `
-          <div class="produk-box">
-            <h3>${item.nama}</h3>
-            <p>Harga: ${item.harga}B</p>
-            <p>Stok: ${item.stok}</p>
-          </div>`;
-      });
-    } catch (err) {
-      console.error("❌ Gagal ambil produk:", err);
-      container.innerHTML = "<p style='color:red'>❌ Gagal mengambil data produk!</p>";
+  try {
+    const snapshot = await getDocs(collection(db, "produk"));
+    if (snapshot.empty) {
+      container.innerHTML = "<p style='color:yellow'>⚠️ Belum ada produk yang tersedia.</p>";
+      return;
     }
+
+    container.innerHTML = "";
+    snapshot.forEach(docItem => {
+      const item = docItem.data();
+      container.innerHTML += `
+        <div class="produk-box">
+          <h3>${item.nama}</h3>
+          <p>Harga: ${item.harga}B</p>
+          <p>Stok: ${item.stok}</p>
+        </div>`;
+    });
+  } catch (err) {
+    console.error("❌ Gagal ambil produk:", err);
+    container.innerHTML = "<p style='color:red'>❌ Gagal mengambil data produk!</p>";
   }
+}
+
 
   document.addEventListener("DOMContentLoaded", tampilkanProduk);
 
@@ -1096,8 +1104,9 @@ window.updateKeranjang = updateKeranjang;
       return;
     }
 
-    const overlay = document.getElementById("loading-overlay");
-    overlay.style.display = "flex";
+const overlay = document.getElementById("loading-overlay");
+if (overlay) overlay.style.display = "flex";
+
 
     try {
       const kodePesanan = await generateKodePesanan();
@@ -1141,14 +1150,17 @@ window.updateKeranjang = updateKeranjang;
       const pesan = encodeURIComponent(`Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`);
       window.location.href = "https://wa.me/62895334221342?text=" + pesan;
 
-      overlay.style.display = "none";
+     if (overlay) overlay.style.display = "none";
+
       pesanan.length = 0;
       if (window.updateKeranjang) updateKeranjang();
 
     } catch (err) {
-      console.error("❌ Gagal menyimpan pesanan:", err);
-      overlay.style.display = "none";
-      alert("Gagal menyimpan pesanan: " + err.message);
+  console.error("❌ Gagal menyimpan pesanan:", err);
+  if (overlay) overlay.style.display = "none";
+  alert("Gagal menyimpan pesanan: " + err.message);
+}
+
     }
   }
 
