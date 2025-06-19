@@ -1002,7 +1002,7 @@ async function tampilkanProduk() {
 document.addEventListener("DOMContentLoaded", tampilkanProduk);
 
  
- window.buatLinkWhatsApp = async function () {
+window.buatLinkWhatsApp = async function () {
   if (pesanan.length === 0) {
     alert("Keranjang masih kosong!");
     return;
@@ -1024,30 +1024,45 @@ document.addEventListener("DOMContentLoaded", tampilkanProduk);
     for (let namaProduk of pesanan) {
       const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
       const snapshot = await getDocs(q);
+
       if (!snapshot.empty) {
         const docItem = snapshot.docs[0];
         const data = docItem.data();
-        const stokBaru = Math.max(0, (data.stok || 0) - 1);
-        await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
+
+        let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
+
+        if (currentStok <= 0) {
+          alert(`⚠️ Barang "${namaProduk}" stok habis, tapi akan diproses sebagai Pre-Order (PO).`);
+        }
+
+        const stokBaru = currentStok - 1;
+        try {
+          await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
+        } catch (updateErr) {
+          console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
+        }
+
+      } else {
+        console.warn(`❗ Produk "${namaProduk}" tidak ditemukan di database.`);
       }
     }
 
     const pesan = encodeURIComponent("Halo! Saya mau pesan:\n" + pesanan.join("\n"));
     window.location.href = "https://wa.me/62895334221342?text=" + pesan;
 
-
-    overlay.style.display = "none"; // sembunyikan loading
-
+    overlay.style.display = "none";
     pesanan.length = 0;
     updateKeranjang();
 
   } catch (err) {
-  console.error("❌ Gagal menyimpan pesanan:", err);
-  overlay.style.display = "none"; // pastikan loading ditutup sebelum alert
-  alert("Gagal menyimpan pesanan: " + err.message);
-}
-
+    console.error("❌ Gagal menyimpan pesanan:", err);
+    overlay.style.display = "none";
+    alert("Gagal menyimpan pesanan: " + err.message);
+  }
 };
+
+
+
 
   </script>
   <!-- Loading Overlay -->
