@@ -452,15 +452,6 @@ async function loadProduk() {
 }
 
 
-  // Tampilkan baris per baris, maksimal 7 tabel per baris
-  for (let i = 0; i < tables.length; i += maxPerRow) {
-    const rowHTML = tables.slice(i, i + maxPerRow).join("");
-  wrapper.insertAdjacentHTML("beforeend", `<div class="produk-row">${rowHTML}</div>`);
-
-
-  }
-}
-
 // ------------------ TAMBAH PRODUK ----------------------
 window.tambahProduk = async function () {
   const nama = document.getElementById("nama").value;
