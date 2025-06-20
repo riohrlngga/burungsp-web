@@ -627,11 +627,27 @@ window.cetakPesanan = async function (id) {
       const key = `${item.nama}___${item.kategori}`;
       itemMap[key] = (itemMap[key] || 0) + 1;
     });
+    // Ambil harga dari produk
+const produkSnapshot = await getDocs(collection(db, "produk"));
+const hargaMap = {};
+produkSnapshot.forEach(doc => {
+  const data = doc.data();
+  hargaMap[data.nama] = data.harga;
+});
 
-    const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
-      const [nama, kategori] = key.split("___");
-      return `${index + 1}. ${nama} (${kategori}) x${jumlah}`;
-    }).join("<br>");
+let totalPembayaran = 0;
+
+
+   const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
+  const [nama, kategori] = key.split("___");
+  const harga = hargaMap[nama] || 0;
+  const subtotal = harga * jumlah;
+  totalPembayaran += subtotal;
+
+  return `${index + 1}. ${nama} (${kategori}) x${jumlah} = <strong>${subtotal}B</strong>`;
+}).join("<br>");
+
+    
 
     const cetakWindow = window.open('', '', 'width=600,height=400');
     cetakWindow.document.write(`
@@ -652,6 +668,7 @@ window.cetakPesanan = async function (id) {
             <p><strong>Waktu:</strong> ${waktu}</p>
             <p><strong>Items:</strong><br>${itemText}</p>
             <p><strong>Status:</strong> ${data.status || "Menunggu"}</p>
+            <p><strong>Total Pembayaran:</strong> ${totalPembayaran}B</p>
           </div>
           <br>
           <button onclick="window.print()">🖨 Cetak</button>
