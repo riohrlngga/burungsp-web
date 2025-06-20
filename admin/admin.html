@@ -384,7 +384,7 @@ setPersistence(auth, browserSessionPersistence).then(() => {
 });
 
 // ✅ Fungsi Login global agar bisa dipanggil dari HTML
-window.login = async function () {
+window.login = async function (event) {
   event.preventDefault(); // ⛔ supaya form tidak reload
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -394,6 +394,7 @@ window.login = async function () {
     alert("Login gagal: " + err.message);
   }
 };
+
 
 // ✅ Fungsi Logout global juga
 window.logout = async function () {
