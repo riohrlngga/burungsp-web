@@ -279,6 +279,33 @@
     font-size: 0.9em;
   }
 }
+.dashboard-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.produk-kiri, .pesanan-kanan {
+  flex: 1 1 50%;
+  min-width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.pesanan-kanan {
+  overflow-x: auto;
+}
+
+/* Responsive HP */
+@media (max-width: 768px) {
+  .dashboard-flex {
+    flex-direction: column;
+  }
+}
+.dashboard-flex {
+  align-items: flex-start;
+}
 
 
     </style>
@@ -308,29 +335,30 @@
         <button onclick="tambahProduk()">Tambah Produk</button>
       </div>
     <div style="overflow-x:auto;">
+    <div class="dashboard-flex">
+  <div class="produk-kiri">
     <div id="produk-grid-wrapper" class="produk-grid-wrapper"></div>
-  
   </div>
-  
-  <h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
-  <div style="overflow-x:auto;">
-    <table>
-  <thead>
-  <tr>
-    <th>Kode</th>
-    <th>Waktu</th>
-    <th>Items</th>
-    <th>Status</th>
-    <th>Aksi</th>
-    <th>Bukti</th> <!-- Tambahan -->
-  </tr>
-</thead>
-
-
-      <tbody id="tabel-pesanan"></tbody>
-    </table>
+  <div class="pesanan-kanan">
+    <h2 style="color:#ff69b4;">📦 Riwayat Pesanan</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Waktu</th>
+            <th>Items</th>
+            <th>Status</th>
+            <th>Aksi</th>
+            <th>Bukti</th>
+          </tr>
+        </thead>
+        <tbody id="tabel-pesanan"></tbody>
+      </table>
+    </div>
   </div>
-  
+</div>
+
   </div> <!-- penutup admin-box -->
   </div> <!-- penutup container -->
       
