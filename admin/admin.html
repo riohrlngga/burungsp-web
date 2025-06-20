@@ -617,8 +617,8 @@ window.cetakPesanan = async function (id) {
     const produkSnapshot = await getDocs(collection(db, "produk"));
     const hargaMap = {};
     produkSnapshot.forEach(doc => {
-      const data = doc.data();
-      hargaMap[data.nama] = data.harga;
+      const dataProduk = doc.data();
+      hargaMap[dataProduk.nama] = dataProduk.harga;
     });
 
     let totalPembayaran = 0;
@@ -664,6 +664,7 @@ window.cetakPesanan = async function (id) {
   }
 };
 </script>
+
 
   
   </body>
