@@ -531,16 +531,17 @@ produkSnapshot.forEach(doc => {
         // Menangani items baik array maupun objek
         const itemsList = Array.isArray(data.items) ? data.items : [];
 const itemMap = {};
-
 itemsList.forEach(item => {
-  itemMap[item] = (itemMap[item] || 0) + 1;
+  const key = `${item.nama}___${item.kategori}`;
+  itemMap[key] = (itemMap[key] || 0) + 1;
 });
 
-const itemText = Object.entries(itemMap).map(([nama, jumlah], index) => {
+const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
+  const [nama, kategori] = key.split("___");
   const stok = stokMap[nama] ?? 0;
   const status = stok >= jumlah ? "Ready" : "PO";
   const statusColor = stok >= jumlah ? "lightgreen" : "orange";
-  return `${index + 1}. ${nama} x${jumlah} <small style="color:${statusColor};">(${status})</small>`;
+  return `${index + 1}. ${nama} (${kategori}) x${jumlah} <small style="color:${statusColor};">(${status})</small>`;
 }).join("<br>");
 
 
