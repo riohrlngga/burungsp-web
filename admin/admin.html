@@ -168,14 +168,12 @@
   /* Struktur produk (BERLAKU UNTUK SEMUA LAYAR) */
 .produk-row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* biar rata tengah */
+  flex-direction: column; /* satu kolom */
+  align-items: flex-start; /* rata kiri */
   gap: 20px;
   margin-top: 20px;
-  max-width: 1200px; /* ini batas maksimal lebar total */
-  margin-left: auto;
-  margin-right: auto;
 }
+
 
 .produk-tabel-wrap {
   flex: 0 0 calc(33.333% - 14px);
