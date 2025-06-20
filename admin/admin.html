@@ -475,6 +475,26 @@ window.hapusProduk = async function (id) {
     alert("Gagal menghapus produk: " + error.message);
   }
 };
+// Setelah fungsi hapusProduk (atau fungsi lainnya)
+
+window.tambahProduk = async function() {
+  const nama = document.getElementById('nama').value.trim();
+  const harga = Number(document.getElementById('harga').value);
+  const stok = Number(document.getElementById('stok').value);
+  if (!nama || harga <= 0 || stok < 0) {
+    alert('Isi semua data dengan benar!');
+    return;
+  }
+  try {
+    await addDoc(collection(db, 'produk'), { nama, harga, stok });
+    loadProduk();
+    document.getElementById('nama').value = '';
+    document.getElementById('harga').value = '';
+    document.getElementById('stok').value = '';
+  } catch (error) {
+    alert('Gagal tambah produk: ' + error.message);
+  }
+};
 
 
 // ------------------ PESANAN ----------------------
