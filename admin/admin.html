@@ -297,7 +297,7 @@ table {
     </div>
   
     <div id="login-box" class="login-container" style="display: none;">
-      <form onsubmit="event.preventDefault(); login();" class="login-box">
+      <form onsubmit="login(); return false;" class="login-box">
         <h2>Admin Login</h2>
         <input type="email" id="email" placeholder="Email" required />
         <input type="password" id="password" placeholder="Password" required />
@@ -355,12 +355,12 @@ table {
         }, 2000);
       });
     </script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import {
-      getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-    import {
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -369,54 +369,60 @@ table {
   browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-  
-    const firebaseConfig = {
-      apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
-      authDomain: "burungsp-69fdb.firebaseapp.com",
-      projectId: "burungsp-69fdb",
-      storageBucket: "burungsp-69fdb.firebasestorage.app",
-      messagingSenderId: "743244451524",
-      appId: "1:743244451524:web:c55f9871a8debfa6238391",
-      measurementId: "G-LSYDF74Q16"
-    };
-  
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-   setPersistence(auth, browserSessionPersistence)
-  .then(() => {
-    const loginBox = document.getElementById("login-box");
-    const adminBox = document.getElementById("admin-box"); // ✅ tambahkan ini
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyAxC2MTMzwOfj3KlpHYMkhyeFvqJmR5kSk",
+  authDomain: "burungsp-69fdb.firebaseapp.com",
+  projectId: "burungsp-69fdb",
+  storageBucket: "burungsp-69fdb.firebasestorage.app",
+  messagingSenderId: "743244451524",
+  appId: "1:743244451524:web:c55f9871a8debfa6238391",
+  measurementId: "G-LSYDF74Q16"
+};
 
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        loginBox.style.display = "none";
-        adminBox.style.display = "block";
-        loadProduk();
-        loadPesanan();
-      } else {
-        loginBox.style.display = "flex";
-        adminBox.style.display = "none";
-      }
-    });
-  })
+// Inisialisasi Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-    
-  
-    window.login = async function () {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-      } catch (err) {
-        alert("Login gagal: " + err.message);
-      }
-    };
-  
-    window.logout = async function () {
-      await signOut(auth);
-    };
-  
+// Jaga sesi tetap aktif selama tab terbuka
+setPersistence(auth, browserSessionPersistence).then(() => {
+  const loginBox = document.getElementById("login-box");
+  const adminBox = document.getElementById("admin-box");
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      loginBox.style.display = "none";
+      adminBox.style.display = "block";
+      loadProduk();
+      loadPesanan();
+    } else {
+      loginBox.style.display = "flex";
+      adminBox.style.display = "none";
+    }
+  });
+});
+
+// ✅ Fungsi Login global agar bisa dipanggil dari HTML
+window.login = async function () {
+  event.preventDefault(); // ⛔ penting supaya form tidak reload
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    alert("Login gagal: " + err.message);
+  }
+};
+
+
+// ✅ Fungsi Logout global juga
+window.logout = async function () {
+  await signOut(auth);
+};
+
+
+
  // ------------------ PRODUK ----------------------
 async function loadProduk() {
   const snapshot = await getDocs(collection(db, "produk"));
@@ -599,7 +605,7 @@ window.hapusPesanan = async function (id) {
   loadPesanan();
 };
 
-
+</script>
   
   </body>
   </html>
