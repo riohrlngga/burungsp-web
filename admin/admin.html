@@ -371,22 +371,21 @@ setPersistence(auth, browserSessionPersistence).then(() => {
   const loginBox = document.getElementById("login-box");
   const adminBox = document.getElementById("admin-box");
 
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      loginBox.style.display = "none";
-      adminBox.style.display = "block";
-      loadProduk();
-      loadPesanan();
-    } else {
-      loginBox.style.display = "flex";
-      adminBox.style.display = "none";
-    }
-  });
+onAuthStateChanged(auth, user => {
+  if (user) {
+    loginBox.style.display = "none";
+    adminBox.style.display = "block";
+    loadProduk();
+    loadPesanan();
+  } else {
+    loginBox.style.display = "flex";
+    adminBox.style.display = "none";
+  }
 });
 
 // ✅ Fungsi Login global agar bisa dipanggil dari HTML
 window.login = async function () {
-  event.preventDefault(); // ⛔ penting supaya form tidak reload
+  event.preventDefault(); // ⛔ supaya form tidak reload
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   try {
@@ -396,15 +395,12 @@ window.login = async function () {
   }
 };
 
-
 // ✅ Fungsi Logout global juga
 window.logout = async function () {
   await signOut(auth);
 };
 
-
-
- // ------------------ PRODUK ----------------------
+// ------------------ PRODUK ----------------------
 async function loadProduk() {
   const snapshot = await getDocs(collection(db, "produk"));
   const dataList = [];
@@ -460,6 +456,29 @@ async function loadProduk() {
   }
 }
 
+// ------------------ PESANAN ----------------------
+async function loadPesanan() {
+  const tbody = document.getElementById("tabel-pesanan");
+  tbody.innerHTML = "<tr><td colspan='6'>⏳ Mengambil data...</td></tr>";
+
+  // Ambil semua produk & stok
+  const produkSnapshot = await getDocs(collection(db, "produk"));
+  const stokMap = {};
+  produkSnapshot.forEach(doc => {
+    const data = doc.data();
+    stokMap[data.nama] = data.stok;
+  });
+
+  try {
+    const snapshot = await getDocs(collection(db, "pesanan"));
+    tbody.innerHTML = "";
+
+    snapshot.forEach(docItem => {
+      const data = docItem.data();
+      const waktu = data.waktu?.toDate?.()
+        ? data.waktu.toDate().toLocaleString()
+        : (typeof data.waktu === "string" ? data.waktu : new Date().toLocaleString());
+
       // Kelola item pesanan
       const itemsList = Array.isArray(data.items) ? data.items : [];
       const itemMap = {};
@@ -479,19 +498,18 @@ async function loadProduk() {
       // Buat elemen baris tabel
       const tr = document.createElement("tr");
       tr.innerHTML = `
-  <td><strong>${data.kode || "❌"}</strong></td>
-  <td>${waktu}</td>
-  <td>${itemText}</td>
-  <td style="text-align:center;">
-    <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
-  </td>
-  <td><span id="status-${docItem.id}">${data.status === 'Diproses' ? "Sudah Diproses" : "Menunggu"}</span></td>
- <td>
-  <button onclick="hapusPesanan('${docItem.id}')">🗑</button>
-  <button onclick="cetakPesanan('${docItem.id}')">🖨</button>
-</td>
-`; // 
-
+        <td><strong>${data.kode || "❌"}</strong></td>
+        <td>${waktu}</td>
+        <td>${itemText}</td>
+        <td style="text-align:center;">
+          <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
+        </td>
+        <td><span id="status-${docItem.id}">${data.status === 'Diproses' ? "Sudah Diproses" : "Menunggu"}</span></td>
+        <td>
+          <button onclick="hapusPesanan('${docItem.id}')">🗑</button>
+          <button onclick="cetakPesanan('${docItem.id}')">🖨</button>
+        </td>
+      `;
 
       // Tambahkan highlight jika statusnya Diproses
       if (data.status === 'Diproses') {
@@ -530,6 +548,7 @@ window.toggleStatus = async function (id, checkbox) {
     tr.style.borderLeft = '';
   }
 };
+
 
 // ------------------ HAPUS PESANAN ----------------------
 window.hapusPesanan = async function (id) {
