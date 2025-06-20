@@ -323,15 +323,17 @@ table {
   <h2 style="color:#ff69b4; margin-top:40px;">📦 Riwayat Pesanan</h2>
   <div style="overflow-x:auto;">
     <table>
-     <thead>
+  <thead>
   <tr>
     <th>Kode</th>
     <th>Waktu</th>
     <th>Items</th>
     <th>Status</th>
     <th>Aksi</th>
+    <th>Bukti</th> <!-- Tambahan -->
   </tr>
 </thead>
+
 
       <tbody id="tabel-pesanan"></tbody>
     </table>
@@ -339,9 +341,7 @@ table {
   
   </div> <!-- penutup admin-box -->
   </div> <!-- penutup container -->
-  
-    </div>
-    
+      
   
     <script>
       window.addEventListener('load', () => {
@@ -358,8 +358,9 @@ table {
  <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
-  getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc
+  getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -551,15 +552,19 @@ async function loadPesanan() {
       // Buat elemen baris tabel
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><strong>${data.kode || "❌"}</strong></td>
-        <td>${waktu}</td>
-        <td>${itemText}</td>
-        <td style="text-align:center;">
-          <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
-        </td>
-        <td><span id="status-${docItem.id}">${data.status === 'Diproses' ? "Sudah Diproses" : "Menunggu"}</span></td>
-        <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
-      `;
+  <td><strong>${data.kode || "❌"}</strong></td>
+  <td>${waktu}</td>
+  <td>${itemText}</td>
+  <td style="text-align:center;">
+    <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
+  </td>
+  <td><span id="status-${docItem.id}">${data.status === 'Diproses' ? "Sudah Diproses" : "Menunggu"}</span></td>
+ <td>
+  <button onclick="hapusPesanan('${docItem.id}')">🗑</button>
+  <button onclick="cetakPesanan('${docItem.id}')">🖨</button>
+</td>
+`; // 
+
 
       // Tambahkan highlight jika statusnya Diproses
       if (data.status === 'Diproses') {
@@ -603,6 +608,60 @@ window.toggleStatus = async function (id, checkbox) {
 window.hapusPesanan = async function (id) {
   await deleteDoc(doc(db, "pesanan", id));
   loadPesanan();
+};
+// ------------------ CETAK PESANAN ----------------------
+window.cetakPesanan = async function (id) {
+  const docRef = doc(db, "pesanan", id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    const waktu = data.waktu?.toDate?.()
+      ? data.waktu.toDate().toLocaleString()
+      : (typeof data.waktu === "string" ? data.waktu : new Date().toLocaleString());
+
+    const itemsList = Array.isArray(data.items) ? data.items : [];
+    const itemMap = {};
+    itemsList.forEach(item => {
+      const key = `${item.nama}___${item.kategori}`;
+      itemMap[key] = (itemMap[key] || 0) + 1;
+    });
+
+    const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
+      const [nama, kategori] = key.split("___");
+      return `${index + 1}. ${nama} (${kategori}) x${jumlah}`;
+    }).join("<br>");
+
+    const cetakWindow = window.open('', '', 'width=600,height=400');
+    cetakWindow.document.write(`
+      <html>
+        <head>
+          <title>Bukti Pesanan</title>
+          <style>
+            body { font-family: Arial; padding: 20px; }
+            h2 { color: #333; }
+            .box { border: 1px solid #ccc; padding: 20px; }
+            small { color: #888; }
+          </style>
+        </head>
+        <body>
+          <h2>Bukti Pesanan</h2>
+          <div class="box">
+            <p><strong>Kode:</strong> ${data.kode || "-"}</p>
+            <p><strong>Waktu:</strong> ${waktu}</p>
+            <p><strong>Items:</strong><br>${itemText}</p>
+            <p><strong>Status:</strong> ${data.status || "Menunggu"}</p>
+          </div>
+          <br>
+          <button onclick="window.print()">🖨 Cetak</button>
+        </body>
+      </html>
+    `);
+    cetakWindow.document.close();
+  } else {
+    alert("❌ Pesanan tidak ditemukan.");
+  }
 };
 
 </script>
