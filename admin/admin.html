@@ -321,6 +321,10 @@
         <input type="number" id="stok" placeholder="Stok">
         <button onclick="tambahProduk()">Tambah Produk</button>
       </div>
+      <div style="margin-top: 10px;">
+  <input type="text" id="cari-produk" placeholder="🔍 Cari produk..." oninput="filterProduk()" style="width:100%; padding:10px; font-size:16px;">
+</div>
+
     <div style="overflow-x:auto;">
     <div class="dashboard-flex">
   <div class="produk-kiri">
@@ -691,6 +695,27 @@ window.cetakPesanan = async function (id) {
     alert("❌ Pesanan tidak ditemukan.");
   }
 };
+  // 🔍 Filter Produk berdasarkan input pencarian
+window.filterProduk = function () {
+  const keyword = document.getElementById('cari-produk').value.toLowerCase();
+  const allTables = document.querySelectorAll('.produk-tabel-wrap');
+
+  allTables.forEach(tabel => {
+    const rows = tabel.querySelectorAll('tbody tr');
+    let matchFound = false;
+
+    rows.forEach(row => {
+      const namaProduk = row.children[0]?.textContent.toLowerCase() || "";
+      const cocok = namaProduk.includes(keyword);
+      row.style.display = cocok ? '' : 'none';
+      if (cocok) matchFound = true;
+    });
+
+    // Sembunyikan tabel jika semua baris di dalamnya disembunyikan
+    tabel.style.display = matchFound ? '' : 'none';
+  });
+};
+
 </script>
 
   </body>
