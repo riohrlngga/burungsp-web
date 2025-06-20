@@ -335,7 +335,7 @@
         }, 2000);
       });
     </script>
- <script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
   getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc
@@ -371,16 +371,17 @@ setPersistence(auth, browserSessionPersistence).then(() => {
   const loginBox = document.getElementById("login-box");
   const adminBox = document.getElementById("admin-box");
 
-onAuthStateChanged(auth, user => {
-  if (user) {
-    loginBox.style.display = "none";
-    adminBox.style.display = "block";
-    loadProduk();
-    loadPesanan();
-  } else {
-    loginBox.style.display = "flex";
-    adminBox.style.display = "none";
-  }
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      loginBox.style.display = "none";
+      adminBox.style.display = "block";
+      loadProduk();
+      loadPesanan();
+    } else {
+      loginBox.style.display = "flex";
+      adminBox.style.display = "none";
+    }
+  });
 });
 
 // ✅ Fungsi Login global agar bisa dipanggil dari HTML
@@ -549,12 +550,12 @@ window.toggleStatus = async function (id, checkbox) {
   }
 };
 
-
 // ------------------ HAPUS PESANAN ----------------------
 window.hapusPesanan = async function (id) {
   await deleteDoc(doc(db, "pesanan", id));
   loadPesanan();
 };
+
 // ------------------ CETAK PESANAN ----------------------
 window.cetakPesanan = async function (id) {
   const docRef = doc(db, "pesanan", id);
@@ -573,27 +574,25 @@ window.cetakPesanan = async function (id) {
       const key = `${item.nama}___${item.kategori}`;
       itemMap[key] = (itemMap[key] || 0) + 1;
     });
+
     // Ambil harga dari produk
-const produkSnapshot = await getDocs(collection(db, "produk"));
-const hargaMap = {};
-produkSnapshot.forEach(doc => {
-  const data = doc.data();
-  hargaMap[data.nama] = data.harga;
-});
+    const produkSnapshot = await getDocs(collection(db, "produk"));
+    const hargaMap = {};
+    produkSnapshot.forEach(doc => {
+      const data = doc.data();
+      hargaMap[data.nama] = data.harga;
+    });
 
-let totalPembayaran = 0;
+    let totalPembayaran = 0;
 
+    const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
+      const [nama, kategori] = key.split("___");
+      const harga = hargaMap[nama] || 0;
+      const subtotal = harga * jumlah;
+      totalPembayaran += subtotal;
 
-   const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
-  const [nama, kategori] = key.split("___");
-  const harga = hargaMap[nama] || 0;
-  const subtotal = harga * jumlah;
-  totalPembayaran += subtotal;
-
-  return `${index + 1}. ${nama} (${kategori}) x${jumlah} = <strong>${subtotal}B</strong>`;
-}).join("<br>");
-
-    
+      return `${index + 1}. ${nama} (${kategori}) x${jumlah} = <strong>${subtotal}B</strong>`;
+    }).join("<br>");
 
     const cetakWindow = window.open('', '', 'width=600,height=400');
     cetakWindow.document.write(`
@@ -626,8 +625,8 @@ let totalPembayaran = 0;
     alert("❌ Pesanan tidak ditemukan.");
   }
 };
-
 </script>
+
   
   </body>
   </html>
