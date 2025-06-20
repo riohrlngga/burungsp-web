@@ -232,12 +232,21 @@
   word-break: break-word;
 }
 
+/* Responsive untuk layar kecil */
+@media (max-width: 768px) {
   .produk-row {
     flex-direction: column;
     gap: 15px;
     align-items: stretch;
   }
+
+  .produk-tabel-wrap {
+    width: 100%;
+    min-width: unset;
+    max-width: 100%;
+  }
 }
+
 
 /* Responsive tambahan untuk layar sangat kecil */
 @media (max-width: 480px) {
@@ -405,14 +414,14 @@ async function loadProduk() {
     dataList.push({ id: docItem.id, ...data });
   });
 
-  // Urutkan berdasarkan nama
+  // Urutkan produk berdasarkan nama secara alfabet
   dataList.sort((a, b) => a.nama.localeCompare(b.nama));
 
   const wrapper = document.getElementById("produk-grid-wrapper");
   wrapper.innerHTML = "";
 
-  const groupSize = 12;
-  const maxPerRow = 7;
+  const groupSize = 12;    // Maksimal produk per tabel
+  const maxPerRow = 7;     // Maksimal tabel per baris
   const tables = [];
 
   for (let i = 0; i < dataList.length; i += groupSize) {
@@ -444,64 +453,12 @@ async function loadProduk() {
     tables.push(tableHTML);
   }
 
-  // Tampilkan baris per baris, maksimal 7 tabel per baris
+  // Render tabel per baris, maksimal 7 tabel per baris
   for (let i = 0; i < tables.length; i += maxPerRow) {
     const rowHTML = tables.slice(i, i + maxPerRow).join("");
     wrapper.insertAdjacentHTML("beforeend", `<div class="produk-row">${rowHTML}</div>`);
   }
 }
-
-
-// ------------------ TAMBAH PRODUK ----------------------
-window.tambahProduk = async function () {
-  const nama = document.getElementById("nama").value;
-  const harga = parseInt(document.getElementById("harga").value);
-  const stok = parseInt(document.getElementById("stok").value);
-
-  if (nama && !isNaN(harga) && !isNaN(stok)) {
-    await addDoc(collection(db, "produk"), { nama, harga, stok });
-    loadProduk();
-  }
-};
-
-// ------------------ UBAH STOK ----------------------
-window.ubahStok = async function (id, stokBaru) {
-  if (stokBaru < 0) stokBaru = 0;
-  await updateDoc(doc(db, "produk", id), { stok: stokBaru });
-  loadProduk();
-};
-
-// ------------------ HAPUS PRODUK ----------------------
-window.hapusProduk = async function (id) {
-  await deleteDoc(doc(db, "produk", id));
-  loadProduk();
-};
-
-  
-  
-    // ------------------ PESANAN ----------------------
-   // ------------------ PESANAN ----------------------
-async function loadPesanan() {
-  const tbody = document.getElementById("tabel-pesanan");
-  tbody.innerHTML = "<tr><td colspan='6'>⏳ Mengambil data...</td></tr>";
-
-  // Ambil semua produk & stok
-  const produkSnapshot = await getDocs(collection(db, "produk"));
-  const stokMap = {};
-  produkSnapshot.forEach(doc => {
-    const data = doc.data();
-    stokMap[data.nama] = data.stok;
-  });
-
-  try {
-    const snapshot = await getDocs(collection(db, "pesanan"));
-    tbody.innerHTML = "";
-
-    snapshot.forEach(docItem => {
-      const data = docItem.data();
-      const waktu = data.waktu?.toDate?.()
-        ? data.waktu.toDate().toLocaleString()
-        : (typeof data.waktu === "string" ? data.waktu : new Date().toLocaleString());
 
       // Kelola item pesanan
       const itemsList = Array.isArray(data.items) ? data.items : [];
