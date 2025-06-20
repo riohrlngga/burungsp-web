@@ -503,77 +503,87 @@ window.hapusProduk = async function (id) {
   
   
     // ------------------ PESANAN ----------------------
-   async function loadPesanan() {
-    const tbody = document.getElementById("tabel-pesanan");
-    tbody.innerHTML = "<tr><td colspan='4'>⏳ Mengambil data...</td></tr>";
- // Ambil semua produk & simpan stoknya
-const produkSnapshot = await getDocs(collection(db, "produk"));
-const stokMap = {};
-produkSnapshot.forEach(doc => {
-  const data = doc.data();
-  stokMap[data.nama] = data.stok;
-});
- 
-    try {
-      const snapshot = await getDocs(collection(db, "pesanan"));
-      tbody.innerHTML = "";
-  
-      snapshot.forEach(docItem => {
-        const data = docItem.data();
-  
-        // Konversi waktu dengan aman
-        const waktu = data.waktu?.toDate?.()
-          ? data.waktu.toDate().toLocaleString()
-          : (typeof data.waktu === "string"
-              ? data.waktu
-              : new Date().toLocaleString());
-  
-        // Menangani items baik array maupun objek
-        const itemsList = Array.isArray(data.items) ? data.items : [];
-const itemMap = {};
-itemsList.forEach(item => {
-  const key = `${item.nama}___${item.kategori}`;
-  itemMap[key] = (itemMap[key] || 0) + 1;
-});
+   // ------------------ PESANAN ----------------------
+async function loadPesanan() {
+  const tbody = document.getElementById("tabel-pesanan");
+  tbody.innerHTML = "<tr><td colspan='5'>⏳ Mengambil data...</td></tr>";
 
-const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
-  const [nama, kategori] = key.split("___");
-  const stok = stokMap[nama] ?? 0;
-  const status = stok >= jumlah ? "Ready" : "PO";
-  const statusColor = stok >= jumlah ? "lightgreen" : "orange";
-  return `${index + 1}. ${nama} (${kategori}) x${jumlah} <small style="color:${statusColor};">(${status})</small>`;
-}).join("<br>");
+  // Ambil semua produk & simpan stoknya
+  const produkSnapshot = await getDocs(collection(db, "produk"));
+  const stokMap = {};
+  produkSnapshot.forEach(doc => {
+    const data = doc.data();
+    stokMap[data.nama] = data.stok;
+  });
 
+  try {
+    const snapshot = await getDocs(collection(db, "pesanan"));
+    tbody.innerHTML = "";
 
+    snapshot.forEach(docItem => {
+      const data = docItem.data();
 
-  
-        const tr = document.createElement("tr");
-       tr.innerHTML = `
-  <td><strong>${data.kode || "❌"}</strong></td>
-  <td>${waktu}</td>
-  <td>${itemText}</td>
-  <td>${data.status || "Menunggu"}</td>
-  <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
-`;
+      // Format waktu
+      const waktu = data.waktu?.toDate?.()
+        ? data.waktu.toDate().toLocaleString()
+        : (typeof data.waktu === "string" ? data.waktu : new Date().toLocaleString());
 
-        tbody.appendChild(tr);
+      // Proses item
+      const itemsList = Array.isArray(data.items) ? data.items : [];
+      const itemMap = {};
+      itemsList.forEach(item => {
+        const key = `${item.nama}___${item.kategori}`;
+        itemMap[key] = (itemMap[key] || 0) + 1;
       });
-  
-  
-        if (!tbody.innerHTML.trim()) {
-          tbody.innerHTML = "<tr><td colspan='4'>📭 Belum ada pesanan.</td></tr>";
-        }
-  
-      } catch (err) {
-        console.error("❌ Gagal mengambil pesanan:", err);
-        tbody.innerHTML = "<tr><td colspan='4' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
-      }
+
+      const itemText = Object.entries(itemMap).map(([key, jumlah], index) => {
+        const [nama, kategori] = key.split("___");
+        const stok = stokMap[nama] ?? 0;
+        const status = stok >= jumlah ? "Ready" : "PO";
+        const statusColor = stok >= jumlah ? "lightgreen" : "orange";
+        return `${index + 1}. ${nama} (${kategori}) x${jumlah} <small style="color:${statusColor};">(${status})</small>`;
+      }).join("<br>");
+
+      // Buat baris
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>${data.kode || "❌"}</strong></td>
+        <td>${waktu}</td>
+        <td>${itemText}</td>
+        <td>
+          <label>
+            <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
+            <span>${data.status || "Menunggu"}</span>
+          </label>
+        </td>
+        <td><button onclick="hapusPesanan('${docItem.id}')">🗑</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    if (!tbody.innerHTML.trim()) {
+      tbody.innerHTML = "<tr><td colspan='5'>📭 Belum ada pesanan.</td></tr>";
     }
-  
-    window.hapusPesanan = async function (id) {
-      await deleteDoc(doc(db, "pesanan", id));
-      loadPesanan();
-    };
+
+  } catch (err) {
+    console.error("❌ Gagal mengambil pesanan:", err);
+    tbody.innerHTML = "<tr><td colspan='5' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
+  }
+}
+
+window.toggleStatus = async function (id, checkbox) {
+  const newStatus = checkbox.checked ? "Diproses" : "Menunggu";
+  await updateDoc(doc(db, "pesanan", id), { status: newStatus });
+
+  const span = checkbox.nextElementSibling;
+  if (span) span.textContent = newStatus;
+};
+
+window.hapusPesanan = async function (id) {
+  await deleteDoc(doc(db, "pesanan", id));
+  loadPesanan();
+};
+
   </script>
   
     <script>
