@@ -319,6 +319,16 @@
         <input type="text" id="nama" placeholder="Nama Produk">
         <input type="number" id="harga" placeholder="Harga">
         <input type="number" id="stok" placeholder="Stok">
+        <select id="kategori">
+  <option value="" disabled selected>Pilih Kategori</option>
+  <option value="Liquid FOOM">Liquid FOOM</option>
+  <option value="Freebase">Freebase</option>
+  <option value="Saltnic">Saltnic</option>
+  <option value="BuaQita">BuaQita</option>
+  <option value="Device FOOM">Device FOOM</option>
+  <option value="Catridge">Catridge</option>
+</select>
+
         <button onclick="tambahProduk()">Tambah Produk</button>
       </div>
       <div style="margin-top: 10px;">
@@ -455,32 +465,31 @@ async function loadProduk() {
 
   for (let i = 0; i < dataList.length; i += groupSize) {
     const group = dataList.slice(i, i + groupSize);
-    const rows = group.map(p => `
-      <tr>
-        <td>${p.nama}</td>
-        <td>${p.harga}B</td>
-        <td>${p.stok}</td>
-        <td>
-          <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
-          <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
-          <button onclick="hapusProduk('${p.id}')">❌</button>
-        </td>
-      </tr>
-    `).join("");
+   const rows = group.map(p => `
+  <tr>
+    <td>${p.nama}</td>
+    <td>${p.harga}B</td>
+    <td>${p.stok}</td>
+    <td>${p.kategori || '-'}</td>
+    <td>
+      <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
+      <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
+      <button onclick="hapusProduk('${p.id}')">❌</button>
+    </td>
+  </tr>
+`).join("");
 
-    const tableHTML = `
-      <div class="produk-tabel-wrap">
-        <table>
-          <thead>
-            <tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    `;
-
-    tables.push(tableHTML);
-  }
+const tableHTML = `
+  <div class="produk-tabel-wrap">
+    <table>
+      <thead>
+        <tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Kategori</th><th>Aksi</th></tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>
+`;
+tables.push(tableHTML);
 
 wrapper.innerHTML = `<div class="produk-row">${tables.join('')}</div>`;
 } 
@@ -511,16 +520,21 @@ window.tambahProduk = async function() {
   const nama = document.getElementById('nama').value.trim();
   const harga = Number(document.getElementById('harga').value);
   const stok = Number(document.getElementById('stok').value);
-  if (!nama || harga <= 0 || stok < 0) {
-    alert('Isi semua data dengan benar!');
+  const kategori = document.getElementById('kategori').value.trim();
+
+  if (!nama || harga <= 0 || stok < 0 || !kategori) {
+    alert('Isi semua data dengan benar dan pilih kategori!');
     return;
   }
+
   try {
-    await addDoc(collection(db, 'produk'), { nama, harga, stok });
+    await addDoc(collection(db, 'produk'), { nama, harga, stok, kategori });
     loadProduk();
     document.getElementById('nama').value = '';
     document.getElementById('harga').value = '';
     document.getElementById('stok').value = '';
+    document.getElementById('kategori').selectedIndex = 0;
+ // reset kategori input
   } catch (error) {
     alert('Gagal tambah produk: ' + error.message);
   }
