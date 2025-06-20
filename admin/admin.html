@@ -449,11 +449,8 @@ async function loadProduk() {
     tables.push(tableHTML);
   }
 
-  for (let i = 0; i < tables.length; i += maxPerRow) {
-    const rowHTML = tables.slice(i, i + maxPerRow).join("");
-    wrapper.insertAdjacentHTML("beforeend", `<div class="produk-row">${rowHTML}</div>`);
-  }
-}
+wrapper.innerHTML = `<div class="produk-row">${tables.join('')}</div>`;
+
 
 // Fungsi untuk mengubah stok produk
 window.ubahStok = async function (id, stokBaru) {
