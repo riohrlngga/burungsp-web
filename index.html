@@ -1119,19 +1119,28 @@ window.updateKeranjang = updateKeranjang;
       const kodePesanan = await generateKodePesanan();
 
       // Simpan pesanan ke Firestore
-      const dataPesanan = {
-        kode: kodePesanan,
-        items: [...pesanan],
-        waktu: serverTimestamp(),
-        status: "Menunggu",
-        via: "WhatsApp"
-      };
+      const itemsDetail = pesanan.map(item => {
+  const match = item.match(/^(.*)\s+\((.*)\)$/);
+  return {
+    nama: match ? match[1].trim() : item,
+    kategori: match ? match[2].trim() : "Tidak diketahui"
+  };
+});
+
+const dataPesanan = {
+  kode: kodePesanan,
+  items: itemsDetail,
+  waktu: serverTimestamp(),
+  status: "Menunggu",
+  via: "WhatsApp"
+};
+
 
       await addDoc(collection(db, "pesanan"), dataPesanan);
 
       // Update stok produk
-      for (let namaProduk of pesanan) {
-        const q = query(collection(db, "produk"), where("nama", "==", namaProduk), limit(1));
+      for (let item of itemsDetail) {
+  const q = query(collection(db, "produk"), where("nama", "==", item.nama), limit(1));
         const snapshot = await getDocs(q);
 
         if (!snapshot.empty) {
