@@ -206,7 +206,7 @@
 }
 
 .produk-tabel-wrap {
-  width: 350px;        /* Lebar tetap */
+  width: 350px;
   min-width: 350px;
   max-width: 350px;
   overflow-x: auto;
@@ -214,7 +214,6 @@
   border-radius: 8px;
   box-shadow: 0 0 10px #000;
 }
-
 .produk-tabel-wrap table {
   width: 100%;
   border-collapse: collapse;
@@ -418,22 +417,23 @@ async function loadProduk() {
   wrapper.innerHTML = "";
 
   const groupSize = 12;    // Maksimal produk per tabel
-  const maxPerRow = 7;     // Maksimal tabel per baris
+  const maxPerRow = 4;     // Maksimal tabel per baris
   const tables = [];
 
   for (let i = 0; i < dataList.length; i += groupSize) {
     const group = dataList.slice(i, i + groupSize);
     const rows = group.map(p => `
-      <tr>
-        <td>${p.nama}</td>
-        <td>${p.harga}B</td>
-        <td>${p.stok}</td>
-        <td>
-          <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
-          <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
-          <button onclick="hapusProduk('${p.id}')">❌</button>
-        </td>
-      </tr>
+   <tr>
+  <td>${p.nama}</td>
+  <td>${p.harga}B</td>
+  <td>${p.stok}</td>
+  <td>
+    <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
+    <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
+    <button onclick="hapusProduk('${p.id}')">❌</button>
+  </td>
+</tr>
+
     `).join("");
 
     const tableHTML = `
