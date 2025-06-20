@@ -950,8 +950,6 @@
   }
 
   // KERANJANG
- const pesanan = window.pesanan || [];
-window.pesanan = pesanan;
 
   const keranjangSticky = document.getElementById('keranjang-sticky');
   const keranjangFixedBtn = document.getElementById('keranjang-fixed');
@@ -1147,19 +1145,21 @@ const dataPesanan = {
           const docItem = snapshot.docs[0];
           const data = docItem.data();
           let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
+if (currentStok <= 0) {
+  alert(`⚠️ Barang "${item.nama}" stok habis, akan diproses sebagai Pre-Order (PO).`);
+}
 
-          if (currentStok <= 0) {
-            alert(`⚠️ Barang "${namaProduk}" stok habis, akan diproses sebagai Pre-Order (PO).`);
-          }
 
           const stokBaru = currentStok - 1;
           try {
             await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
           } catch (updateErr) {
-            console.error(`❌ Gagal update stok untuk "${namaProduk}":`, updateErr);
+console.error(`❌ Gagal update stok untuk "${item.nama}":`, updateErr);
+
           }
         } else {
-          console.warn(`❗ Produk "${namaProduk}" tidak ditemukan.`);
+          console.warn(`❗ Produk "${item.nama}" tidak ditemukan.`);
+
         }
       }
 
