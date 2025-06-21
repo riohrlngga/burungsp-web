@@ -694,25 +694,17 @@ select {
 
       <table>
 
-        <thead>
-
-          <tr>
-
-            <th>Kode</th>
-
-            <th>Waktu</th>
-
-            <th>Items</th>
-
-            <th>Status</th>
-
-            <th>Aksi</th>
-
-            <th>Bukti</th>
-
-          </tr>
-
-        </thead>
+     <thead>
+  <tr>
+    <th>Kode</th>
+    <th>Waktu</th>
+    <th>Items</th>
+    <th>Kategori</th>
+    <th>Status</th>
+    <th>Aksi</th>
+    <th>Bukti</th>
+  </tr>
+</thead>
 
         <tbody id="tabel-pesanan"></tbody>
 
@@ -1138,34 +1130,29 @@ async function loadPesanan() {
 
       // Buat elemen baris tabel
 
-      const tr = document.createElement("tr");
+      // Ambil semua kategori dari item pesanan
+const kategoriSet = new Set(itemsList.map(item => item.kategori));
+const kategoriGabung = [...kategoriSet]
+  .map(k => `<span style="background:#333;padding:3px 6px;border-radius:6px;margin:1px;display:inline-block;">${k}</span>`)
+  .join(" ");
 
-      tr.innerHTML = `
 
-        <td><strong>${data.kode || "❌"}</strong></td>
-
-        <td>${waktu}</td>
-
-        <td>${itemText}</td>
-
-        <td style="text-align:center;">
-
-          <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
-
-        </td>
-
-        <td><span id="status-${docItem.id}">${data.status === 'Diproses' ? "Sudah Diproses" : "Menunggu"}</span></td>
-
-        <td>
-
-          <button onclick="hapusPesanan('${docItem.id}')">🗑</button>
-
-          <button onclick="cetakPesanan('${docItem.id}')">🖨</button>
-
-        </td>
-
-      `;
-
+// Buat elemen baris tabel
+const tr = document.createElement("tr");
+tr.innerHTML = `
+  <td><strong>${data.kode || "❌"}</strong></td>
+  <td>${waktu}</td>
+  <td>${itemText}</td>
+  <td>${kategoriGabung}</td>
+  <td style="text-align:center;">
+    <input type="checkbox" onchange="toggleStatus('${docItem.id}', this)" ${data.status === 'Diproses' ? 'checked' : ''}>
+  </td>
+  <td><span id="status-${docItem.id}">${data.status === 'Diproses' ? "Sudah Diproses" : "Menunggu"}</span></td>
+  <td>
+    <button onclick="hapusPesanan('${docItem.id}')">🗑</button>
+    <button onclick="cetakPesanan('${docItem.id}')">🖨</button>
+  </td>
+`;
 
 
       // Tambahkan highlight jika statusnya Diproses
