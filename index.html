@@ -1081,11 +1081,12 @@ window.updateKeranjang = updateKeranjang;
 
       snapshot.forEach(docItem => {
         const data = docItem.data();
-        const stok = Number(data.stok);
-if (isNaN(stok) || stok <= 0) return;
+        const stokRaw = data.stok;
+const stok = typeof stokRaw === 'number' ? stokRaw : parseInt(stokRaw);
+console.log("🛒 Cek produk:", data.nama, "| stok:", stokRaw, "→ parsed:", stok);
 
+if (!stok || isNaN(stok) || stok <= 0) return;
 
-        if (stok <= 0) return; // Lewatkan produk kosong
 
         adaProduk = true;
 
@@ -1210,12 +1211,7 @@ if (isNaN(stok) || stok <= 0) return;
 }
 
 // Fungsi bantu normalisasi nama (untuk pencocokan)
-function normal(text) {
-  return text
-    .replace(/[^\p{L}\p{N}\s]/gu, '') // Hapus emoji/simbol
-    .trim()
-    .toLowerCase();
-}
+
 
       if (overlay) overlay.style.display = "none";
 
