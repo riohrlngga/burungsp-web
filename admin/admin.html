@@ -589,6 +589,14 @@ More actions
 
 }
 
+select {
+  padding: 6px;
+  margin: 5px;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+}
 
 
 
@@ -640,6 +648,17 @@ More actions
         <input type="number" id="harga" placeholder="Harga">
 
         <input type="number" id="stok" placeholder="Stok">
+       <select id="kategori">
+  <option value="">-- Pilih Kategori --</option>
+  <option value="💧 LIQUID FOOM ALL VARIAN">💧 LIQUID FOOM ALL VARIAN</option>
+  <option value="💧 FREEBASE ALA CARTE">💧 FREEBASE ALA CARTE</option>
+  <option value="💧 SALTNIC ICE PEDIA">💧 SALTNIC ICE PEDIA</option>
+  <option value="🍓🍇 LIQUID BUAQITA 🍉🍍">🍓🍇 LIQUID BUAQITA 🍉🍍</option>
+  <option value="Varian Gummy">Varian Gummy</option>
+  <option value="Varian Salt Nic">Varian Salt Nic</option>
+  <option value="🔥 DEVICE FOOM">🔥 DEVICE FOOM</option>
+  <option value="🔄 CATRIDGE">🔄 CATRIDGE</option>
+</select>
 
         <button onclick="tambahProduk()">Tambah Produk</button>
 
@@ -918,28 +937,19 @@ async function loadProduk() {
     const group = dataList.slice(i, i + groupSize);
 
     const rows = group.map(p => `
+  <tr>
+    <td>${p.nama}</td>
+    <td>${p.kategori || '-'}</td>
+    <td>${p.harga}B</td>
+    <td>${p.stok}</td>
+    <td>
+      <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
+      <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
+      <button onclick="hapusProduk('${p.id}')">❌</button>
+    </td>
+  </tr>
+`).join("");
 
-      <tr>
-
-        <td>${p.nama}</td>
-
-        <td>${p.harga}B</td>
-
-        <td>${p.stok}</td>
-
-        <td>
-
-          <button onclick="ubahStok('${p.id}', ${p.stok + 1})">+</button>
-
-          <button onclick="ubahStok('${p.id}', ${p.stok - 1})">−</button>
-
-          <button onclick="hapusProduk('${p.id}')">❌</button>
-
-        </td>
-
-      </tr>
-
-    `).join("");
 
 
 
@@ -951,7 +961,7 @@ async function loadProduk() {
 
           <thead>
 
-            <tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr>
+<tr><th>Nama</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr>
 
           </thead>
 
@@ -1022,41 +1032,28 @@ window.hapusProduk = async function (id) {
 
 
 window.tambahProduk = async function() {
-
   const nama = document.getElementById('nama').value.trim();
-
+  const kategori = document.getElementById('kategori').value;
   const harga = Number(document.getElementById('harga').value);
-
   const stok = Number(document.getElementById('stok').value);
 
-  if (!nama || harga <= 0 || stok < 0) {
-
+  if (!nama || !kategori || harga <= 0 || stok < 0) {
     alert('Isi semua data dengan benar!');
-
     return;
-
   }
 
   try {
-
-    await addDoc(collection(db, 'produk'), { nama, harga, stok });
-
+    await addDoc(collection(db, 'produk'), { nama, kategori, harga, stok });
     loadProduk();
 
     document.getElementById('nama').value = '';
-
+    document.getElementById('kategori').value = ''; // << INI YANG PERLU DITAMBAH
     document.getElementById('harga').value = '';
-
     document.getElementById('stok').value = '';
-
   } catch (error) {
-
     alert('Gagal tambah produk: ' + error.message);
-
   }
-
 };
-
 
 
 
