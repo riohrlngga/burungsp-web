@@ -1211,26 +1211,12 @@ if (!stok || isNaN(stok) || stok <= 0) return;
 }
 
 // Fungsi bantu normalisasi nama (untuk pencocokan)
-
-
-      if (overlay) overlay.style.display = "none";
-
-      // Reset
-      pesanan.length = 0;
-      if (window.updateKeranjang) updateKeranjang();
-
-      // Redirect ke WhatsApp
-      setTimeout(() => {
-        window.location.href = "https://wa.me/62895334221342?text=" + pesan;
-      }, 1000);
-
-    } catch (err) {
-      console.error("❌ Gagal menyimpan pesanan:", err);
-      if (overlay) overlay.style.display = "none";
-      alert("Gagal menyimpan pesanan: " + err.message);
-    }
-  }
-
+function normal(text) {
+  return text
+    .replace(/[^\p{L}\p{N}\s]/gu, '') // Hapus emoji & simbol
+    .trim()
+    .toLowerCase();
+}
   window.buatLinkWhatsApp = buatLinkWhatsApp;
 function normal(text) {
   return text
