@@ -821,10 +821,11 @@
 </section>
 
 
-    <!-- Stok barang rapi di bawah Device FOOM -->
-    <h2 id="stok-device" style="margin-top: 40px;"> STOCK READY BARANG SIAP AMBIL DAN ANTAR!📦</h2>
-    <div id="produk-dari-firebase"></div>
-  </section>
+   <section id="stok-device" style="margin-top: 40px; text-align: center;">
+  <h2>STOCK READY BARANG SIAP AMBIL DAN ANTAR!📦</h2>
+  <div id="produk-dari-firebase"></div>
+</section>
+
 
 <section id="catridge">
   <h2>🔄 CATRIDGE</h2>
@@ -1199,7 +1200,9 @@ if (!stok || isNaN(stok) || stok <= 0) return;
         }
 
         const stokBaru = currentStok - 1;
-        await updateDoc(doc(db, "produk", cocok.id), { stok: stokBaru });
+        await updateDoc(doc(db, "produk", cocok.id), {
+  stok: stokBaru
+});
       } else {
         console.warn(`❗️ Produk "${item.nama}" tidak ditemukan.`);
       }
