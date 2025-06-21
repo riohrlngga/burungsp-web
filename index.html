@@ -1131,69 +1131,91 @@ window.updateKeranjang = updateKeranjang;
   // ==========================
   // BUAT LINK WHATSAPP
   // ==========================
-  async function buatLinkWhatsApp() {
-    if (pesanan.length === 0) {
-      alert("Keranjang masih kosong!");
-      return;
+ async function buatLinkWhatsApp() {
+  if (pesanan.length === 0) {
+    alert("Keranjang masih kosong!");
+    return;
+  }
+
+  const overlay = document.getElementById("loading-overlay");
+  if (overlay) overlay.style.display = "flex";
+
+  try {
+    const kodePesanan = await generateKodePesanan();
+
+    const itemsDetail = pesanan.map(item => {
+      const match = item.match(/^(.*)\s+\((.*)\)$/);
+      return {
+        nama: match ? match[1].trim() : item,
+        kategori: match ? match[2].trim() : "Tidak diketahui"
+      };
+    });
+
+    const dataPesanan = {
+      kode: kodePesanan,
+      items: itemsDetail,
+      waktu: serverTimestamp(),
+      status: "Menunggu",
+      via: "WhatsApp"
+    };
+
+    // Simpan ke koleksi pesanan
+    await addDoc(collection(db, "pesanan"), dataPesanan);
+
+    // Kurangi stok
+for (let item of itemsDetail) {
+  const snapshot = await getDocs(collection(db, "produk"));
+  const cocok = snapshot.docs.find(docItem => {
+    const data = docItem.data();
+    return normal(data.nama).includes(normal(item.nama)) &&
+           normal(data.kategori).includes(normal(item.kategori));
+  });
+
+
+      if (cocok) {
+        const data = cocok.data();
+        let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
+
+        if (currentStok <= 0) {
+          alert(`⚠️ Stok "${item.nama}" habis, akan kami proses sebagai Pre-Order`);
+          continue;
+        }
+
+        const stokBaru = currentStok - 1;
+        await updateDoc(doc(db, "produk", cocok.id), { stok: stokBaru });
+      } else {
+        console.warn(`❗️ Produk "${item.nama}" tidak ditemukan di database.`);
+      }
     }
 
-    const overlay = document.getElementById("loading-overlay");
-    if (overlay) overlay.style.display = "flex";
+    // Buat pesan WA
+    const pesan = encodeURIComponent(
+      `Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`
+    );
 
-    try {
-      const kodePesanan = await generateKodePesanan();
+    // Reset keranjang & stok visual
+    pesanan.length = 0;
+    if (window.updateKeranjang) updateKeranjang();
+    await loadProduk(); // Perbarui tampilan stok
 
-      const itemsDetail = pesanan.map(item => {
-        const match = item.match(/^(.*)\s+\((.*)\)$/);
-        return {
-          nama: match ? match[1].trim() : item,
-          kategori: match ? match[2].trim() : "Tidak diketahui"
-        };
-      });
+    if (overlay) overlay.style.display = "none";
+    window.location.href = "https://wa.me/62895334221342?text=" + pesan;
 
-      const dataPesanan = {
-        kode: kodePesanan,
-        items: itemsDetail,
-        waktu: serverTimestamp(),
-        status: "Menunggu",
-        via: "WhatsApp"
-      };
+  } catch (err) {
+    console.error("❌ Gagal memproses pesanan:", err);
+    if (overlay) overlay.style.display = "none";
+    alert("Gagal menyimpan pesanan: " + err.message);
+  }
+}
 
-      // Simpan ke Firestore
-      await addDoc(collection(db, "pesanan"), dataPesanan);
+// Fungsi bantu normalisasi nama (untuk pencocokan)
+function normal(text) {
+  return text
+    .replace(/[^\p{L}\p{N}\s]/gu, '') // Hapus emoji/simbol
+    .trim()
+    .toLowerCase();
+}
 
-      // Kurangi stok
-      for (let item of itemsDetail) {
-        const q = query(collection(db, "produk"), where("nama", "==", item.nama), limit(1));
-        const snapshot = await getDocs(q);
-
-        if (!snapshot.empty) {
-          const docItem = snapshot.docs[0];
-          const data = docItem.data();
-          let currentStok = typeof data.stok === "number" ? data.stok : parseInt(data.stok) || 0;
-
-          if (currentStok <= 0) {
-            alert(`⚠️ Stok "${item.nama}" habis, akan kami proses sebagai Pre-Order`);
-            continue;
-          }
-
-          const stokBaru = currentStok - 1;
-
-          try {
-            await updateDoc(doc(db, "produk", docItem.id), { stok: stokBaru });
-          } catch (updateErr) {
-            console.error(`❌ Gagal update stok "${item.nama}"`, updateErr);
-          }
-        } else {
-          console.warn(`❗ Produk "${item.nama}" tidak ditemukan.`);
-        }
-      }
-
-      const pesan = encodeURIComponent(
-        `Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`
-      );
-
-      // Sembunyikan loading
       if (overlay) overlay.style.display = "none";
 
       // Reset
@@ -1213,6 +1235,12 @@ window.updateKeranjang = updateKeranjang;
   }
 
   window.buatLinkWhatsApp = buatLinkWhatsApp;
+function normal(text) {
+  return text
+    .replace(/[^\p{L}\p{N}\s]/gu, '') // Hapus emoji & simbol
+    .trim()
+    .toLowerCase();
+}
 
 </script>
 
