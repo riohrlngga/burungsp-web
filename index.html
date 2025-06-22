@@ -44,7 +44,7 @@
       background-repeat: no-repeat;
       background-position: center top;
       background-size: 900px;
-      background-attachment: fixed;
+      background-attachment: scroll;
       color: #ff69b4;
       font-weight: bold;
       font-size: 1.15em;
@@ -694,6 +694,16 @@
   .info-stock-blink {
     z-index: 2;
     position: relative;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-image: url('logo_bg_optimized.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: scroll;
   }
 }
 
