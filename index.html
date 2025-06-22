@@ -745,7 +745,8 @@
   <header>
     <img src="logo.png" alt="Logo Kiri" class="logo-left" />
     <h1>BURUNG SP (POD STORE)</h1>
-    <p>🔥 Surga-nya Para Vapers! 🔥</p>
+<p>🔥 Surga-nya Para Vapers! 🔥</p>
+<p id="typing-tagline" style="color:#ff69b4; font-style:italic; font-size:1.05em;"></p>
     <p>💸 BAYAR UM – 💳 SESUAI REQUEST – ✅ ASLI & TERJAMIN</p>
     <img src="logo.png" alt="Logo Kanan" class="logo-right" />
 
@@ -1400,6 +1401,23 @@ if (closeNav) {
     toggleMenu.classList.remove("shifted");
   });
 }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const teks = "Fly High with Premium Pods, Only at BurungSP";
+    const elemen = document.getElementById("typing-tagline");
+    let index = 0;
+
+    function ketik() {
+      if (index < teks.length) {
+        elemen.textContent += teks.charAt(index);
+        index++;
+        setTimeout(ketik, 50); // kecepatan ketik (ms)
+      }
+    }
+
+    ketik();
   });
 </script>
 
