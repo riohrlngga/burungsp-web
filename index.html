@@ -470,40 +470,32 @@
     /* NAV MENU KIRI (SEBELAH KIRI, SAJA SEUKURAN TULISAN) */
   #nav-menu {
   position: fixed;
-  top: 70px;
-  right: 20px;
-  width: 220px;
+  top: 0;
+  right: -260px; /* awalnya disembunyikan di kanan */
+  width: 240px;
+  height: 100vh;
   background: #111;
-  border: 1px solid #ff69b4;
-  border-radius: 10px;
-  padding: 10px 0;
+  border-left: 2px solid #ff69b4;
+  padding-top: 60px;
   z-index: 10001;
-  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
+  box-shadow: -2px 0 8px rgba(255, 105, 180, 0.3);
+  transition: right 0.3s ease;
 }
 
 #nav-menu.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  right: 0;
 }
 
-#nav-menu .nav-item {
-  padding: 12px 18px;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  transition: background 0.2s ease;
+#nav-menu .close-nav {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 1.8em;
   cursor: pointer;
-  text-align: left;
-}
-
-#nav-menu .nav-item:hover {
-  background: #ff69b4;
-  color: #111;
+  color: #ff69b4;
+  font-weight: bold;
+  background: none;
+  border: none;
 }
 
 
@@ -665,6 +657,7 @@
   <!-- NAV MENU KIRI -->
  <!-- NAV MENU KIRI -->
 <nav id="nav-menu" aria-label="Menu Navigasi">
+  <button class="close-nav" aria-label="Tutup Menu">×</button>
   <div class="nav-item" onclick="scrollToSection('liquid-foom')">Liquid FOOM</div>
   <div class="nav-item" onclick="scrollToSection('device-foom')">Device FOOM</div>
   <div class="nav-item" onclick="scrollToSection('catridge')">Catridge</div>
@@ -673,6 +666,7 @@
   <div class="nav-item" onclick="window.open('/tentang-kami.html', '_blank')">Tentang Kami</div>
   <div class="nav-item" onclick="window.open('/testimoni/', '_blank')">Testimoni</div>
 </nav>
+
 
 
   <!-- SECTIONS -->
@@ -1262,27 +1256,34 @@ function normal(text) {
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-  const tombol = document.getElementById("btn-lanjutkan");
-  tombol.addEventListener("click", () => {
-    if (typeof window.buatLinkWhatsApp === "function") {
-      window.buatLinkWhatsApp();
-    } else {
-      alert("Fungsi belum siap, coba reload halaman.");
+    const tombol = document.getElementById("btn-lanjutkan");
+    tombol.addEventListener("click", () => {
+      if (typeof window.buatLinkWhatsApp === "function") {
+        window.buatLinkWhatsApp();
+      } else {
+        alert("Fungsi belum siap, coba reload halaman.");
+      }
+    });
+
+    const toggleMenu = document.getElementById("toggle-menu");
+    const navMenu = document.getElementById("nav-menu");
+   const closeNav = document.querySelector(".close-nav");
+
+
+    // Buka menu
+    toggleMenu.addEventListener("click", () => {
+      navMenu.classList.add("active");
+    });
+
+    // Tutup menu
+    if (closeNav) {
+      closeNav.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+      });
     }
   });
-
-  document.getElementById('toggle-menu').addEventListener('click', () => {
-    const navMenu = document.getElementById('nav-menu');
-    navMenu.classList.toggle('active');
-  });
-});
-// ------------------ TAMBAH KE PESANAN ----------------------
-
-
-
-
-  
 </script>
+
 
 
 </body>
