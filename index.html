@@ -934,6 +934,13 @@
 
   🛒 Keranjang (<span id="jumlah-pesanan">0</span>)
   <ul id="daftar-pesanan-sticky"></ul>
+  <input
+  type="text"
+  id="nama-pelanggan"
+  placeholder="🧍‍♂️ Masukkan Nama Anda"
+  style="width: 100%; padding: 10px; border-radius: 10px; margin-bottom: 12px; font-size: 1em;"
+/>
+
 <button id="btn-lanjutkan" disabled>Lanjutkan Pesanan</button>
 </div>
 
@@ -1171,13 +1178,23 @@ if (!stok || isNaN(stok) || stok <= 0) return;
       };
     });
 
-    const dataPesanan = {
-      kode: kodePesanan,
-      items: itemsDetail,
-      waktu: serverTimestamp(),
-      status: "Menunggu",
-      via: "WhatsApp"
-    };
+const nama = document.getElementById("nama-pelanggan")?.value?.trim();
+
+if (!nama) {
+  alert("🙏 Bosku, Harap isi nama dahulu sebelum melanjutkan pesanan ya!:)");
+  if (overlay) overlay.style.display = "none";
+  return;
+}
+
+
+const dataPesanan = {
+  kode: kodePesanan,
+  nama: nama,
+  items: itemsDetail,
+  waktu: serverTimestamp(),
+  status: "Menunggu",
+  via: "WhatsApp"
+};
 
     await addDoc(collection(db, "pesanan"), dataPesanan);
 
@@ -1209,8 +1226,9 @@ if (!stok || isNaN(stok) || stok <= 0) return;
     }
 
     const pesan = encodeURIComponent(
-      `Halo! Saya mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`
-    );
+  `Halo! Saya atas nama *${nama}* mau pesan:\n${pesanan.join('\n')}\n\nKode Pesanan: ${kodePesanan}`
+);
+
 
     // Reset keranjang
     pesanan.length = 0;
