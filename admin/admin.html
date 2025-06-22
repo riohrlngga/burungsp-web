@@ -696,6 +696,7 @@ select {
 
      <thead>
   <tr>
+   <th>Nama</th>
     <th>Kode</th>
     <th>Waktu</th>
     <th>Items</th>
@@ -751,34 +752,28 @@ select {
     </script>
 
 <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      doc,
+      getDoc,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-
-import {
-
-  getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc
-
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-
-
-import {
-
-  getAuth,
-
-  signInWithEmailAndPassword,
-
-  onAuthStateChanged,
-
-  signOut,
-
-  setPersistence,
-
-  browserSessionPersistence
-
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut,
+      setPersistence,
+      browserSessionPersistence
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 // Firebase config
 
@@ -1056,7 +1051,7 @@ async function loadPesanan() {
 
   const tbody = document.getElementById("tabel-pesanan");
 
-  tbody.innerHTML = "<tr><td colspan='6'>⏳ Mengambil data...</td></tr>";
+  tbody.innerHTML = "<tr><td colspan='8'>⏳ Mengambil data...</td></tr>";
 
 
 
@@ -1078,7 +1073,9 @@ async function loadPesanan() {
 
   try {
 
-    const snapshot = await getDocs(collection(db, "pesanan"));
+const q = query(collection(db, "pesanan"), orderBy("waktu", "desc"));
+const snapshot = await getDocs(q);
+
 
     tbody.innerHTML = "";
 
@@ -1140,6 +1137,7 @@ const kategoriGabung = [...kategoriSet]
 // Buat elemen baris tabel
 const tr = document.createElement("tr");
 tr.innerHTML = `
+    <td>${data.nama || "Tanpa Nama"}</td>
   <td><strong>${data.kode || "❌"}</strong></td>
   <td>${waktu}</td>
   <td>${itemText}</td>
@@ -1175,7 +1173,7 @@ tr.innerHTML = `
 
     if (!tbody.innerHTML.trim()) {
 
-      tbody.innerHTML = "<tr><td colspan='6'>📭 Belum ada pesanan.</td></tr>";
+      tbody.innerHTML = "<tr><td colspan='8'>📭 Belum ada pesanan.</td></tr>";
 
     }
 
@@ -1185,7 +1183,7 @@ tr.innerHTML = `
 
     console.error("❌ Gagal mengambil pesanan:", err);
 
-    tbody.innerHTML = "<tr><td colspan='6' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
+    tbody.innerHTML = "<tr><td colspan='8' style='color:red;'>❌ Gagal load pesanan.</td></tr>";
 
   }
 
@@ -1346,8 +1344,10 @@ window.cetakPesanan = async function (id) {
         <body>
 
           <h2>Bukti Pesanan</h2>
-
+          
           <div class="box">
+
+            <p><strong>Nama:</strong> ${data.nama || "Tanpa Nama"}</p>
 
             <p><strong>Kode:</strong> ${data.kode || "-"}</p>
 
