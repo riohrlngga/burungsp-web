@@ -43,17 +43,30 @@
     }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #000;
-      background-image: url('logo_bg_optimized.png');
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: 900px;
-      color: #ff69b4;
-      font-weight: bold;
-      font-size: 1.15em;
-    }
+  background-color: #000;
+  font-family: 'Poppins', sans-serif;
+  color: #ff69b4;
+  font-weight: bold;
+  font-size: 1.15em;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+    .background-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('logo_bg_optimized.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.05;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
 
     header {
       position: relative;
@@ -718,6 +731,7 @@
 </head>
 
   <body>
+    <div class="background-logo"></div>
   <div id="loading-overlay" style="display:none;">
     <div class="loading-box">
       <div class="spinner"></div>
