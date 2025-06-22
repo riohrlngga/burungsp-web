@@ -31,6 +31,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 
   <style>
+   html, body {
+  height: 100%;
+  min-height: 100vh;
+}
+
+
     /* RESET & BASE */
     * {
       box-sizing: border-box;
@@ -44,7 +50,6 @@
       background-repeat: no-repeat;
       background-position: center top;
       background-size: 900px;
-      background-attachment: scroll;
       color: #ff69b4;
       font-weight: bold;
       font-size: 1.15em;
@@ -700,10 +705,10 @@
 @media (max-width: 768px) {
   body {
     background-image: url('logo_bg_optimized.png');
-    background-size: contain;
+    background-size: cover; /* ✅ Biar gambar menutupi seluruh tinggi */
     background-repeat: no-repeat;
-    background-position: center top;
-    background-attachment: scroll;
+    background-position: top center;
+    background-attachment: fixed; /* ✅ Supaya tetap terlihat walau di-scroll */
   }
 }
 
