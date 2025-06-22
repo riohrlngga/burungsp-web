@@ -468,36 +468,32 @@
 }
 
     /* NAV MENU KIRI (SEBELAH KIRI, SAJA SEUKURAN TULISAN) */
-  #nav-menu {
+ #nav-menu {
   position: fixed;
   top: 0;
-  right: -260px; /* awalnya disembunyikan di kanan */
+  right: -260px;
   width: 240px;
   height: 100vh;
   background: #111;
   border-left: 2px solid #ff69b4;
-padding-top: 20px;
-    z-index: 10001;
+  padding-top: 60px;
+  z-index: 10001;
   box-shadow: -2px 0 8px rgba(255, 105, 180, 0.3);
   transition: right 0.3s ease;
+  overflow-y: auto;
 }
 
-#nav-menu.active {
-  right: 0;
-}
-
-/* Tombol close (❌) dalam nav */
+/* FIX TOMBOL CLOSE ❌ */
 #nav-menu .close-nav {
   position: absolute;
-  top: 10px;
+  top: 14px;
   right: 14px;
   font-size: 1.8em;
-  cursor: pointer;
   color: #ff69b4;
-  font-weight: bold;
-  background: none;
+  cursor: pointer;
+  background: transparent;
   border: none;
-  z-index: 10002;
+  z-index: 10005;
 }
 
 /* Setiap item menu navigasi */
@@ -524,6 +520,9 @@ padding-top: 20px;
   color: white;
   background-color: rgba(255, 105, 180, 0.1);
   border-radius: 50%;
+}
+#nav-menu .close-nav {
+  pointer-events: auto;
 }
 
 
@@ -646,6 +645,7 @@ padding-top: 20px;
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+   right: 0;
 }
 
 
