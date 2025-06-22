@@ -639,6 +639,9 @@
   background-color: rgba(255, 105, 180, 0.2);
 }
 
+#toggle-menu.shifted {
+  right: 260px; /* Menyesuaikan dengan lebar #nav-menu */
+}
 
 
 #nav-menu.active {
@@ -1301,15 +1304,18 @@ function normal(text) {
 
     // Buka menu
     toggleMenu.addEventListener("click", () => {
-      navMenu.classList.add("active");
-    });
+  navMenu.classList.add("active");
+  toggleMenu.classList.add("shifted"); // GESER tombol ☰ ke kiri
+});
+
 
     // Tutup menu
-    if (closeNav) {
-      closeNav.addEventListener("click", () => {
-        navMenu.classList.remove("active");
-      });
-    }
+if (closeNav) {
+  closeNav.addEventListener("click", () => {
+    navMenu.classList.remove("active");
+    toggleMenu.classList.remove("shifted");
+  });
+}
   });
 </script>
 
