@@ -658,6 +658,44 @@
   pointer-events: auto;
    right: 0;
 }
+@media (max-width: 768px) {
+  header .logo-left,
+  header .logo-right {
+    top: auto;
+    bottom: 10px;
+    transform: none;
+    opacity: 0.5;
+  }
+}
+@media (max-width: 768px) {
+  header .logo-left,
+  header .logo-right {
+    top: auto;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+    transform: none;
+    opacity: 0.4;
+    z-index: 0;
+    width: 70px;
+    pointer-events: none;
+  }
+
+  header .logo-left {
+    left: 10px;
+  }
+
+  header .logo-right {
+    right: 10px;
+  }
+
+  header h1,
+  header p,
+  .info-stock-blink {
+    z-index: 2;
+    position: relative;
+  }
+}
 
 
 </style>
